@@ -22,7 +22,7 @@ export default defineConfig({
       devOptions: {
         enabled: true
       }
-    })
+    }),
   ],
   define: {'process.env': {}},
   resolve: {

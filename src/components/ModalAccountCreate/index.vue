@@ -1,0 +1,165 @@
+<template>
+  <div id="modal-login" class="flex justify-between">
+    <h1 class="text-4xl font-black text-gray-800">
+      Crie uma conta
+    </h1>
+
+    <button
+      class="text-4xl text-gray-600 focus:outline-none"
+      @click="close">
+      &times;
+    </button>
+  </div>
+  <div class="mt-16">
+    <form @submit.prevent="handleSubmit">
+      <label class="block">
+        <span class="text-lg font-medium text-gray-800">Username</span>
+        <input
+          v-model="state.username.value"
+          :class="{
+              'border-brand-danger': !!state.username.errorMessage
+            }"
+          class="block w-full px-4 py-3 mt-1 text-lg bg-gray-100 border-2 border-transparent rounded"
+          placeholder="Xant Lee"
+          type="text"
+        >
+        <span
+          v-if="!!state.username.errorMessage"
+          class="block font-medium text-brand-danger"
+        >
+            {{ state.username.errorMessage }}
+          </span>
+      </label>
+      <label class="block mt-9">
+        <span class="text-lg font-medium text-gray-800">E-mail</span>
+        <input
+          v-model="state.email.value"
+          :class="{
+              'border-brand-danger': !!state.email.errorMessage
+            }"
+          class="block w-full px-4 py-3 mt-1 text-lg bg-gray-100 border-2 border-transparent rounded"
+          placeholder="xant.lee@gmail.com"
+          type="email"
+        >
+        <span
+          v-if="!!state.email.errorMessage"
+          class="block font-medium text-brand-danger"
+        >
+            {{ state.email.errorMessage }}
+          </span>
+      </label>
+      <label class="block mt-9">
+        <span class="text-lg font-medium text-gray-800">Senha</span>
+        <input
+          v-model="state.password.value"
+          :class="{
+              'border-brand-danger': !!state.password.errorMessage
+            }"
+          class="block w-full px-4 py-3 mt-1 text-lg bg-gray-100 border-2 border-transparent rounded"
+          placeholder="Azx#32!sEW984@3.!@"
+          type="password"
+        >
+        <span
+          v-if="!!state.password.errorMessage"
+          class="block font-medium text-brand-danger"
+        >
+            {{ state.password.errorMessage }}
+          </span>
+        <button
+          :class="{
+              'opacity-50': state.isLoading
+            }"
+          :disabled="state.isLoading"
+          class="px-8 py-3 mt-10 text-2xl font-bold text-white rounded-full bg-brand-main focus:outline-none transition-all duration-150"
+          type="submit"
+        >
+          <icon v-if="state.isLoading" class="animate-spin" name="loading"/>
+          <span v-else>Entrar</span>
+        </button>
+      </label>
+    </form>
+  </div>
+
+</template>
+<script>
+
+import { reactive } from 'vue'
+import useModal from '@/hooks/useModal'
+import { useField } from 'vee-validate'
+import { useToast } from 'vue-toastification'
+import Icon from '../Icon'
+import { validateEmptyAndEmail, validateEmptyAndLength3 } from '@/utils/validators'
+import services from '@/services'
+import { useRouter } from 'vue-router'
+
+export default {
+  components: {
+    Icon
+  },
+  setup () {
+    const modal = useModal()
+    const router = useRouter()
+    const toast = useToast()
+
+    const {
+      value: usernameValue,
+      errorMessage: usernameErrorMessage
+    } = useField('username', validateEmptyAndLength3)
+
+    const {
+      value: emailValue,
+      errorMessage: emailErrorMessage
+    } = useField('email', validateEmptyAndEmail)
+
+    const {
+      value: passwordValue,
+      errorMessage: passwordErrorMessage
+    } = useField('password', validateEmptyAndLength3)
+
+    const state = reactive({
+      hasErrors: false,
+      isLoading: false,
+      username: {
+        value: usernameValue,
+        errorMessage: usernameErrorMessage
+      },
+      email: {
+        value: emailValue,
+        errorMessage: emailErrorMessage
+      },
+      role: {
+        valeu: ["ROLE_ADMIN"],
+        errorMessage: "roleErrorMessage"
+      },
+      password: {
+        value: passwordValue,
+        errorMessage: passwordErrorMessage
+      }
+    })
+
+    async function handleSubmit () {
+      toast.clear()
+      state.isLoading = true
+      const {
+        errors,
+        data
+      } = await services.auth.register({
+        username: state.username.value,
+        email: state.email.value,
+        role: state.role.valeu,
+        password: state.password.value
+      })
+      if (errors) {
+        toast.error('Ocorreu um erro ao criar conta')
+      }
+      state.isLoading = false
+    }
+
+    return {
+      state,
+      close: modal.close,
+      handleSubmit
+    }
+  }
+}
+</script>

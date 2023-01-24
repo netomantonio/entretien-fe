@@ -1,9 +1,9 @@
 <template>
   <v-app>
-    <default-view />
+    <calendar/>
   </v-app>
 </template>
 
 <script lang="ts" setup>
-  import DefaultView from './View.vue'
+import Calendar from "@/components/Calendar.vue"
 </script>

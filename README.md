@@ -42,3 +42,7 @@ pnpm build
 ### Customize configuration
 
 See [Configuration Reference](https://vitejs.dev/config/).
+
+### FullCalendar Documentation
+
+* See for [CSS Customization](https://fullcalendar.io/docs/css-customization).

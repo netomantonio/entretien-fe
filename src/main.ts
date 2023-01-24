@@ -1,20 +1,20 @@
-/**
- * main.ts
- *
- * Bootstraps Vuetify and other plugins then mounts the App`
- */
-
-// Components
-import App from './App.vue'
-
-// Composables
 import { createApp } from 'vue'
-
+import Toast, { POSITION } from 'vue-toastification'
+import App from './App.vue'
+import router from './router'
 // Plugins
-import { registerPlugins } from '@/plugins'
+// import { registerPlugins } from '@/plugins'
+
+import 'animate.css'
+import '@/assets/css/tailwind.css'
+import '@/assets/css/fonts.css'
+import 'vue-toastification/dist/index.css'
+
+
 
 const app = createApp(App)
-
-registerPlugins(app)
+app.use(router)
+app.use(Toast, { position: POSITION.BOTTOM_RIGHT })
+// registerPlugins(app)
 
 app.mount('#app')
