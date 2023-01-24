@@ -111,9 +111,9 @@ export default {
         state.isLoading = true
         const {
           token,
-          username,
-          email,
-          role,
+          // username,
+          // email,
+          // role,
           errors
         } = await services.auth.login({
           username: state.username.value,

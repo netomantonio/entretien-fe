@@ -90,7 +90,7 @@ import { useToast } from 'vue-toastification'
 import Icon from '../Icon'
 import { validateEmptyAndEmail, validateEmptyAndLength3 } from '@/utils/validators'
 import services from '@/services'
-import { useRouter } from 'vue-router'
+// import { useRouter } from 'vue-router'
 
 export default {
   components: {
@@ -98,7 +98,7 @@ export default {
   },
   setup () {
     const modal = useModal()
-    const router = useRouter()
+    // const router = useRouter()
     const toast = useToast()
 
     const {
@@ -142,7 +142,7 @@ export default {
       state.isLoading = true
       const {
         errors,
-        data
+        // data
       } = await services.auth.register({
         username: state.username.value,
         email: state.email.value,
