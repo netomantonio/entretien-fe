@@ -24,7 +24,8 @@ import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
 import {createEventId} from '@/event-utils'
 import ptBrLocale from '@fullcalendar/core/locales/pt-br'
-import bootstrap5Plugin from '@fullcalendar/bootstrap5';
+import bootstrap5Plugin from '@fullcalendar/bootstrap5'
+// import {Calendar} from "@fullcalendar/core"
 
 export default defineComponent({
   components: {

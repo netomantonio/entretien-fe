@@ -11,7 +11,10 @@ const routes = [
   },{
     path: '/calendar',
     name: 'Calendar',
-    component: Calendar
+    component: Calendar,
+    meta: {
+      hasAuth: true
+    }
   },
   {
     path: '/:pathMatch(.*)*',

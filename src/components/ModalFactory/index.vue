@@ -29,7 +29,7 @@ import useModal from '@/hooks/useModal'
 const ModalLogin = defineAsyncComponent(() => import('../ModalLogin'))
 const ModalAccountCreate = defineAsyncComponent(() => import('../ModalAccountCreate'))
 
-const DEFAULT_WIDTH = 'w-3/4 lg:w-1/3'
+const DEFAULT_WIDTH = 'w-90%'
 
 export default {
   components: {
