@@ -23,7 +23,11 @@ export default {
           await router.push({name: 'Home'})
           return
         }
-        const data = await services.user.getMe()
+        const data = {
+          id: window.localStorage.getItem('id'),
+          email: window.localStorage.getItem('email'),
+          role: window.localStorage.getItem('roles')
+        }
         setCurrentUser(data)
       }
     })

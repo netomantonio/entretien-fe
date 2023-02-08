@@ -110,18 +110,17 @@ export default {
         toast.clear()
         state.isLoading = true
         const {
-          token,
-          // username,
-          // email,
-          // role,
-          errors
+          data
         } = await services.auth.login({
           username: state.username.value,
           password: state.password.value
         })
 
-        if (!errors) {
-          window.localStorage.setItem('token', token)
+        if (!!data) {
+          window.localStorage.setItem('token', data.token)
+          window.localStorage.setItem('roles', data.roles[0])
+          window.localStorage.setItem('email', data.email)
+          window.localStorage.setItem('id', data.id)
           router.push({ name: 'Calendar' })
           state.isLoading = false
           modal.close()

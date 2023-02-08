@@ -795,19 +795,19 @@
               <label class="block mt-2">
                 <span class=" font-medium text-gray-800">Area de Atuação</span>
                 <input
-                  v-model="state.businessArea.value"
+                  v-model="state.operationArea.value"
                   :class="{
-              'border-brand-danger': !!state.businessArea.errorMessage
+              'border-brand-danger': !!state.operationArea.errorMessage
             }"
                   class="block w-full px-1 py-1 mt-1 bg-gray-100 border-1 border-transparent rounded"
                   placeholder="Tecnologia da Informação"
                   type="text"
                 >
                 <span
-                  v-if="!!state.businessArea.errorMessage"
+                  v-if="!!state.operationArea.errorMessage"
                   class="block font-medium text-brand-danger"
                 >
-            {{ state.businessArea.errorMessage }}
+            {{ state.operationArea.errorMessage }}
           </span>
               </label>
             </div>
@@ -873,19 +873,19 @@
             <label class="block mt-2">
               <span class=" font-medium text-gray-800">Area de Atuação</span>
               <input
-                v-model="state.businessArea.value"
+                v-model="state.operationArea.value"
                 :class="{
-              'border-brand-danger': !!state.businessArea.errorMessage
+              'border-brand-danger': !!state.operationArea.errorMessage
             }"
                 class="block w-full px-1 py-1 mt-1 bg-gray-100 border-1 border-transparent rounded"
                 placeholder="Tecnologia da Informação"
                 type="text"
               >
               <span
-                v-if="!!state.businessArea.errorMessage"
+                v-if="!!state.operationArea.errorMessage"
                 class="block font-medium text-brand-danger"
               >
-            {{ state.businessArea.errorMessage }}
+            {{ state.operationArea.errorMessage }}
           </span>
             </label>
             <div class="flex">
@@ -1029,9 +1029,9 @@ export default {
     } = useField('tradingName', validateEmptyAndLength3)
 
     const {
-      value: businessAreaValue,
-      errorMessage: businessAreaErrorMessage
-    } = useField('businessArea', validateEmptyAndLength3)
+      value: operationAreaValue,
+      errorMessage: operationAreaErrorMessage
+    } = useField('operationArea', validateEmptyAndLength3)
 
 
     const {
@@ -1118,9 +1118,9 @@ export default {
         errorMessage: tradingNameErrorMessage
       }
       ,
-      businessArea: {
-        value: businessAreaValue,
-        errorMessage: businessAreaErrorMessage
+      operationArea: {
+        value: operationAreaValue,
+        errorMessage: operationAreaErrorMessage
       },
       professionalRecord: {
         value: professionalRecordValue,
@@ -1188,7 +1188,7 @@ export default {
 
       }
       if (state.role === 'manager') {
-        if (!state.cnpj.value || !state.companyName.value || !state.tradingName.value || !state.businessArea.value) {
+        if (!state.cnpj.value || !state.companyName.value || !state.tradingName.value || !state.operationArea.value) {
           state.hasErrors = true
           return
         }
@@ -1228,6 +1228,30 @@ export default {
           toast.success('Conta criada!!!')
           new Promise(resolve => setTimeout(resolve, 5000))
           modal.close()
+      } else if (state.role === 'recruiter') {
+        const {
+          errors
+        } = await services.register.registerRecruiter({
+          username: state.firstName.value + state.lastName.value,
+          firstName: state.firstName.value,
+          lastName: state.lastName.value,
+          cpf: state.cpf.value,
+          phone: state.phone.value,
+          email: state.email.value,
+          password: state.password.value,
+          professionalRecord: state.professionalRecord.value,
+          presentation: state.presentation.value,
+          cnpj: state.cnpj.value,
+          specialities: state.specialities.value
+        })
+        if (errors) {
+          toast.error('Ocorreu um erro ao criar conta')
+        }
+        setGlobalLoading(false)
+        if (!errors)
+          toast.success('Conta criada!!!')
+        new Promise(resolve => setTimeout(resolve, 5000))
+        modal.close()
       } else if (state.role === 'manager') {
         const {
           errors
@@ -1242,8 +1266,7 @@ export default {
           cnpj: state.cnpj.value,
           companyName: state.companyName.value,
           tradingName: state.tradingName.value,
-          businessArea: state.businessArea.value
-
+          operationArea: state.operationArea.value
         })
         if (errors) {
           toast.error('Ocorreu um erro ao criar conta')

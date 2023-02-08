@@ -1,5 +1,8 @@
 <template>
-  <div class='demo-app'>
+  <div class="flex justify-center w-full h-28 bg-brand-main">
+    <header-logged />
+  </div>
+  <div class='demo-app p-15 m-8'>
     <div class='demo-app-main'>
       <FullCalendar
         :options='calendarOptions'
@@ -25,11 +28,13 @@ import interactionPlugin from '@fullcalendar/interaction'
 import {createEventId} from '@/event-utils'
 import ptBrLocale from '@fullcalendar/core/locales/pt-br'
 import bootstrap5Plugin from '@fullcalendar/bootstrap5'
+import HeaderLogged from "@/components/HeaderLogged/index.vue";
 // import {Calendar} from "@fullcalendar/core"
 
 export default defineComponent({
   components: {
-    FullCalendar
+    FullCalendar,
+    HeaderLogged
   },
   data() {
 
@@ -99,45 +104,45 @@ export default defineComponent({
 
 </script>
 
-<style lang='css'>
+<!--<style lang='css'>-->
 
-.demo-app {
-  display: flex;
-  min-height: 100%;
-  font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
-  font-size: 14px;
-}
+<!--.demo-app {-->
+<!--  display: flex;-->
+<!--  min-height: 100%;-->
+<!--  font-family: Arial, Helvetica Neue, Helvetica, sans-serif;-->
+<!--  font-size: 14px;-->
+<!--}-->
 
-.demo-app-main {
-  flex-grow: 1;
-  padding: 3em;
-}
-
-
-/*.btn-primary {*/
-/*  --bs-btn-bg: #030303;*/
-/*}*/
-
-:root { /* the calendar root */
-  max-width: 1100px;
-  margin: 0 auto;
-  --fc-small-font-size: .85em;
-  --fc-neutral-bg-color: rgba(234, 5, 5);
-
-  --fc-border-color: #1aff00;
-
-  --fc-button-text-color: #000d59;
-  --fc-button-bg-color: #ff7300;
-  --fc-button-border-color: #ff9346;
-  --fc-button-hover-bg-color: #a1c9fa;
-  --fc-button-hover-border-color: #118fff;
-  --fc-button-active-bg-color: #cb76fd;
-  --fc-button-active-border-color: #8b2df8;
-
-  --fc-event-bg-color: rgba(55, 136, 216, 0.40);
-  --fc-event-border-color: #d83744;
-  --fc-event-text-color: #fff;
-}
+<!--.demo-app-main {-->
+<!--  flex-grow: 1;-->
+<!--  padding: 3em;-->
+<!--}-->
 
 
-</style>
+<!--/*.btn-primary {*/-->
+<!--/*  &#45;&#45;bs-btn-bg: #030303;*/-->
+<!--/*}*/-->
+
+<!--:root { /* the calendar root */-->
+<!--  max-width: 1100px;-->
+<!--  margin: 0 auto;-->
+<!--  &#45;&#45;fc-small-font-size: .85em;-->
+<!--  &#45;&#45;fc-neutral-bg-color: rgba(234, 5, 5);-->
+
+<!--  &#45;&#45;fc-border-color: #1aff00;-->
+
+<!--  &#45;&#45;fc-button-text-color: #000d59;-->
+<!--  &#45;&#45;fc-button-bg-color: #ff7300;-->
+<!--  &#45;&#45;fc-button-border-color: #ff9346;-->
+<!--  &#45;&#45;fc-button-hover-bg-color: #a1c9fa;-->
+<!--  &#45;&#45;fc-button-hover-border-color: #118fff;-->
+<!--  &#45;&#45;fc-button-active-bg-color: #cb76fd;-->
+<!--  &#45;&#45;fc-button-active-border-color: #8b2df8;-->
+
+<!--  &#45;&#45;fc-event-bg-color: rgba(55, 136, 216, 0.40);-->
+<!--  &#45;&#45;fc-event-border-color: #d83744;-->
+<!--  &#45;&#45;fc-event-text-color: #fff;-->
+<!--}-->
+
+
+<!--</style>-->
