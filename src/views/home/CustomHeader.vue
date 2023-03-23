@@ -7,13 +7,13 @@
         </div>
         <div class="flex">
           <button
-            @click="() => emit('create-account')"
-            class="px-6 py-2 font-bold rounded-full text-white focus:outline-none">
+            class="px-6 py-2 font-bold rounded-full text-white focus:outline-none"
+            @click="() => emit('create-account')">
             Crie uma conta
           </button>
           <button
-            @click="() => emit('login')"
-            class="px-6 py-2 font-bold bg-white rounded-full text-brand-main focus:outline-none">
+            class="px-6 py-2 font-bold bg-white rounded-full text-brand-main focus:outline-none"
+            @click="() => emit('login')">
             Entrar
           </button>
         </div>
@@ -45,8 +45,8 @@
 </template>
 <script>
 export default {
-  setup (_, { emit }) {
-    return { emit }
+  setup(_, {emit}) {
+    return {emit}
   }
 }
 </script>
@@ -59,8 +59,6 @@ export default {
 .header-group {
   @apply flex flex-col w-4/5 max-w-6xl;
 }
-
-
 
 
 @media (min-width: 1078px) {

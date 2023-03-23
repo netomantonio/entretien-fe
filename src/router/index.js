@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import {createRouter, createWebHistory} from 'vue-router'
 
 const Home = () => import('../views/home/index.vue')
 const Calendar = () => import('../views/calendar/index.vue')
@@ -27,7 +27,7 @@ const routes = [
   },
   {
     path: '/:pathMatch(.*)*',
-    redirect: { name: 'Home' }
+    redirect: {name: 'Home'}
   }
 ]
 

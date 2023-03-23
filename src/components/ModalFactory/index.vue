@@ -23,7 +23,7 @@
   </teleport>
 </template>
 <script>
-import { defineAsyncComponent, onBeforeUnmount, onMounted, reactive } from 'vue'
+import {defineAsyncComponent, onBeforeUnmount, onMounted, reactive} from 'vue'
 import useModal from '@/hooks/useModal'
 
 const ModalLogin = defineAsyncComponent(() => import('../ModalLogin'))
@@ -36,7 +36,7 @@ export default {
     ModalLogin,
     ModalAccountCreate
   },
-  setup () {
+  setup() {
     const modal = useModal()
     const state = reactive({
       isActive: false,
@@ -53,7 +53,7 @@ export default {
       modal.off(handleModalToggle)
     })
 
-    function handleModalToggle (payload) {
+    function handleModalToggle(payload) {
       if (payload.status) {
         state.component = payload.component
         state.props = payload.props

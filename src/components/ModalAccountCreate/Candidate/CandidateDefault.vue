@@ -25,8 +25,8 @@
         <label class="block mt-2">
           <span class=" font-medium text-gray-800">CEP</span>
           <input
-            v-mask="'#####-###'"
             v-model="state.cep.value"
+            v-mask="'#####-###'"
             :class="{
                 'border-brand-danger': !!state.cep.errorMessage
               }"

@@ -1,8 +1,8 @@
 <template>
-    <header-logged-admin v-if="roleUser === 'ROLE_ADMIN'"/>
-    <header-logged-candidate v-if="roleUser === 'ROLE_CANDIDATE'"/>
-    <header-logged-recruiter v-if="roleUser === 'ROLE_RECRUITER'"/>
-    <header-logged-manager v-if="roleUser === 'ROLE_MANAGER'"/>
+  <header-logged-admin v-if="roleUser === 'ROLE_ADMIN'"/>
+  <header-logged-candidate v-if="roleUser === 'ROLE_CANDIDATE'"/>
+  <header-logged-recruiter v-if="roleUser === 'ROLE_RECRUITER'"/>
+  <header-logged-manager v-if="roleUser === 'ROLE_MANAGER'"/>
 </template>
 <script>
 import HeaderLoggedAdmin from "@/components/HeaderLogged/Admin/index.vue";

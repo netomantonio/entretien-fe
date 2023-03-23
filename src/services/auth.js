@@ -1,8 +1,8 @@
 export default httpClient => ({
   login: async ({
-    username,
-    password
-  }) => {
+                  username,
+                  password
+                }) => {
     const response = await httpClient.post('/api/auth/signin', {
       username,
       password

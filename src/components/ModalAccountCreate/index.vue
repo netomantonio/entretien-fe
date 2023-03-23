@@ -502,7 +502,7 @@ export default {
       return true
     }
 
-    function validaStepThree(){
+    function validaStepThree() {
       if (!state.role) {
         state.hasErrors = true
         return
@@ -565,8 +565,8 @@ export default {
         state.hasErrors = false
         if (!errors)
           toast.success('Conta criada!!!')
-          new Promise(resolve => setTimeout(resolve, 5000))
-          modal.close()
+        new Promise(resolve => setTimeout(resolve, 5000))
+        modal.close()
       } else if (state.role === 'recruiter') {
         const {
           errors
@@ -613,8 +613,8 @@ export default {
         setGlobalLoading(false)
         if (!errors)
           toast.success('Conta criada!!!')
-          new Promise(resolve => setTimeout(resolve, 5000))
-          modal.close()
+        new Promise(resolve => setTimeout(resolve, 5000))
+        modal.close()
       }
     }
 
