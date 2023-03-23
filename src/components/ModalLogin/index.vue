@@ -1,8 +1,8 @@
 <template>
   <div id="modal-login" class="flex justify-between">
-    <h1 class="text-4xl font-black text-gray-800">
+    <h6 class="text-3xl font-black text-gray-800">
       Entre na sua conta
-    </h1>
+    </h6>
 
     <button
       class="text-4xl text-gray-600 focus:outline-none"
@@ -121,7 +121,7 @@ export default {
           window.localStorage.setItem('roles', data.roles[0])
           window.localStorage.setItem('email', data.email)
           window.localStorage.setItem('id', data.id)
-          router.push({ name: 'Calendar' })
+          await router.push({name: 'Calendar'})
           state.isLoading = false
           modal.close()
           return
