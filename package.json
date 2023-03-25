@@ -11,6 +11,9 @@
   },
   "dependencies": {
     "@brazilian-utils/is-valid-cep": "^0.1.2",
+    "@fortawesome/fontawesome-svg-core": "^6.3.0",
+    "@fortawesome/free-solid-svg-icons": "^6.3.0",
+    "@fortawesome/vue-fontawesome": "^3.0.3",
     "@fullcalendar/bootstrap5": "^6.0.3",
     "@fullcalendar/core": "^6.0.3",
     "@fullcalendar/daygrid": "^6.0.3",

@@ -11,8 +11,186 @@
       </button>
     </div>
     <form @submit.prevent="handleSubmit">
-      <div class="hidden sm:block">
-        <BasicUser :state="state"/>
+      <div class="flex hidden sm:block">
+        <div v-if="state.showSteps.default">
+          <BasicUser :state="state"/>
+          <div v-if="state.role === 'candidate'" class="flex-wrap p-4">
+            <CandidateDefault :state="state"/>
+            <CandidateMobile :state="state"/>
+            <button
+              :class="{
+              'opacity-50': state.isLoading
+            }"
+              :disabled="state.isLoading"
+              class="px-4 py-1 mt-5 text-2xl font-bold text-white rounded-full bg-brand-main focus:outline-none transition-all duration-150"
+              type="submit"
+              @click="validaStepResume">
+              <icon v-if="state.isLoading" class="animate-spin" name="loading"/>
+              <span v-else>Próximo</span>
+            </button>
+          </div>
+          <div v-if="state.role === 'recruiter'" class="flex-wrap p-4">
+            <RecruiterDefault :state="state"/>
+            <RecruiterMobile :state="state"/>
+            <button
+              :class="{
+              'opacity-50': state.isLoading
+            }"
+              :disabled="state.isLoading"
+              class="px-4 py-1 mt-5 text-2xl font-bold text-white rounded-full bg-brand-main focus:outline-none transition-all duration-150"
+              type="submit"
+              @click="validaStepAgenda">
+              <icon v-if="state.isLoading" class="animate-spin" name="loading"/>
+              <span v-else>Próximo</span>
+            </button>
+          </div>
+          <div v-if="state.role === 'manager'" class="flex-wrap p-4">
+            <ManagerDefault :state="state"/>
+            <ManagerMobile :state="state"/>
+            <button
+              :class="{
+              'opacity-50': state.isLoading
+            }"
+              :disabled="state.isLoading"
+              class="hidden sm:block px-4 py-1 mt-5 text-2xl font-bold text-white rounded-full bg-brand-main focus:outline-none transition-all duration-150"
+              type="submit"
+            >
+              <icon v-if="state.isLoading" class="animate-spin" name="loading"/>
+              <span v-else>Criar</span>
+            </button>
+          </div>
+        </div>
+        <div v-if="state.showSteps.resume">
+          <div class="flex">
+            <div>
+              <h2>Histórico profissional</h2>
+              <ul>
+                <li v-for="(item, index) in state.companies" :key="index">
+                  <label class="block mt-2">
+                    <span class="font-medium text-gray-800">Empresa</span>
+                    <input
+                      v-model="item.empresa"
+                      :class="{
+                        'border-brand-danger': !!item.errorMessage
+                      }"
+                      class="block w-full px-1 py-1 mt-1 bg-gray-100 border-1 border-transparent rounded"
+                      placeholder="Nome da empresa"
+                      type="text"
+                    >
+                    <span
+                      v-if="!!item.errorMessage"
+                      class="block font-medium text-brand-danger"
+                    >
+                      {{ item.errorMessage }}
+                    </span>
+                  </label>
+                  <label class="block mt-2">
+                    <span class="font-medium text-gray-800">Cargo</span>
+                    <input
+                      v-model="item.cargo"
+                      :class="{
+                      'border-brand-danger': !!item.errorMessage
+                    }"
+                      class="block w-full px-1 py-1 mt-1 bg-gray-100 border-1 border-transparent rounded"
+                      placeholder="Cargo"
+                      type="text"
+                    >
+                  </label>
+                  <label class="block mt-2">
+                    <span class="font-medium text-gray-800">Início</span>
+                    <input
+                      v-model="item.inicio"
+                      :class="{
+                        'border-brand-danger': !!item.errorMessage
+                      }"
+                      class="block w-full px-1 py-1 mt-1 bg-gray-100 border-1 border-transparent rounded"
+                      type="date"
+                    >
+                  </label>
+                  <label class="block mt-2">
+                    <span class="font-medium text-gray-800">Fim</span>
+                    <input
+                      v-model="item.fim"
+                      :class="{
+                        'border-brand-danger': !!item.errorMessage
+                      }"
+                      class="block w-full px-1 py-1 mt-1 bg-gray-100 border-1 border-transparent rounded"
+                      type="date"
+                    >
+                  </label>
+                </li>
+              </ul>
+              <button
+                :class="{
+                      'opacity-50': state.isLoading
+                    }"
+                :disabled="state.isLoading"
+                class="px-4 py-1 mt-5 text-2xl font-bold text-white rounded-full bg-pink-500 focus:outline-none transition-all duration-150"
+                @click="adicionarElemento">
+                <icon v-if="state.isLoading" class="animate-spin" name="loading"/>
+                <FontAwesomeIcon v-else :icon="['fas', 'star']"/>
+              </button>
+            </div>
+          </div>
+          <div class="flex">
+            <div class="flex-wrap p-4">
+              <button
+                :class="{
+                  'opacity-50': state.isLoading
+                }"
+                :disabled="state.isLoading"
+                class="px-4 py-1 mt-5 text-2xl font-bold text-white rounded-full bg-brand-main focus:outline-none transition-all duration-150"
+                type="submit"
+                @click="state.showSteps.resume = false; state.showSteps.default = true">
+                <icon v-if="state.isLoading" class="animate-spin" name="loading"/>
+                <span v-else>voltar</span>
+              </button>
+            </div>
+            <div class="flex-wrap p-4">
+              <button
+                :class="{
+                  'opacity-50': state.isLoading
+                }"
+                :disabled="state.isLoading"
+                class="px-4 py-1 mt-5 text-2xl font-bold text-white rounded-full bg-brand-main focus:outline-none transition-all duration-150"
+                type="submit"
+              >
+                <icon v-if="state.isLoading" class="animate-spin" name="loading"/>
+                <span v-else>Criar</span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div v-if="state.showSteps.agenda">
+          <div class="flex">
+            <div class="flex-wrap p-4">
+              <button
+                :class="{
+              'opacity-50': state.isLoading
+            }"
+                :disabled="state.isLoading"
+                class="px-4 py-1 mt-5 text-2xl font-bold text-white rounded-full bg-brand-main focus:outline-none transition-all duration-150"
+                type="submit"
+                @click="state.showSteps.agenda = false; state.showSteps.default = true">
+                <icon v-if="state.isLoading" class="animate-spin" name="loading"/>
+                <span v-else>voltar</span>
+              </button>
+            </div>
+            <div class="flex-wrap p-4">
+              <button
+                :class="{
+              'opacity-50': state.isLoading
+            }"
+                :disabled="state.isLoading"
+                class="px-4 py-1 mt-5 text-2xl font-bold text-white rounded-full bg-brand-main focus:outline-none transition-all duration-150"
+                type="submit"
+              >
+                <icon v-if="state.isLoading" class="animate-spin" name="loading"/>
+                <span v-else>Criar</span>
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="flex block sm:hidden">
         <div v-if="state.showSteps.one">
@@ -21,8 +199,8 @@
             <input
               v-model="state.firstName.value"
               :class="{
-              'border-brand-danger': !!state.firstName.errorMessage
-            }"
+                'border-brand-danger': !!state.firstName.errorMessage
+              }"
               class="block w-full px-1 py-1 mt-1 bg-gray-100 border-1 border-transparent rounded"
               placeholder="Xant"
               type="text"
@@ -39,8 +217,8 @@
             <input
               v-model="state.lastName.value"
               :class="{
-              'border-brand-danger': !!state.lastName.errorMessage
-            }"
+                'border-brand-danger': !!state.lastName.errorMessage
+              }"
               class="block w-full px-1 py-1 mt-1 bg-gray-100 border-1 border-transparent rounded"
               placeholder="Lee"
               type="text"
@@ -57,8 +235,8 @@
             <input
               v-model="state.cpf.value"
               :class="{
-              'border-brand-danger': !!state.cpf.errorMessage
-            }"
+                'border-brand-danger': !!state.cpf.errorMessage
+              }"
               class="block w-full px-1 py-1 mt-1 bg-gray-100 border-1 border-transparent rounded"
               placeholder="11122233344"
               type="text"
@@ -88,8 +266,8 @@
             <input
               v-model="state.phone.value"
               :class="{
-              'border-brand-danger': !!state.phone.errorMessage
-            }"
+                'border-brand-danger': !!state.phone.errorMessage
+              }"
               class="block w-full px-1 py-1 mt-1 bg-gray-100 border-1 border-transparent rounded"
               placeholder="12999999999"
               type="tel"
@@ -106,8 +284,8 @@
             <input
               v-model="state.email.value"
               :class="{
-              'border-brand-danger': !!state.email.errorMessage
-            }"
+                'border-brand-danger': !!state.email.errorMessage
+              }"
               class="block w-full px-1 py-1 mt-1 bg-gray-100 border-1 border-transparent rounded"
               placeholder="xant.lee@gmail.com"
               type="email"
@@ -124,8 +302,8 @@
             <input
               v-model="state.password.value"
               :class="{
-              'border-brand-danger': !!state.password.errorMessage
-            }"
+                'border-brand-danger': !!state.password.errorMessage
+              }"
               class="block w-full px-1 py-1 mt-1 bg-gray-100 border-1 border-transparent rounded"
               placeholder="Azx#32!sEW984@3.!@"
               type="password"
@@ -142,8 +320,8 @@
             <input
               v-model="state.confirmPassword.value"
               :class="{
-              'border-brand-danger': !!state.confirmPassword.errorMessage
-            }"
+                'border-brand-danger': !!state.confirmPassword.errorMessage
+              }"
               class="block w-full px-1 py-1 mt-1 bg-gray-100 border-1 border-transparent rounded"
               placeholder="Azx#32!sEW984@3.!@"
               type="password"
@@ -159,8 +337,8 @@
             <div class="flex-wrap p-4">
               <button
                 :class="{
-              'opacity-50': state.isLoading
-            }"
+                  'opacity-50': state.isLoading
+                }"
                 :disabled="state.isLoading"
                 class="px-4 py-1 mt-5 text-2xl font-bold text-white rounded-full bg-brand-main focus:outline-none transition-all duration-150"
                 type="submit"
@@ -172,8 +350,8 @@
             <div class="flex-wrap p-4">
               <button
                 :class="{
-              'opacity-50': state.isLoading
-            }"
+                  'opacity-50': state.isLoading
+                }"
                 :disabled="state.isLoading"
                 class="px-4 py-1 mt-5 text-2xl font-bold text-white rounded-full bg-brand-main focus:outline-none transition-all duration-150"
                 type="submit"
@@ -198,8 +376,8 @@
             <div class="flex-wrap p-4">
               <button
                 :class="{
-              'opacity-50': state.isLoading
-            }"
+                  'opacity-50': state.isLoading
+                }"
                 :disabled="state.isLoading"
                 class="px-4 py-1 mt-5 text-2xl font-bold text-white rounded-full bg-brand-main focus:outline-none transition-all duration-150"
                 type="submit"
@@ -211,8 +389,8 @@
             <div class="flex-wrap p-4">
               <button
                 :class="{
-              'opacity-50': state.isLoading
-            }"
+                  'opacity-50': state.isLoading
+                }"
                 :disabled="state.isLoading"
                 class="px-4 py-1 mt-5 text-2xl font-bold text-white rounded-full bg-brand-main focus:outline-none transition-all duration-150"
                 type="submit"
@@ -224,35 +402,13 @@
           </div>
         </div>
       </div>
-      <div v-if="state.role === 'candidate'">
-        <CandidateDefault :state="state"/>
-        <CandidateMobile :state="state"/>
-      </div>
-      <div v-if="state.role === 'recruiter'">
-        <RecruiterDefault :state="state"/>
-        <RecruiterMobile :state="state"/>
-      </div>
-      <div v-if="state.role === 'manager'">
-        <ManagerDefault :state="state"/>
-        <ManagerMobile :state="state"/>
-      </div>
-      <div class="flex">
-        <button
-          :class="{
-              'opacity-50': state.isLoading
-            }"
-          :disabled="state.isLoading"
-          class="hidden sm:block px-4 py-1 mt-5 text-2xl font-bold text-white rounded-full bg-brand-main focus:outline-none transition-all duration-150"
-          type="submit"
-        >
-          <icon v-if="state.isLoading" class="animate-spin" name="loading"/>
-          <span v-else>Criar</span>
-        </button>
-      </div>
     </form>
   </div>
 </template>
 <script>
+import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
+import {fas} from '@fortawesome/free-solid-svg-icons'
+import {library} from '@fortawesome/fontawesome-svg-core'
 import Icon from '@/components/Icon/index.vue'
 import useModal from '@/hooks/useModal'
 import {useToast} from 'vue-toastification'
@@ -279,6 +435,7 @@ import RecruiterDefault from "@/components/ModalAccountCreate/Recruiter/Recruite
 import ManagerDefault from "@/components/ModalAccountCreate/Manager/ManagerDefault.vue";
 import ManagerMobile from "@/components/ModalAccountCreate/Manager/ManagerMobile.vue";
 
+library.add(fas)
 export default {
   components: {
     ManagerMobile,
@@ -291,7 +448,8 @@ export default {
     ContactUser,
     CreatePassword,
     BasicUser,
-    Icon
+    Icon,
+    FontAwesomeIcon
   },
   setup() {
     const modal = useModal()
@@ -389,13 +547,26 @@ export default {
 
     const state = reactive({
       showSteps: {
+        default: true,
         one: true,
         two: false,
         three: false,
         four: false,
         five: false,
-        final: false
+        final: false,
+        resume: false,
+        agenda: false
       },
+      companies: [
+        {
+          name: "",
+          office: "",
+          startDate: "",
+          endDate: "",
+          description: "",
+          expanded: ""
+        }
+      ],
       role: '',
       hasErrors: false,
       isLoading: getGlobalLoading(),
@@ -482,6 +653,17 @@ export default {
       return true
     }
 
+    function adicionarElemento(index) {
+      state.companies.splice(index + 1, 0, {
+        name: "",
+        office: "",
+        startDate: "",
+        endDate: "",
+        description: "",
+        expanded: ""
+      });
+    }
+
     function validaStepOne() {
       if (!state.firstName.value || !state.lastName.value || !state.cpf.value) {
         state.hasErrors = true
@@ -509,6 +691,26 @@ export default {
       }
       state.showSteps.three = false
       state.showSteps.final = true
+      return true
+    }
+
+    function validaStepResume() {
+      if (!state.role) {
+        state.hasErrors = true
+        return
+      }
+      state.showSteps.default = false
+      state.showSteps.resume = true
+      return true
+    }
+
+    function validaStepAgenda() {
+      if (!state.role) {
+        state.hasErrors = true
+        return
+      }
+      state.showSteps.default = false
+      state.showSteps.agenda = true
       return true
     }
 
@@ -624,7 +826,10 @@ export default {
       handleSubmit,
       validaStepOne,
       validaStepTwo,
-      validaStepThree
+      validaStepThree,
+      validaStepResume,
+      validaStepAgenda,
+      adicionarElemento
     }
   }
 }
