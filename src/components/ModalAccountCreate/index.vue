@@ -12,184 +12,51 @@
     </div>
     <form @submit.prevent="handleSubmit">
       <div class="flex hidden sm:block">
-        <div v-if="state.showSteps.default">
-          <BasicUser :state="state"/>
-          <div v-if="state.role === 'candidate'" class="flex-wrap p-4">
-            <CandidateDefault :state="state"/>
-            <CandidateMobile :state="state"/>
-            <button
-              :class="{
+        <BasicUser :state="state"/>
+        <div v-if="state.role === 'candidate'" class="flex-wrap p-4">
+          <CandidateDefault :state="state"/>
+          <CandidateMobile :state="state"/>
+          <button
+            :class="{
               'opacity-50': state.isLoading
             }"
-              :disabled="state.isLoading"
-              class="px-4 py-1 mt-5 text-2xl font-bold text-white rounded-full bg-brand-main focus:outline-none transition-all duration-150"
-              type="submit"
-              @click="validaStepResume">
-              <icon v-if="state.isLoading" class="animate-spin" name="loading"/>
-              <span v-else>Próximo</span>
-            </button>
-          </div>
-          <div v-if="state.role === 'recruiter'" class="flex-wrap p-4">
-            <RecruiterDefault :state="state"/>
-            <RecruiterMobile :state="state"/>
-            <button
-              :class="{
-              'opacity-50': state.isLoading
-            }"
-              :disabled="state.isLoading"
-              class="px-4 py-1 mt-5 text-2xl font-bold text-white rounded-full bg-brand-main focus:outline-none transition-all duration-150"
-              type="submit"
-              @click="validaStepAgenda">
-              <icon v-if="state.isLoading" class="animate-spin" name="loading"/>
-              <span v-else>Próximo</span>
-            </button>
-          </div>
-          <div v-if="state.role === 'manager'" class="flex-wrap p-4">
-            <ManagerDefault :state="state"/>
-            <ManagerMobile :state="state"/>
-            <button
-              :class="{
-              'opacity-50': state.isLoading
-            }"
-              :disabled="state.isLoading"
-              class="hidden sm:block px-4 py-1 mt-5 text-2xl font-bold text-white rounded-full bg-brand-main focus:outline-none transition-all duration-150"
-              type="submit"
-            >
-              <icon v-if="state.isLoading" class="animate-spin" name="loading"/>
-              <span v-else>Criar</span>
-            </button>
-          </div>
+            :disabled="state.isLoading"
+            class="hidden sm:block px-4 py-1 mt-5 text-2xl font-bold text-white rounded-full bg-brand-main focus:outline-none transition-all duration-150"
+            type="submit"
+          >
+            <icon v-if="state.isLoading" class="animate-spin" name="loading"/>
+            <span v-else>Criar</span>
+          </button>
         </div>
-        <div v-if="state.showSteps.resume">
-          <div class="flex">
-            <div>
-              <h2>Histórico profissional</h2>
-              <ul>
-                <li v-for="(item, index) in state.companies" :key="index">
-                  <label class="block mt-2">
-                    <span class="font-medium text-gray-800">Empresa</span>
-                    <input
-                      v-model="item.empresa"
-                      :class="{
-                        'border-brand-danger': !!item.errorMessage
-                      }"
-                      class="block w-full px-1 py-1 mt-1 bg-gray-100 border-1 border-transparent rounded"
-                      placeholder="Nome da empresa"
-                      type="text"
-                    >
-                    <span
-                      v-if="!!item.errorMessage"
-                      class="block font-medium text-brand-danger"
-                    >
-                      {{ item.errorMessage }}
-                    </span>
-                  </label>
-                  <label class="block mt-2">
-                    <span class="font-medium text-gray-800">Cargo</span>
-                    <input
-                      v-model="item.cargo"
-                      :class="{
-                      'border-brand-danger': !!item.errorMessage
-                    }"
-                      class="block w-full px-1 py-1 mt-1 bg-gray-100 border-1 border-transparent rounded"
-                      placeholder="Cargo"
-                      type="text"
-                    >
-                  </label>
-                  <label class="block mt-2">
-                    <span class="font-medium text-gray-800">Início</span>
-                    <input
-                      v-model="item.inicio"
-                      :class="{
-                        'border-brand-danger': !!item.errorMessage
-                      }"
-                      class="block w-full px-1 py-1 mt-1 bg-gray-100 border-1 border-transparent rounded"
-                      type="date"
-                    >
-                  </label>
-                  <label class="block mt-2">
-                    <span class="font-medium text-gray-800">Fim</span>
-                    <input
-                      v-model="item.fim"
-                      :class="{
-                        'border-brand-danger': !!item.errorMessage
-                      }"
-                      class="block w-full px-1 py-1 mt-1 bg-gray-100 border-1 border-transparent rounded"
-                      type="date"
-                    >
-                  </label>
-                </li>
-              </ul>
-              <button
-                :class="{
-                      'opacity-50': state.isLoading
-                    }"
-                :disabled="state.isLoading"
-                class="px-4 py-1 mt-5 text-2xl font-bold text-white rounded-full bg-pink-500 focus:outline-none transition-all duration-150"
-                @click="adicionarElemento">
-                <icon v-if="state.isLoading" class="animate-spin" name="loading"/>
-                <FontAwesomeIcon v-else :icon="['fas', 'star']"/>
-              </button>
-            </div>
-          </div>
-          <div class="flex">
-            <div class="flex-wrap p-4">
-              <button
-                :class="{
-                  'opacity-50': state.isLoading
-                }"
-                :disabled="state.isLoading"
-                class="px-4 py-1 mt-5 text-2xl font-bold text-white rounded-full bg-brand-main focus:outline-none transition-all duration-150"
-                type="submit"
-                @click="state.showSteps.resume = false; state.showSteps.default = true">
-                <icon v-if="state.isLoading" class="animate-spin" name="loading"/>
-                <span v-else>voltar</span>
-              </button>
-            </div>
-            <div class="flex-wrap p-4">
-              <button
-                :class="{
-                  'opacity-50': state.isLoading
-                }"
-                :disabled="state.isLoading"
-                class="px-4 py-1 mt-5 text-2xl font-bold text-white rounded-full bg-brand-main focus:outline-none transition-all duration-150"
-                type="submit"
-              >
-                <icon v-if="state.isLoading" class="animate-spin" name="loading"/>
-                <span v-else>Criar</span>
-              </button>
-            </div>
-          </div>
+        <div v-if="state.role === 'recruiter'" class="flex-wrap p-4">
+          <RecruiterDefault :state="state"/>
+          <RecruiterMobile :state="state"/>
+          <button
+            :class="{
+              'opacity-50': state.isLoading
+            }"
+            :disabled="state.isLoading"
+            class="hidden sm:block px-4 py-1 mt-5 text-2xl font-bold text-white rounded-full bg-brand-main focus:outline-none transition-all duration-150"
+            type="submit"
+          >
+            <icon v-if="state.isLoading" class="animate-spin" name="loading"/>
+            <span v-else>Criar</span>
+          </button>
         </div>
-        <div v-if="state.showSteps.agenda">
-          <div class="flex">
-            <div class="flex-wrap p-4">
-              <button
-                :class="{
+        <div v-if="state.role === 'manager'" class="flex-wrap p-4">
+          <ManagerDefault :state="state"/>
+          <ManagerMobile :state="state"/>
+          <button
+            :class="{
               'opacity-50': state.isLoading
             }"
-                :disabled="state.isLoading"
-                class="px-4 py-1 mt-5 text-2xl font-bold text-white rounded-full bg-brand-main focus:outline-none transition-all duration-150"
-                type="submit"
-                @click="state.showSteps.agenda = false; state.showSteps.default = true">
-                <icon v-if="state.isLoading" class="animate-spin" name="loading"/>
-                <span v-else>voltar</span>
-              </button>
-            </div>
-            <div class="flex-wrap p-4">
-              <button
-                :class="{
-              'opacity-50': state.isLoading
-            }"
-                :disabled="state.isLoading"
-                class="px-4 py-1 mt-5 text-2xl font-bold text-white rounded-full bg-brand-main focus:outline-none transition-all duration-150"
-                type="submit"
-              >
-                <icon v-if="state.isLoading" class="animate-spin" name="loading"/>
-                <span v-else>Criar</span>
-              </button>
-            </div>
-          </div>
+            :disabled="state.isLoading"
+            class="hidden sm:block px-4 py-1 mt-5 text-2xl font-bold text-white rounded-full bg-brand-main focus:outline-none transition-all duration-150"
+            type="submit"
+          >
+            <icon v-if="state.isLoading" class="animate-spin" name="loading"/>
+            <span v-else>Criar</span>
+          </button>
         </div>
       </div>
       <div class="flex block sm:hidden">
