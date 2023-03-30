@@ -1,4 +1,4 @@
-import { reactive } from 'vue'
+import {reactive} from 'vue'
 
 const state = reactive({
   isLoading: false
@@ -6,10 +6,10 @@ const state = reactive({
 
 export default state
 
-export function setGlobalLoading (status) {
+export function setGlobalLoading(status) {
   state.isLoading = status
 }
 
-export function getGlobalLoading () {
+export function getGlobalLoading() {
   return state.isLoading
 }
