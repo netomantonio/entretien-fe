@@ -1,7 +1,7 @@
 <template>
   <custom-header
-    @create-account="handleAccountCreate"
     @login="handleLogin"
+    @create-account="handleAccountCreate"
   />
   <contact/>
   <div class="flex justify-center py-10 bg-brand-gray">
@@ -21,17 +21,17 @@ export default {
     Contact,
     CustomHeader
   },
-  setup () {
+  setup() {
     // const router = useRouter()
     const modal = useModal()
 
-    function handleLogin () {
+    function handleLogin() {
       modal.open({
         component: 'ModalLogin'
       })
     }
 
-    function handleAccountCreate () {
+    function handleAccountCreate() {
       modal.open({
         component: 'ModalAccountCreate'
       })

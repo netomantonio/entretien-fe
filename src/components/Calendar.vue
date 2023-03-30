@@ -1,6 +1,6 @@
 <template>
   <div class="flex justify-center w-full h-28 bg-brand-main">
-    <header-logged />
+    <header-logged/>
   </div>
   <div class='demo-app p-15 m-8'>
     <div class='demo-app-main'>
@@ -78,7 +78,6 @@ export default defineComponent({
       let calendarApi = selectInfo.view.calendar
 
       calendarApi.unselect() // clear date selection
-
 
 
       if (title) {

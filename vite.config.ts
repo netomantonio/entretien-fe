@@ -6,6 +6,17 @@ import {VitePWA} from 'vite-plugin-pwa'
 // Utilities
 import {defineConfig} from 'vite'
 import {fileURLToPath, URL} from 'node:url'
+import legacy from '@vitejs/plugin-legacy'
+
+const fs = require('fs');
+const crypto = require('crypto');
+
+function getHash(file) {
+  const data = fs.readFileSync(file);
+  const hash = crypto.createHash('md5').update(data).digest('hex');
+  return hash.slice(0, 8);
+}
+
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -23,6 +34,9 @@ export default defineConfig({
         enabled: true
       }
     }),
+    legacy({
+      targets: ['defaults', 'not IE 11']
+    })
   ],
   define: {'process.env': {}},
   resolve: {
@@ -41,5 +55,5 @@ export default defineConfig({
   },
   server: {
     port: 3000,
-  },
+  }
 })

@@ -5,7 +5,7 @@
 import Loading from './Loading.vue'
 
 export default {
-  components: { Loading },
+  components: {Loading},
   props: {
     name: {
       type: String,

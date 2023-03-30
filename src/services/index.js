@@ -2,7 +2,7 @@ import axios from 'axios'
 import AuthService from '@/services/auth'
 import RegisterService from '@/services/register'
 import UserService from '@/services/users'
-import { useToast } from 'vue-toastification'
+import {useToast} from 'vue-toastification'
 import {setGlobalLoading} from "@/store/global"
 
 const toast = useToast()
@@ -44,7 +44,7 @@ httpClient.interceptors.response.use(
       // Redirecionar para a tela de login
       window.location = '/';
     }
-    setGlobalLoading(false  )
+    setGlobalLoading(false)
     return Promise.reject(error);
   }
 )

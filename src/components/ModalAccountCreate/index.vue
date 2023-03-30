@@ -11,166 +11,52 @@
       </button>
     </div>
     <form @submit.prevent="handleSubmit">
-      <div class="hidden sm:block">
-        <div class="flex">
-          <div class="w-1/3 p-4">
-            <label class="block mt-2">
-              <span class=" font-medium text-gray-800">Primeiro Nome</span>
-              <input
-                v-model="state.firstName.value"
-                :class="{
-              'border-brand-danger': !!state.firstName.errorMessage
+      <div class="flex hidden sm:block">
+        <BasicUser :state="state"/>
+        <div v-if="state.role === 'candidate'" class="flex-wrap p-4">
+          <CandidateDefault :state="state"/>
+          <CandidateMobile :state="state"/>
+          <button
+            :class="{
+              'opacity-50': state.isLoading
             }"
-                class="block w-full px-1 py-1 mt-1 bg-gray-100 border-1 border-transparent rounded"
-                placeholder="Xant"
-                type="text"
-              >
-              <span
-                v-if="!!state.firstName.errorMessage"
-                class="block font-medium text-brand-danger"
-              >
-            {{ state.firstName.errorMessage }}
-          </span>
-            </label>
-          </div>
-          <div class="w-1/3 p-4">
-            <label class="block mt-2">
-              <span class=" font-medium text-gray-800">Ultimo Nome</span>
-              <input
-                v-model="state.lastName.value"
-                :class="{
-              'border-brand-danger': !!state.lastName.errorMessage
-            }"
-                class="block w-full px-1 py-1 mt-1 bg-gray-100 border-1 border-transparent rounded"
-                placeholder="Lee"
-                type="text"
-              >
-              <span
-                v-if="!!state.lastName.errorMessage"
-                class="block font-medium text-brand-danger"
-              >
-            {{ state.lastName.errorMessage }}
-          </span>
-            </label>
-          </div>
-          <div class="w-1/3 p-4">
-            <label class="block mt-2">
-              <span class=" font-medium text-gray-800">CPF</span>
-              <input
-                v-mask="'###.###.###-##'"
-                v-model="state.cpf.value"
-                :class="{
-              'border-brand-danger': !!state.cpf.errorMessage
-            }"
-                class="block w-full px-1 py-1 mt-1 bg-gray-100 border-1 border-transparent rounded"
-                placeholder="11122233344"
-                type="text"
-              >
-              <span
-                v-if="!!state.cpf.errorMessage"
-                class="block font-medium text-brand-danger"
-              >
-            {{ state.cpf.errorMessage }}
-          </span>
-            </label>
-          </div>
+            :disabled="state.isLoading"
+            class="hidden sm:block px-4 py-1 mt-5 text-2xl font-bold text-white rounded-full bg-brand-main focus:outline-none transition-all duration-150"
+            type="submit"
+          >
+            <icon v-if="state.isLoading" class="animate-spin" name="loading"/>
+            <span v-else>Criar</span>
+          </button>
         </div>
-        <div class="flex">
-          <div class="w-1/3 p-4">
-            <label class="block mt-2">
-              <span class=" font-medium text-gray-800">Telefone</span>
-              <input
-                v-mask="'(##)#.####-####'"
-                v-model="state.phone.value"
-                :class="{
-              'border-brand-danger': !!state.phone.errorMessage
+        <div v-if="state.role === 'recruiter'" class="flex-wrap p-4">
+          <RecruiterDefault :state="state"/>
+          <RecruiterMobile :state="state"/>
+          <button
+            :class="{
+              'opacity-50': state.isLoading
             }"
-                class="block w-full px-1 py-1 mt-1 bg-gray-100 border-1 border-transparent rounded"
-                placeholder="12999999999"
-                type="tel"
-              >
-              <span
-                v-if="!!state.phone.errorMessage"
-                class="block font-medium text-brand-danger"
-              >
-            {{ state.phone.errorMessage }}
-          </span>
-            </label>
-          </div>
-          <div class="w-1/3 p-4">
-            <label class="block mt-2">
-              <span class=" font-medium text-gray-800">E-mail</span>
-              <input
-                v-model="state.email.value"
-                :class="{
-              'border-brand-danger': !!state.email.errorMessage
-            }"
-                class="block w-full px-1 py-1 mt-1 bg-gray-100 border-1 border-transparent rounded"
-                placeholder="xant.lee@gmail.com"
-                type="email"
-              >
-              <span
-                v-if="!!state.email.errorMessage"
-                class="block font-medium text-brand-danger"
-              >
-            {{ state.email.errorMessage }}
-          </span>
-            </label>
-          </div>
-          <div class="w-1/3 p-4">
-            <label class="block mt-2">
-              <span class=" font-medium text-gray-800">Senha</span>
-              <input
-                v-model="state.password.value"
-                :class="{
-              'border-brand-danger': !!state.password.errorMessage
-            }"
-                class="block w-full px-1 py-1 mt-1 bg-gray-100 border-1 border-transparent rounded"
-                placeholder="Azx#32!sEW984@3.!@"
-                type="password"
-              >
-              <span
-                v-if="!!state.password.errorMessage"
-                class="block font-medium text-brand-danger"
-              >
-            {{ state.password.errorMessage }}
-          </span>
-            </label>
-          </div>
+            :disabled="state.isLoading"
+            class="hidden sm:block px-4 py-1 mt-5 text-2xl font-bold text-white rounded-full bg-brand-main focus:outline-none transition-all duration-150"
+            type="submit"
+          >
+            <icon v-if="state.isLoading" class="animate-spin" name="loading"/>
+            <span v-else>Criar</span>
+          </button>
         </div>
-        <div class="flex">
-          <div class="w-1/3 p-4">
-            <label class="block mt-2">
-              <span class="font-medium text-gray-800">Perfil</span>
-              <select v-model="state.role"
-                      class="block w-full px-1 py-1 mt-1 bg-gray-100 border-1 border-transparent rounded">
-                <option value="candidate">Candidato</option>
-                <option value="recruiter">Recrutador</option>
-                <option value="manager">Gestor</option>
-              </select>
-            </label>
-          </div>
-          <div class="w-1/3 p-4"></div>
-          <div class="w-1/3 p-4">
-            <label class="block mt-2">
-              <span class=" font-medium text-gray-800">Confirmação</span>
-              <input
-                v-model="state.confirmPassword.value"
-                :class="{
-              'border-brand-danger': !!state.confirmPassword.errorMessage
+        <div v-if="state.role === 'manager'" class="flex-wrap p-4">
+          <ManagerDefault :state="state"/>
+          <ManagerMobile :state="state"/>
+          <button
+            :class="{
+              'opacity-50': state.isLoading
             }"
-                class="block w-full px-1 py-1 mt-1 bg-gray-100 border-1 border-transparent rounded"
-                placeholder="Azx#32!sEW984@3.!@"
-                type="password"
-              >
-              <span
-                v-if="!!state.confirmPassword.errorMessage"
-                class="block font-medium text-brand-danger"
-              >
-            {{ state.confirmPassword.errorMessage }}
-          </span>
-            </label>
-          </div>
+            :disabled="state.isLoading"
+            class="hidden sm:block px-4 py-1 mt-5 text-2xl font-bold text-white rounded-full bg-brand-main focus:outline-none transition-all duration-150"
+            type="submit"
+          >
+            <icon v-if="state.isLoading" class="animate-spin" name="loading"/>
+            <span v-else>Criar</span>
+          </button>
         </div>
       </div>
       <div class="flex block sm:hidden">
@@ -180,8 +66,8 @@
             <input
               v-model="state.firstName.value"
               :class="{
-              'border-brand-danger': !!state.firstName.errorMessage
-            }"
+                'border-brand-danger': !!state.firstName.errorMessage
+              }"
               class="block w-full px-1 py-1 mt-1 bg-gray-100 border-1 border-transparent rounded"
               placeholder="Xant"
               type="text"
@@ -198,8 +84,8 @@
             <input
               v-model="state.lastName.value"
               :class="{
-              'border-brand-danger': !!state.lastName.errorMessage
-            }"
+                'border-brand-danger': !!state.lastName.errorMessage
+              }"
               class="block w-full px-1 py-1 mt-1 bg-gray-100 border-1 border-transparent rounded"
               placeholder="Lee"
               type="text"
@@ -216,8 +102,8 @@
             <input
               v-model="state.cpf.value"
               :class="{
-              'border-brand-danger': !!state.cpf.errorMessage
-            }"
+                'border-brand-danger': !!state.cpf.errorMessage
+              }"
               class="block w-full px-1 py-1 mt-1 bg-gray-100 border-1 border-transparent rounded"
               placeholder="11122233344"
               type="text"
@@ -247,8 +133,8 @@
             <input
               v-model="state.phone.value"
               :class="{
-              'border-brand-danger': !!state.phone.errorMessage
-            }"
+                'border-brand-danger': !!state.phone.errorMessage
+              }"
               class="block w-full px-1 py-1 mt-1 bg-gray-100 border-1 border-transparent rounded"
               placeholder="12999999999"
               type="tel"
@@ -265,8 +151,8 @@
             <input
               v-model="state.email.value"
               :class="{
-              'border-brand-danger': !!state.email.errorMessage
-            }"
+                'border-brand-danger': !!state.email.errorMessage
+              }"
               class="block w-full px-1 py-1 mt-1 bg-gray-100 border-1 border-transparent rounded"
               placeholder="xant.lee@gmail.com"
               type="email"
@@ -283,8 +169,8 @@
             <input
               v-model="state.password.value"
               :class="{
-              'border-brand-danger': !!state.password.errorMessage
-            }"
+                'border-brand-danger': !!state.password.errorMessage
+              }"
               class="block w-full px-1 py-1 mt-1 bg-gray-100 border-1 border-transparent rounded"
               placeholder="Azx#32!sEW984@3.!@"
               type="password"
@@ -301,8 +187,8 @@
             <input
               v-model="state.confirmPassword.value"
               :class="{
-              'border-brand-danger': !!state.confirmPassword.errorMessage
-            }"
+                'border-brand-danger': !!state.confirmPassword.errorMessage
+              }"
               class="block w-full px-1 py-1 mt-1 bg-gray-100 border-1 border-transparent rounded"
               placeholder="Azx#32!sEW984@3.!@"
               type="password"
@@ -318,8 +204,8 @@
             <div class="flex-wrap p-4">
               <button
                 :class="{
-              'opacity-50': state.isLoading
-            }"
+                  'opacity-50': state.isLoading
+                }"
                 :disabled="state.isLoading"
                 class="px-4 py-1 mt-5 text-2xl font-bold text-white rounded-full bg-brand-main focus:outline-none transition-all duration-150"
                 type="submit"
@@ -331,8 +217,8 @@
             <div class="flex-wrap p-4">
               <button
                 :class="{
-              'opacity-50': state.isLoading
-            }"
+                  'opacity-50': state.isLoading
+                }"
                 :disabled="state.isLoading"
                 class="px-4 py-1 mt-5 text-2xl font-bold text-white rounded-full bg-brand-main focus:outline-none transition-all duration-150"
                 type="submit"
@@ -357,8 +243,8 @@
             <div class="flex-wrap p-4">
               <button
                 :class="{
-              'opacity-50': state.isLoading
-            }"
+                  'opacity-50': state.isLoading
+                }"
                 :disabled="state.isLoading"
                 class="px-4 py-1 mt-5 text-2xl font-bold text-white rounded-full bg-brand-main focus:outline-none transition-all duration-150"
                 type="submit"
@@ -370,8 +256,8 @@
             <div class="flex-wrap p-4">
               <button
                 :class="{
-              'opacity-50': state.isLoading
-            }"
+                  'opacity-50': state.isLoading
+                }"
                 :disabled="state.isLoading"
                 class="px-4 py-1 mt-5 text-2xl font-bold text-white rounded-full bg-brand-main focus:outline-none transition-all duration-150"
                 type="submit"
@@ -383,576 +269,54 @@
           </div>
         </div>
       </div>
-      <div v-if="state.role === 'candidate'">
-        <div class="flex hidden sm:block">
-          <div class="w-1/3 p-4">
-            <label class="block mt-2">
-              <span class=" font-medium text-gray-800">Rede Social</span>
-              <input
-                v-model="state.socialNetworking.value"
-                :class="{
-              'border-brand-danger': !!state.socialNetworking.errorMessage
-            }"
-                class="block w-full px-1 py-1 mt-1 bg-gray-100 border-1 border-transparent rounded"
-                placeholder="https://www.linkedin.com/in/xantlee"
-                type="url"
-              >
-              <span
-                v-if="!!state.socialNetworking.errorMessage"
-                class="block font-medium text-brand-danger"
-              >
-            {{ state.socialNetworking.errorMessage }}
-          </span>
-            </label>
-          </div>
-          <div class="w-1/3 p-4">
-            <label class="block mt-2">
-              <span class=" font-medium text-gray-800">CEP</span>
-              <input
-                v-mask="'#####-###'"
-                v-model="state.cep.value"
-                :class="{
-              'border-brand-danger': !!state.cep.errorMessage
-            }"
-                class="block w-full px-1 py-1 mt-1 bg-gray-100 border-1 border-transparent rounded"
-                placeholder="78050340"
-                type="text"
-              >
-              <span
-                v-if="!!state.cep.errorMessage"
-                class="block font-medium text-brand-danger"
-              >
-            {{ state.cep.errorMessage }}
-          </span>
-            </label>
-          </div>
-          <div class="w-1/3 p-4">
-            <label class="block mt-2">
-              <span class=" font-medium text-gray-800">Pessoa Com Deficiência</span>
-              <label class="flex items-center mb-4">
-                <input
-                  id="pcd-checkbox"
-                  v-model="state.pcd.value"
-                  :class="{
-                'border-brand-danger': !!state.pcd.errorMessage
-              }"
-                  class="w-4 h-4 mt-2 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                  type="checkbox"
-                  value="true">
-                <label class="ml-2 mt-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                       for="pcd-checkbox">Sim</label>
-              </label>
-            </label>
-          </div>
-        </div>
-        <div class="flex block sm:hidden">
-          <div v-if="state.showSteps.final">
-            <label class="block mt-2">
-              <span class=" font-medium text-gray-800">Rede Social</span>
-              <input
-                v-model="state.socialNetworking.value"
-                :class="{
-              'border-brand-danger': !!state.socialNetworking.errorMessage
-            }"
-                class="block w-full px-1 py-1 mt-1 bg-gray-100 border-1 border-transparent rounded"
-                placeholder="https://www.linkedin.com/in/xantlee"
-                type="url"
-              >
-              <span
-                v-if="!!state.socialNetworking.errorMessage"
-                class="block font-medium text-brand-danger"
-              >
-            {{ state.socialNetworking.errorMessage }}
-          </span>
-            </label>
-            <label class="block mt-2">
-              <span class=" font-medium text-gray-800">CEP</span>
-              <input
-                v-mask="'#####-###'"
-                v-model="state.cep.value"
-                :class="{
-              'border-brand-danger': !!state.cep.errorMessage
-            }"
-                class="block w-full px-1 py-1 mt-1 bg-gray-100 border-1 border-transparent rounded"
-                placeholder="78050-340"
-                type="text"
-              >
-              <span
-                v-if="!!state.cep.errorMessage"
-                class="block font-medium text-brand-danger"
-              >
-            {{ state.cep.errorMessage }}
-          </span>
-            </label>
-            <label class="block mt-2">
-              <span class=" font-medium text-gray-800">Pessoa Com Deficiência</span>
-              <label class="flex items-center mb-4">
-                <input
-                  id="pcd-checkbox"
-                  v-model="state.pcd.value"
-                  :class="{
-                'border-brand-danger': !!state.pcd.errorMessage
-              }"
-                  class="w-4 h-4 mt-2 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                  type="checkbox"
-                  value="true">
-                <label class="ml-2 mt-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                       for="pcd-checkbox">Sim</label>
-              </label>
-            </label>
-            <div class="flex">
-              <div class="flex-wrap p-4">
-                <button
-                  :class="{
-              'opacity-50': state.isLoading
-            }"
-                  :disabled="state.isLoading"
-                  class="px-4 py-1 mt-5 text-2xl font-bold text-white rounded-full bg-brand-main focus:outline-none transition-all duration-150"
-                  type="submit"
-                  @click="state.showSteps.final = false; state.showSteps.three = true">
-                  <icon v-if="state.isLoading" class="animate-spin" name="loading"/>
-                  <span v-else>voltar</span>
-                </button>
-              </div>
-              <div class="flex-wrap p-4">
-                <button
-                  :class="{
-              'opacity-50': state.isLoading
-            }"
-                  :disabled="state.isLoading"
-                  class="px-4 py-1 mt-5 text-2xl font-bold text-white rounded-full bg-brand-main focus:outline-none transition-all duration-150"
-                  type="submit"
-                >
-                  <icon v-if="state.isLoading" class="animate-spin" name="loading"/>
-                  <span v-else>Criar</span>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div v-if="state.role === 'recruiter'">
-        <div class="flex hidden sm:block">
-          <div class="flex flex-wrap">
-            <div class="w-1/2 p-4">
-              <label class="block mt-2">
-                <span class=" font-medium text-gray-800">Registro Profissional</span>
-                <input
-                  v-model="state.professionalRecord.value"
-                  :class="{
-              'border-brand-danger': !!state.professionalRecord.errorMessage
-            }"
-                  class="block w-full px-1 py-1 mt-1 bg-gray-100 border-1 border-transparent rounded"
-                  placeholder="*11111/CRA-MT *22222/CRP-AL"
-                  type="text"
-                >
-                <span
-                  v-if="!!state.professionalRecord.errorMessage"
-                  class="block font-medium text-brand-danger"
-                >
-            {{ state.professionalRecord.errorMessage }}
-          </span>
-              </label>
-            </div>
-            <div class="w-1/2 p-4">
-              <label class="block mt-2">
-                <span class=" font-medium text-gray-800">Apresentação</span>
-                <input
-                  v-model="state.presentation.value"
-                  :class="{
-              'border-brand-danger': !!state.presentation.errorMessage
-            }"
-                  class="block w-full px-1 py-1 mt-1 bg-gray-100 border-1 border-transparent rounded"
-                  placeholder="Xant Lee Consultoria em Tecnologia da Informacao LTDA"
-                  type="text"
-                >
-                <span
-                  v-if="!!state.presentation.errorMessage"
-                  class="block font-medium text-brand-danger"
-                >
-            {{ state.presentation.errorMessage }}
-          </span>
-              </label>
-            </div>
-          </div>
-          <div class="flex flex-wrap">
-            <div class="w-1/2 p-4">
-              <label class="block mt-2">
-                <span class=" font-medium text-gray-800">CNPJ</span>
-                <input
-                  v-mask="'##.###.###/####-##'"
-                  v-model="state.cnpj.value"
-                  :class="{
-              'border-brand-danger': !!state.cnpj.errorMessage
-            }"
-                  class="block w-full px-1 py-1 mt-1 bg-gray-100 border-1 border-transparent rounded"
-                  placeholder="11222333000144"
-                  type="text"
-                >
-                <span
-                  v-if="!!state.cnpj.errorMessage"
-                  class="block font-medium text-brand-danger"
-                >
-            {{ state.cnpj.errorMessage }}
-          </span>
-              </label>
-            </div>
-            <div class="w-1/2 p-4">
-              <label class="block mt-2">
-                <span class=" font-medium text-gray-800">Especialidades</span>
-                <input
-                  v-model="state.specialities.value"
-                  :class="{
-              'border-brand-danger': !!state.specialities.errorMessage
-            }"
-                  class="block w-full px-1 py-1 mt-1 bg-gray-100 border-1 border-transparent rounded"
-                  placeholder="Tecnologia da Informação"
-                  type="text"
-                >
-                <span
-                  v-if="!!state.specialities.errorMessage"
-                  class="block font-medium text-brand-danger"
-                >
-            {{ state.specialities.errorMessage }}
-          </span>
-              </label>
-            </div>
-          </div>
-        </div>
-        <div class="flex block sm:hidden">
-          <div v-if="state.showSteps.final">
-            <label class="block mt-2">
-              <span class=" font-medium text-gray-800">Registro Profissional</span>
-              <input
-                v-model="state.professionalRecord.value"
-                :class="{
-              'border-brand-danger': !!state.professionalRecord.errorMessage
-            }"
-                class="block w-full px-1 py-1 mt-1 bg-gray-100 border-1 border-transparent rounded"
-                placeholder="*11111/CRA-MT *22222/CRP-AL"
-                type="text"
-              >
-              <span
-                v-if="!!state.professionalRecord.errorMessage"
-                class="block font-medium text-brand-danger"
-              >
-            {{ state.professionalRecord.errorMessage }}
-          </span>
-            </label>
-            <label class="block mt-2">
-              <span class=" font-medium text-gray-800">Apresentação</span>
-              <input
-                v-model="state.presentation.value"
-                :class="{
-              'border-brand-danger': !!state.presentation.errorMessage
-            }"
-                class="block w-full px-1 py-1 mt-1 bg-gray-100 border-1 border-transparent rounded"
-                placeholder="Xant Lee Consultoria em Tecnologia da Informacao LTDA"
-                type="text"
-              >
-              <span
-                v-if="!!state.presentation.errorMessage"
-                class="block font-medium text-brand-danger"
-              >
-            {{ state.presentation.errorMessage }}
-          </span>
-            </label>
-            <label class="block mt-2">
-              <span class=" font-medium text-gray-800">CNPJ</span>
-              <input
-                v-mask="'##.###.###/####-##'"
-                v-model="state.cnpj.value"
-                :class="{
-              'border-brand-danger': !!state.cnpj.errorMessage
-            }"
-                class="block w-full px-1 py-1 mt-1 bg-gray-100 border-1 border-transparent rounded"
-                placeholder="11222333000144"
-                type="text"
-              >
-              <span
-                v-if="!!state.cnpj.errorMessage"
-                class="block font-medium text-brand-danger"
-              >
-            {{ state.cnpj.errorMessage }}
-          </span>
-            </label>
-            <label class="block mt-2">
-              <span class=" font-medium text-gray-800">Especialidades</span>
-              <input
-                v-model="state.specialities.value"
-                :class="{
-              'border-brand-danger': !!state.specialities.errorMessage
-            }"
-                class="block w-full px-1 py-1 mt-1 bg-gray-100 border-1 border-transparent rounded"
-                placeholder="Tecnologia da Informação"
-                type="text"
-              >
-              <span
-                v-if="!!state.specialities.errorMessage"
-                class="block font-medium text-brand-danger"
-              >
-            {{ state.specialities.errorMessage }}
-          </span>
-            </label>
-            <div class="flex">
-              <div class="flex-wrap p-4">
-                <button
-                  :class="{
-              'opacity-50': state.isLoading
-            }"
-                  :disabled="state.isLoading"
-                  class="px-4 py-1 mt-5 text-2xl font-bold text-white rounded-full bg-brand-main focus:outline-none transition-all duration-150"
-                  type="submit"
-                  @click="state.showSteps.final = false; state.showSteps.three = true">
-                  <icon v-if="state.isLoading" class="animate-spin" name="loading"/>
-                  <span v-else>voltar</span>
-                </button>
-              </div>
-              <div class="flex-wrap p-4">
-                <button
-                  :class="{
-              'opacity-50': state.isLoading
-            }"
-                  :disabled="state.isLoading"
-                  class="px-4 py-1 mt-5 text-2xl font-bold text-white rounded-full bg-brand-main focus:outline-none transition-all duration-150"
-                  type="submit"
-                >
-                  <icon v-if="state.isLoading" class="animate-spin" name="loading"/>
-                  <span v-else>Criar</span>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div v-if="state.role === 'manager'">
-        <div class="flex hidden sm:block">
-          <div class="flex flex-wrap">
-            <div class="w-1/2 p-4">
-              <label class="block mt-2">
-                <span class=" font-medium text-gray-800">CNPJ da Empresa</span>
-                <input
-                  v-mask="'##.###.###/####-##'"
-                  v-model="state.cnpj.value"
-                  :class="{
-              'border-brand-danger': !!state.cnpj.errorMessage
-            }"
-                  class="block w-full px-1 py-1 mt-1 bg-gray-100 border-1 border-transparent rounded"
-                  placeholder="11222333000144"
-                  type="text"
-                >
-                <span
-                  v-if="!!state.cnpj.errorMessage"
-                  class="block font-medium text-brand-danger"
-                >
-            {{ state.cnpj.errorMessage }}
-          </span>
-              </label>
-            </div>
-            <div class="w-1/2 p-4">
-              <label class="block mt-2">
-                <span class=" font-medium text-gray-800">Razão Social</span>
-                <input
-                  v-model="state.companyName.value"
-                  :class="{
-              'border-brand-danger': !!state.companyName.errorMessage
-            }"
-                  class="block w-full px-1 py-1 mt-1 bg-gray-100 border-1 border-transparent rounded"
-                  placeholder="Xant Lee Consultoria em Tecnologia da Informacao LTDA"
-                  type="text"
-                >
-                <span
-                  v-if="!!state.companyName.errorMessage"
-                  class="block font-medium text-brand-danger"
-                >
-            {{ state.companyName.errorMessage }}
-          </span>
-              </label>
-            </div>
-          </div>
-          <div class="flex flex-wrap">
-            <div class="w-1/2 p-4">
-              <label class="block mt-2">
-                <span class=" font-medium text-gray-800">Nome Fantasia</span>
-                <input
-                  v-model="state.tradingName.value"
-                  :class="{
-              'border-brand-danger': !!state.tradingName.errorMessage
-            }"
-                  class="block w-full px-1 py-1 mt-1 bg-gray-100 border-1 border-transparent rounded"
-                  placeholder="Xant Lee Tech"
-                  type="text"
-                >
-                <span
-                  v-if="!!state.tradingName.errorMessage"
-                  class="block font-medium text-brand-danger"
-                >
-            {{ state.tradingName.errorMessage }}
-          </span>
-              </label>
-            </div>
-            <div class="w-1/2 p-4">
-              <label class="block mt-2">
-                <span class=" font-medium text-gray-800">Area de Atuação</span>
-                <input
-                  v-model="state.operationArea.value"
-                  :class="{
-              'border-brand-danger': !!state.operationArea.errorMessage
-            }"
-                  class="block w-full px-1 py-1 mt-1 bg-gray-100 border-1 border-transparent rounded"
-                  placeholder="Tecnologia da Informação"
-                  type="text"
-                >
-                <span
-                  v-if="!!state.operationArea.errorMessage"
-                  class="block font-medium text-brand-danger"
-                >
-            {{ state.operationArea.errorMessage }}
-          </span>
-              </label>
-            </div>
-          </div>
-        </div>
-        <div class="flex block sm:hidden">
-          <div v-if="state.showSteps.final">
-            <label class="block mt-2">
-              <span class=" font-medium text-gray-800">CNPJ da Empresa</span>
-              <input
-                v-mask="'##.###.###/####-##'"
-                v-model="state.cnpj.value"
-                :class="{
-              'border-brand-danger': !!state.cnpj.errorMessage
-            }"
-                class="block w-full px-1 py-1 mt-1 bg-gray-100 border-1 border-transparent rounded"
-                placeholder="11222333000144"
-                type="text"
-              >
-              <span
-                v-if="!!state.cnpj.errorMessage"
-                class="block font-medium text-brand-danger"
-              >
-            {{ state.cnpj.errorMessage }}
-          </span>
-            </label>
-            <label class="block mt-2">
-              <span class=" font-medium text-gray-800">Razão Social</span>
-              <input
-                v-model="state.companyName.value"
-                :class="{
-              'border-brand-danger': !!state.companyName.errorMessage
-            }"
-                class="block w-full px-1 py-1 mt-1 bg-gray-100 border-1 border-transparent rounded"
-                placeholder="Xant Lee Consultoria em Tecnologia da Informacao LTDA"
-                type="text"
-              >
-              <span
-                v-if="!!state.companyName.errorMessage"
-                class="block font-medium text-brand-danger"
-              >
-            {{ state.companyName.errorMessage }}
-          </span>
-            </label>
-            <label class="block mt-2">
-              <span class=" font-medium text-gray-800">Nome Fantasia</span>
-              <input
-                v-model="state.tradingName.value"
-                :class="{
-              'border-brand-danger': !!state.tradingName.errorMessage
-            }"
-                class="block w-full px-1 py-1 mt-1 bg-gray-100 border-1 border-transparent rounded"
-                placeholder="Xant Lee Tech"
-                type="text"
-              >
-              <span
-                v-if="!!state.tradingName.errorMessage"
-                class="block font-medium text-brand-danger"
-              >
-            {{ state.tradingName.errorMessage }}
-          </span>
-            </label>
-            <label class="block mt-2">
-              <span class=" font-medium text-gray-800">Area de Atuação</span>
-              <input
-                v-model="state.operationArea.value"
-                :class="{
-              'border-brand-danger': !!state.operationArea.errorMessage
-            }"
-                class="block w-full px-1 py-1 mt-1 bg-gray-100 border-1 border-transparent rounded"
-                placeholder="Tecnologia da Informação"
-                type="text"
-              >
-              <span
-                v-if="!!state.operationArea.errorMessage"
-                class="block font-medium text-brand-danger"
-              >
-            {{ state.operationArea.errorMessage }}
-          </span>
-            </label>
-            <div class="flex">
-              <div class="flex-wrap p-4">
-                <button
-                  :class="{
-              'opacity-50': state.isLoading
-            }"
-                  :disabled="state.isLoading"
-                  class="px-4 py-1 mt-5 text-2xl font-bold text-white rounded-full bg-brand-main focus:outline-none transition-all duration-150"
-                  type="submit"
-                  @click="state.showSteps.final = false; state.showSteps.three = true">
-                  <icon v-if="state.isLoading" class="animate-spin" name="loading"/>
-                  <span v-else>voltar</span>
-                </button>
-              </div>
-              <div class="flex-wrap p-4">
-                <button
-                  :class="{
-              'opacity-50': state.isLoading
-            }"
-                  :disabled="state.isLoading"
-                  class="px-4 py-1 mt-5 text-2xl font-bold text-white rounded-full bg-brand-main focus:outline-none transition-all duration-150"
-                  type="submit"
-                >
-                  <icon v-if="state.isLoading" class="animate-spin" name="loading"/>
-                  <span v-else>Criar</span>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="flex">
-        <button
-          :class="{
-              'opacity-50': state.isLoading
-            }"
-          :disabled="state.isLoading"
-          class="hidden sm:block px-4 py-1 mt-5 text-2xl font-bold text-white rounded-full bg-brand-main focus:outline-none transition-all duration-150"
-          type="submit"
-        >
-          <icon v-if="state.isLoading" class="animate-spin" name="loading"/>
-          <span v-else>Criar</span>
-        </button>
-      </div>
     </form>
   </div>
 </template>
 <script>
+import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
+import {fas} from '@fortawesome/free-solid-svg-icons'
+import {library} from '@fortawesome/fontawesome-svg-core'
 import Icon from '@/components/Icon/index.vue'
 import useModal from '@/hooks/useModal'
 import {useToast} from 'vue-toastification'
 import {useField} from 'vee-validate'
 import {
-  validaPassword, validateCnpj, validateCpf,
+  validaPassword,
+  validateCnpj,
+  validateCpf,
   validateEmptyAndEmail,
   validateEmptyAndLength3,
   validateEmptyAndLength5
 } from '@/utils/validators'
 import {reactive} from 'vue'
 import services from '@/services'
-import {getGlobalLoading, setGlobalLoading} from  '@/store/global'
+import {getGlobalLoading, setGlobalLoading} from '@/store/global'
+import BasicUser from "@/components/ModalAccountCreate/User/BasicUser.vue";
+import CreatePassword from "@/components/ModalAccountCreate/User/CreatePassword.vue";
+import ContactUser from "@/components/ModalAccountCreate/User/ContactUser.vue";
+import ProfileChoice from "@/components/ModalAccountCreate/User/ProfileChoice.vue";
+import CandidateMobile from "@/components/ModalAccountCreate/Candidate/CandidateMobile.vue";
+import CandidateDefault from "@/components/ModalAccountCreate/Candidate/CandidateDefault.vue";
+import RecruiterMobile from "@/components/ModalAccountCreate/Recruiter/RecruiterMobile.vue";
+import RecruiterDefault from "@/components/ModalAccountCreate/Recruiter/RecruiterDefault.vue";
+import ManagerDefault from "@/components/ModalAccountCreate/Manager/ManagerDefault.vue";
+import ManagerMobile from "@/components/ModalAccountCreate/Manager/ManagerMobile.vue";
 
+library.add(fas)
 export default {
   components: {
-    Icon
+    ManagerMobile,
+    ManagerDefault,
+    RecruiterDefault,
+    RecruiterMobile,
+    CandidateDefault,
+    CandidateMobile,
+    ProfileChoice,
+    ContactUser,
+    CreatePassword,
+    BasicUser,
+    Icon,
+    FontAwesomeIcon
   },
   setup() {
     const modal = useModal()
@@ -1050,13 +414,26 @@ export default {
 
     const state = reactive({
       showSteps: {
+        default: true,
         one: true,
         two: false,
         three: false,
         four: false,
         five: false,
-        final: false
+        final: false,
+        resume: false,
+        agenda: false
       },
+      companies: [
+        {
+          name: "",
+          office: "",
+          startDate: "",
+          endDate: "",
+          description: "",
+          expanded: ""
+        }
+      ],
       role: '',
       hasErrors: false,
       isLoading: getGlobalLoading(),
@@ -1143,6 +520,17 @@ export default {
       return true
     }
 
+    function adicionarElemento(index) {
+      state.companies.splice(index + 1, 0, {
+        name: "",
+        office: "",
+        startDate: "",
+        endDate: "",
+        description: "",
+        expanded: ""
+      });
+    }
+
     function validaStepOne() {
       if (!state.firstName.value || !state.lastName.value || !state.cpf.value) {
         state.hasErrors = true
@@ -1163,13 +551,33 @@ export default {
       return true
     }
 
-    function validaStepThree(){
+    function validaStepThree() {
       if (!state.role) {
         state.hasErrors = true
         return
       }
       state.showSteps.three = false
       state.showSteps.final = true
+      return true
+    }
+
+    function validaStepResume() {
+      if (!state.role) {
+        state.hasErrors = true
+        return
+      }
+      state.showSteps.default = false
+      state.showSteps.resume = true
+      return true
+    }
+
+    function validaStepAgenda() {
+      if (!state.role) {
+        state.hasErrors = true
+        return
+      }
+      state.showSteps.default = false
+      state.showSteps.agenda = true
       return true
     }
 
@@ -1226,8 +634,8 @@ export default {
         state.hasErrors = false
         if (!errors)
           toast.success('Conta criada!!!')
-          new Promise(resolve => setTimeout(resolve, 5000))
-          modal.close()
+        new Promise(resolve => setTimeout(resolve, 5000))
+        modal.close()
       } else if (state.role === 'recruiter') {
         const {
           errors
@@ -1274,8 +682,8 @@ export default {
         setGlobalLoading(false)
         if (!errors)
           toast.success('Conta criada!!!')
-          new Promise(resolve => setTimeout(resolve, 5000))
-          modal.close()
+        new Promise(resolve => setTimeout(resolve, 5000))
+        modal.close()
       }
     }
 
@@ -1285,7 +693,10 @@ export default {
       handleSubmit,
       validaStepOne,
       validaStepTwo,
-      validaStepThree
+      validaStepThree,
+      validaStepResume,
+      validaStepAgenda,
+      adicionarElemento
     }
   }
 }
