@@ -37,6 +37,46 @@ export default httpClient => ({
       erros: errors
     }
   },
+  registerRecruiter: async ({
+                              username,
+                              firstName,
+                              lastName,
+                              cpf,
+                              phone,
+                              email,
+                              password,
+                              professionalRecord,
+                              presentation,
+                              cnpj,
+                              specialities
+                            }) => {
+    const response = await httpClient.post('/api/recruiters', {
+      username,
+      firstName,
+      lastName,
+      cpf,
+      phone,
+      email,
+      password,
+      professionalRecord,
+      presentation,
+      cnpj,
+      specialities
+    })
+    let errors = null
+
+    if (!response.data) {
+      errors = {
+        status: response.request.status,
+        statusText: response.request.statusText
+      }
+    }
+
+    return {
+      data: response.data,
+      erros: errors
+    }
+  },
   registerManager: async ({
                             username,
                             firstName,
@@ -48,7 +88,7 @@ export default httpClient => ({
                             cnpj,
                             companyName,
                             tradingName,
-                            businessArea
+                            operationArea
                           }) => {
     const response = await httpClient.post('/api/manager', {
       username,
@@ -61,7 +101,7 @@ export default httpClient => ({
       cnpj,
       companyName,
       tradingName,
-      businessArea
+      operationArea
     })
     let errors = null
 

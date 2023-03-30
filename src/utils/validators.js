@@ -1,5 +1,4 @@
-import { cpf, cnpj } from 'cpf-cnpj-validator'
-import cep from 'cep-promise'
+import {cnpj, cpf} from 'cpf-cnpj-validator'
 
 import PasswordValidator from 'password-validator'
 
@@ -53,9 +52,9 @@ export function validaPassword(value) {
     .has().not().spaces()
     .has().symbols().min(2)
 
-  let valida = schema.validate(value, { details: true})
+  let valida = schema.validate(value, {details: true})
 
-  if (valida.length > 0){
+  if (valida.length > 0) {
     return 'A senha deve conter no minimo 8 caracteres, min: 4 numeros e 2 caracter especial'
   }
   return true

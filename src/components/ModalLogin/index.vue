@@ -1,8 +1,8 @@
 <template>
   <div id="modal-login" class="flex justify-between">
-    <h1 class="text-4xl font-black text-gray-800">
+    <h6 class="text-3xl font-black text-gray-800">
       Entre na sua conta
-    </h1>
+    </h6>
 
     <button
       class="text-4xl text-gray-600 focus:outline-none"
@@ -65,20 +65,20 @@
 </template>
 <script>
 
-import { reactive } from 'vue'
+import {reactive} from 'vue'
 import useModal from '@/hooks/useModal'
-import { useField } from 'vee-validate'
-import { useToast } from 'vue-toastification'
+import {useField} from 'vee-validate'
+import {useToast} from 'vue-toastification'
 import Icon from '../Icon'
-import { validateEmptyAndLength3 } from '@/utils/validators'
+import {validateEmptyAndLength3} from '@/utils/validators'
 import services from '@/services'
-import { useRouter } from 'vue-router'
+import {useRouter} from 'vue-router'
 
 export default {
   components: {
     Icon
   },
-  setup () {
+  setup() {
     const modal = useModal()
     const router = useRouter()
     const toast = useToast()
@@ -105,24 +105,23 @@ export default {
       }
     })
 
-    async function handleSubmit () {
+    async function handleSubmit() {
       try {
         toast.clear()
         state.isLoading = true
         const {
-          token,
-          // username,
-          // email,
-          // role,
-          errors
+          data
         } = await services.auth.login({
           username: state.username.value,
           password: state.password.value
         })
 
-        if (!errors) {
-          window.localStorage.setItem('token', token)
-          router.push({ name: 'Calendar' })
+        if (!!data) {
+          window.localStorage.setItem('token', data.token)
+          window.localStorage.setItem('roles', data.roles[0])
+          window.localStorage.setItem('email', data.email)
+          window.localStorage.setItem('id', data.id)
+          await router.push({name: 'Calendar'})
           state.isLoading = false
           modal.close()
           return

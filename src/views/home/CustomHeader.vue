@@ -2,35 +2,41 @@
   <header class="header">
     <div class="header-group">
       <div class="flex items-center justify-between py-10">
-        <div class="w28 lg:w-36">
+        <div class="w26 lg:w-36 md:w-26">
           <img alt="logo" class="w-full" src="../../assets/images/logo_white.png">
         </div>
         <div class="flex">
           <button
-            @click="() => emit('create-account')"
-            class="px-6 py-2 font-bold rounded-full text-white focus:outline-none">
+            class="px-6 py-2 font-bold rounded-full text-white focus:outline-none"
+            @click="() => emit('create-account')">
             Crie uma conta
           </button>
           <button
-            @click="() => emit('login')"
-            class="px-6 py-2 font-bold bg-white rounded-full text-brand-main focus:outline-none">
+            class="px-6 py-2 font-bold bg-white rounded-full text-brand-main focus:outline-none"
+            @click="() => emit('login')">
             Entrar
           </button>
         </div>
       </div>
-      <div class="flex flex-col mt-28">
+      <div id="banner" class="flex flex-col mt-28">
         <h1 class="text-4xl font-black text-white">
-          Tenha um feedback. <br>
-          E faça seus clientes mais <br class="hidden lg:inline-block">
-          felizes!
+          Aumente a eficácia <br>
+          <div style="margin-bottom: 5px;"></div>
+          do seu processo seletivo! <br>
         </h1>
+        <h1 class="text-3xl font-black text-white">
+          <div style="margin-bottom: 20px;"></div>
+          Entrevistas com profissionais <br>
+          ESPECIALIZADOS <br class="hidden lg:inline-block">
+        </h1>
+        <div style="margin-bottom: 20px;"></div>
         <p class="text-lg font-bold text-white">
-          Receba ideias, reclamações e feedbacks com um <br>
-          simples widget na página.
+          Candidato com autonomia para <br> escolherem o melhor horário! <br>
+          E mais economia para sua empresa.
         </p>
         <div>
           <button class="px-6 py-2 mt-10 font-bold bg-white rounded-full text-brand-main focus:outline-none">
-            Crie uma conta grátis
+            Descubra como otimizar suas contratações agora!
           </button>
         </div>
       </div>
@@ -39,8 +45,8 @@
 </template>
 <script>
 export default {
-  setup (_, { emit }) {
-    return { emit }
+  setup(_, {emit}) {
+    return {emit}
   }
 }
 </script>
@@ -55,9 +61,7 @@ export default {
 }
 
 
-
-
-@media (min-width: 800px) {
+@media (min-width: 1078px) {
   .header-group {
     background-image: url("@/assets/images/bg_scenery_home.png");
     background-size: 600px;
