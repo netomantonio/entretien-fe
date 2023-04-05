@@ -2,6 +2,7 @@ import axios from 'axios'
 import AuthService from '@/services/auth'
 import RegisterService from '@/services/register'
 import UserService from '@/services/users'
+import InterviewService from '@/services/interview'
 import {useToast} from 'vue-toastification'
 import {setGlobalLoading} from "@/store/global"
 
@@ -52,5 +53,6 @@ httpClient.interceptors.response.use(
 export default {
   auth: AuthService(httpClient),
   users: UserService(httpClient),
-  register: RegisterService(httpClient)
+  register: RegisterService(httpClient),
+  interview: InterviewService(httpClient)
 }
