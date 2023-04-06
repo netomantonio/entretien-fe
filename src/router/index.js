@@ -5,6 +5,8 @@ const Calendar = () => import('../views/calendar/index.vue')
 
 const Dashboard = () => import('@/views/dashboard/index.vue')
 
+const Interviews = () => import('@/views/interviews/index.vue')
+
 const routes = [
   {
     path: '/',
@@ -23,6 +25,12 @@ const routes = [
     path: '/dashboard',
     name: 'Dashboard',
     component: Dashboard,
+
+  },
+  {
+    path: '/interviews',
+    name: 'Interview',
+    component: Interviews,
 
   },
   {
