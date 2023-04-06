@@ -26,7 +26,7 @@
             <!--            <button class="bg-indigo-600 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer">New-->
             <!--              Report-->
             <!--            </button>-->
-            <button class="bg-indigo-600 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer">
+            <button class="bg-indigo-600 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer" @click="() => handleInterviewCreate()">
               Nova entrevista
             </button>
           </div>
@@ -97,11 +97,29 @@ import 'bootstrap-icons/font/bootstrap-icons.css'
 import HeaderLogged from "@/components/HeaderLogged/index.vue";
 import InterviewListItem from "@/components/InterviewListItem.vue";
 import services from '@/services'
+import ModalInterviewCreate from "@/components/ModalInterviewCreate/index.vue";
+import useModal from "@/hooks/useModal";
 
 export default defineComponent({
   components: {
     HeaderLogged,
-    InterviewListItem
+    InterviewListItem,
+    ModalInterviewCreate
+  },
+  setup() {
+
+    const modal = useModal()
+
+    function handleInterviewCreate() {
+      modal.open({
+        component: 'ModalInterviewCreate'
+      })
+    }
+
+    //
+    return {
+      handleInterviewCreate
+    }
   },
   data: () => ({
     interviews: null
