@@ -2,7 +2,7 @@ import {createApp} from 'vue'
 import Toast, {POSITION} from 'vue-toastification'
 import App from './App.vue'
 // @ts-ignore
-import router from './router/index.js'
+import router from './router'
 // @ts-ignore
 import VueTheMask from 'vue-the-mask'
 // Plugins
