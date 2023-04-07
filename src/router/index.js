@@ -5,6 +5,8 @@ const Calendar = () => import('../views/calendar/index.vue')
 
 const Dashboard = () => import('@/views/dashboard/index.vue')
 
+const Profile = () => import('@/views/profile/index.vue')
+
 const routes = [
   {
     path: '/',
@@ -15,15 +17,24 @@ const routes = [
     path: '/calendar',
     name: 'Calendar',
     component: Calendar,
-    // meta: {
-    //   hasAuth: true
-    // }
+    meta: {
+      hasAuth: true
+    }
   },
   {
     path: '/dashboard',
     name: 'Dashboard',
     component: Dashboard,
-
+    meta: {
+      hasAuth: true
+    }
+  },  {
+    path: '/profile',
+    name: 'Profile',
+    component: Profile,
+    meta: {
+      hasAuth: true
+    }
   },
   {
     path: '/:pathMatch(.*)*',
