@@ -11,271 +11,60 @@
       </button>
     </div>
     <form @submit.prevent="handleSubmit">
-      <div class="flex hidden sm:block">
+      <div class="hidden sm:block">
         <BasicUser :state="state"/>
-        <div v-if="state.role === 'candidate'" class="flex-wrap p-4">
-          <CandidateDefault :state="state"/>
-          <CandidateMobile :state="state"/>
-          <button
-            :class="{
-              'opacity-50': state.isLoading
-            }"
-            :disabled="state.isLoading"
-            class="hidden sm:block px-4 py-1 mt-5 text-2xl font-bold text-white rounded-full bg-brand-main focus:outline-none transition-all duration-150"
-            type="submit"
-          >
-            <icon v-if="state.isLoading" class="animate-spin" name="loading"/>
-            <span v-else>Criar</span>
-          </button>
-        </div>
-        <div v-if="state.role === 'recruiter'" class="flex-wrap p-4">
-          <RecruiterDefault :state="state"/>
-          <RecruiterMobile :state="state"/>
-          <button
-            :class="{
-              'opacity-50': state.isLoading
-            }"
-            :disabled="state.isLoading"
-            class="hidden sm:block px-4 py-1 mt-5 text-2xl font-bold text-white rounded-full bg-brand-main focus:outline-none transition-all duration-150"
-            type="submit"
-          >
-            <icon v-if="state.isLoading" class="animate-spin" name="loading"/>
-            <span v-else>Criar</span>
-          </button>
-        </div>
-        <div v-if="state.role === 'manager'" class="flex-wrap p-4">
-          <ManagerDefault :state="state"/>
-          <ManagerMobile :state="state"/>
-          <button
-            :class="{
-              'opacity-50': state.isLoading
-            }"
-            :disabled="state.isLoading"
-            class="hidden sm:block px-4 py-1 mt-5 text-2xl font-bold text-white rounded-full bg-brand-main focus:outline-none transition-all duration-150"
-            type="submit"
-          >
-            <icon v-if="state.isLoading" class="animate-spin" name="loading"/>
-            <span v-else>Criar</span>
-          </button>
-        </div>
       </div>
       <div class="flex block sm:hidden">
-        <div v-if="state.showSteps.one">
-          <label class="block mt-2">
-            <span class=" font-medium text-gray-800">Primeiro Nome</span>
-            <input
-              v-model="state.firstName.value"
-              :class="{
-                'border-brand-danger': !!state.firstName.errorMessage
-              }"
-              class="block w-full px-1 py-1 mt-1 bg-gray-100 border-1 border-transparent rounded"
-              placeholder="Xant"
-              type="text"
-            >
-            <span
-              v-if="!!state.firstName.errorMessage"
-              class="block font-medium text-brand-danger"
-            >
-            {{ state.firstName.errorMessage }}
-          </span>
-          </label>
-          <label class="block mt-2">
-            <span class=" font-medium text-gray-800">Ultimo Nome</span>
-            <input
-              v-model="state.lastName.value"
-              :class="{
-                'border-brand-danger': !!state.lastName.errorMessage
-              }"
-              class="block w-full px-1 py-1 mt-1 bg-gray-100 border-1 border-transparent rounded"
-              placeholder="Lee"
-              type="text"
-            >
-            <span
-              v-if="!!state.lastName.errorMessage"
-              class="block font-medium text-brand-danger"
-            >
-            {{ state.lastName.errorMessage }}
-          </span>
-          </label>
-          <label class="block mt-2">
-            <span class=" font-medium text-gray-800">CPF</span>
-            <input
-              v-model="state.cpf.value"
-              :class="{
-                'border-brand-danger': !!state.cpf.errorMessage
-              }"
-              class="block w-full px-1 py-1 mt-1 bg-gray-100 border-1 border-transparent rounded"
-              placeholder="11122233344"
-              type="text"
-            >
-            <span
-              v-if="!!state.cpf.errorMessage"
-              class="block font-medium text-brand-danger"
-            >
-            {{ state.cpf.errorMessage }}
-          </span>
-          </label>
-          <button
-            :class="{
+        <BasicUserMobile :state="state" :valida-step-one="validaStepOne" :valida-step-three="validaStepThree"
+                         :valida-step-two="validaStepTwo"/>
+      </div>
+      <div v-if="state.role === 'candidate'">
+        <div class="flex hidden sm:block">
+          <CandidateDefault :state="state"/>
+        </div>
+        <div class="flex block sm:hidden">
+          <div v-if="state.showSteps.final">
+            <CandidateMobile :state="state"/>
+          </div>
+        </div>
+      </div>
+      <div v-if="state.role === 'recruiter'">
+        <div class="flex hidden sm:block">
+          <RecruiterDefault :state="state"/>
+        </div>
+        <div class="flex block sm:hidden">
+          <div v-if="state.showSteps.final">
+            <RecruiterMobile :state="state"/>
+          </div>
+        </div>
+      </div>
+      <div v-if="state.role === 'manager'">
+        <div class="flex hidden sm:block">
+          <ManagerDefault :state="state"/>
+        </div>
+        <div class="flex block sm:hidden">
+          <div v-if="state.showSteps.final">
+            <ManagerMobile :state="state"/>
+          </div>
+        </div>
+      </div>
+      <div class="flex">
+        <button
+          :class="{
               'opacity-50': state.isLoading
             }"
-            :disabled="state.isLoading"
-            class="px-4 py-1 mt-5 text-2xl font-bold text-white rounded-full bg-brand-main focus:outline-none transition-all duration-150"
-            type="submit"
-            @click="validaStepOne">
-            <icon v-if="state.isLoading" class="animate-spin" name="loading"/>
-            <span v-else>Próximo</span>
-          </button>
-        </div>
-        <div v-if="state.showSteps.two">
-          <label class="block mt-2">
-            <span class=" font-medium text-gray-800">Telefone</span>
-            <input
-              v-model="state.phone.value"
-              :class="{
-                'border-brand-danger': !!state.phone.errorMessage
-              }"
-              class="block w-full px-1 py-1 mt-1 bg-gray-100 border-1 border-transparent rounded"
-              placeholder="12999999999"
-              type="tel"
-            >
-            <span
-              v-if="!!state.phone.errorMessage"
-              class="block font-medium text-brand-danger"
-            >
-            {{ state.phone.errorMessage }}
-          </span>
-          </label>
-          <label class="block mt-2">
-            <span class=" font-medium text-gray-800">E-mail</span>
-            <input
-              v-model="state.email.value"
-              :class="{
-                'border-brand-danger': !!state.email.errorMessage
-              }"
-              class="block w-full px-1 py-1 mt-1 bg-gray-100 border-1 border-transparent rounded"
-              placeholder="xant.lee@gmail.com"
-              type="email"
-            >
-            <span
-              v-if="!!state.email.errorMessage"
-              class="block font-medium text-brand-danger"
-            >
-            {{ state.email.errorMessage }}
-          </span>
-          </label>
-          <label class="block mt-2">
-            <span class=" font-medium text-gray-800">Senha</span>
-            <input
-              v-model="state.password.value"
-              :class="{
-                'border-brand-danger': !!state.password.errorMessage
-              }"
-              class="block w-full px-1 py-1 mt-1 bg-gray-100 border-1 border-transparent rounded"
-              placeholder="Azx#32!sEW984@3.!@"
-              type="password"
-            >
-            <span
-              v-if="!!state.password.errorMessage"
-              class="block font-medium text-brand-danger"
-            >
-            {{ state.password.errorMessage }}
-          </span>
-          </label>
-          <label class="block mt-2">
-            <span class=" font-medium text-gray-800">Confirmação</span>
-            <input
-              v-model="state.confirmPassword.value"
-              :class="{
-                'border-brand-danger': !!state.confirmPassword.errorMessage
-              }"
-              class="block w-full px-1 py-1 mt-1 bg-gray-100 border-1 border-transparent rounded"
-              placeholder="Azx#32!sEW984@3.!@"
-              type="password"
-            >
-            <span
-              v-if="!!state.confirmPassword.errorMessage"
-              class="block font-medium text-brand-danger"
-            >
-            {{ state.confirmPassword.errorMessage }}
-          </span>
-          </label>
-          <div class="flex">
-            <div class="flex-wrap p-4">
-              <button
-                :class="{
-                  'opacity-50': state.isLoading
-                }"
-                :disabled="state.isLoading"
-                class="px-4 py-1 mt-5 text-2xl font-bold text-white rounded-full bg-brand-main focus:outline-none transition-all duration-150"
-                type="submit"
-                @click="state.showSteps.one = true; state.showSteps.two = false">
-                <icon v-if="state.isLoading" class="animate-spin" name="loading"/>
-                <span v-else>voltar</span>
-              </button>
-            </div>
-            <div class="flex-wrap p-4">
-              <button
-                :class="{
-                  'opacity-50': state.isLoading
-                }"
-                :disabled="state.isLoading"
-                class="px-4 py-1 mt-5 text-2xl font-bold text-white rounded-full bg-brand-main focus:outline-none transition-all duration-150"
-                type="submit"
-                @click="validaStepTwo">
-                <icon v-if="state.isLoading" class="animate-spin" name="loading"/>
-                <span v-else>Próximo</span>
-              </button>
-            </div>
-          </div>
-        </div>
-        <div v-if="state.showSteps.three">
-          <label class="block mt-2">
-            <span class="font-medium text-gray-800">Perfil</span>
-            <select v-model="state.role"
-                    class="block w-full px-1 py-1 mt-1 bg-gray-100 border-1 border-transparent rounded">
-              <option value="candidate">Candidato</option>
-              <option value="recruiter">Recrutador</option>
-              <option value="manager">Gestor</option>
-            </select>
-          </label>
-          <div class="flex">
-            <div class="flex-wrap p-4">
-              <button
-                :class="{
-                  'opacity-50': state.isLoading
-                }"
-                :disabled="state.isLoading"
-                class="px-4 py-1 mt-5 text-2xl font-bold text-white rounded-full bg-brand-main focus:outline-none transition-all duration-150"
-                type="submit"
-                @click="state.showSteps.three = false; state.showSteps.two = true">
-                <icon v-if="state.isLoading" class="animate-spin" name="loading"/>
-                <span v-else>voltar</span>
-              </button>
-            </div>
-            <div class="flex-wrap p-4">
-              <button
-                :class="{
-                  'opacity-50': state.isLoading
-                }"
-                :disabled="state.isLoading"
-                class="px-4 py-1 mt-5 text-2xl font-bold text-white rounded-full bg-brand-main focus:outline-none transition-all duration-150"
-                type="submit"
-                @click="validaStepThree">
-                <icon v-if="state.isLoading" class="animate-spin" name="loading"/>
-                <span v-else>Próximo</span>
-              </button>
-            </div>
-          </div>
-        </div>
+          :disabled="state.isLoading"
+          class="hidden sm:block px-4 py-1 mt-5 text-2xl font-bold text-white rounded-full bg-brand-main focus:outline-none transition-all duration-150"
+          type="submit"
+        >
+          <icon v-if="state.isLoading" class="animate-spin" name="loading"/>
+          <span v-else>Criar</span>
+        </button>
       </div>
     </form>
   </div>
 </template>
 <script>
-import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
-import {fas} from '@fortawesome/free-solid-svg-icons'
-import {library} from '@fortawesome/fontawesome-svg-core'
 import Icon from '@/components/Icon/index.vue'
 import useModal from '@/hooks/useModal'
 import {useToast} from 'vue-toastification'
@@ -291,32 +80,26 @@ import {
 import {reactive} from 'vue'
 import services from '@/services'
 import {getGlobalLoading, setGlobalLoading} from '@/store/global'
-import BasicUser from "@/components/ModalAccountCreate/User/BasicUser.vue";
-import CreatePassword from "@/components/ModalAccountCreate/User/CreatePassword.vue";
-import ContactUser from "@/components/ModalAccountCreate/User/ContactUser.vue";
-import ProfileChoice from "@/components/ModalAccountCreate/User/ProfileChoice.vue";
-import CandidateMobile from "@/components/ModalAccountCreate/Candidate/CandidateMobile.vue";
+import BasicUser from "@/components/ModalAccountCreate/User/desktop/BasicUser.vue";
+import BasicUserMobile from "@/components/ModalAccountCreate/User/mobile/BasicUserMobile.vue";
 import CandidateDefault from "@/components/ModalAccountCreate/Candidate/CandidateDefault.vue";
-import RecruiterMobile from "@/components/ModalAccountCreate/Recruiter/RecruiterMobile.vue";
+import CandidateMobile from "@/components/ModalAccountCreate/Candidate/CandidateMobile.vue";
 import RecruiterDefault from "@/components/ModalAccountCreate/Recruiter/RecruiterDefault.vue";
+import RecruiterMobile from "@/components/ModalAccountCreate/Recruiter/RecruiterMobile.vue";
 import ManagerDefault from "@/components/ModalAccountCreate/Manager/ManagerDefault.vue";
 import ManagerMobile from "@/components/ModalAccountCreate/Manager/ManagerMobile.vue";
 
-library.add(fas)
 export default {
   components: {
     ManagerMobile,
     ManagerDefault,
-    RecruiterDefault,
     RecruiterMobile,
-    CandidateDefault,
+    RecruiterDefault,
     CandidateMobile,
-    ProfileChoice,
-    ContactUser,
-    CreatePassword,
+    CandidateDefault,
+    BasicUserMobile,
     BasicUser,
-    Icon,
-    FontAwesomeIcon
+    Icon
   },
   setup() {
     const modal = useModal()
@@ -393,9 +176,9 @@ export default {
     } = useField('tradingName', validateEmptyAndLength3)
 
     const {
-      value: operationAreaValue,
-      errorMessage: operationAreaErrorMessage
-    } = useField('operationArea', validateEmptyAndLength3)
+      value: businessAreaValue,
+      errorMessage: businessAreaErrorMessage
+    } = useField('businessArea', validateEmptyAndLength3)
 
 
     const {
@@ -414,26 +197,13 @@ export default {
 
     const state = reactive({
       showSteps: {
-        default: true,
-        one: true,
-        two: false,
+        fingerprint: true,
+        contactAndPassword: false,
         three: false,
         four: false,
         five: false,
-        final: false,
-        resume: false,
-        agenda: false
+        final: false
       },
-      companies: [
-        {
-          name: "",
-          office: "",
-          startDate: "",
-          endDate: "",
-          description: "",
-          expanded: ""
-        }
-      ],
       role: '',
       hasErrors: false,
       isLoading: getGlobalLoading(),
@@ -495,9 +265,9 @@ export default {
         errorMessage: tradingNameErrorMessage
       }
       ,
-      operationArea: {
-        value: operationAreaValue,
-        errorMessage: operationAreaErrorMessage
+      businessArea: {
+        value: businessAreaValue,
+        errorMessage: businessAreaErrorMessage
       },
       professionalRecord: {
         value: professionalRecordValue,
@@ -520,24 +290,13 @@ export default {
       return true
     }
 
-    function adicionarElemento(index) {
-      state.companies.splice(index + 1, 0, {
-        name: "",
-        office: "",
-        startDate: "",
-        endDate: "",
-        description: "",
-        expanded: ""
-      });
-    }
-
     function validaStepOne() {
       if (!state.firstName.value || !state.lastName.value || !state.cpf.value) {
         state.hasErrors = true
         return
       }
-      state.showSteps.one = false
-      state.showSteps.two = true
+      state.showSteps.fingerprint = false
+      state.showSteps.contactAndPassword = true
       return true
     }
 
@@ -546,7 +305,7 @@ export default {
         state.hasErrors = true
         return
       }
-      state.showSteps.two = false
+      state.showSteps.contactAndPassword = false
       state.showSteps.three = true
       return true
     }
@@ -558,26 +317,6 @@ export default {
       }
       state.showSteps.three = false
       state.showSteps.final = true
-      return true
-    }
-
-    function validaStepResume() {
-      if (!state.role) {
-        state.hasErrors = true
-        return
-      }
-      state.showSteps.default = false
-      state.showSteps.resume = true
-      return true
-    }
-
-    function validaStepAgenda() {
-      if (!state.role) {
-        state.hasErrors = true
-        return
-      }
-      state.showSteps.default = false
-      state.showSteps.agenda = true
       return true
     }
 
@@ -596,7 +335,7 @@ export default {
 
       }
       if (state.role === 'manager') {
-        if (!state.cnpj.value || !state.companyName.value || !state.tradingName.value || !state.operationArea.value) {
+        if (!state.cnpj.value || !state.companyName.value || !state.tradingName.value || !state.businessArea.value) {
           state.hasErrors = true
           return
         }
@@ -674,7 +413,8 @@ export default {
           cnpj: state.cnpj.value,
           companyName: state.companyName.value,
           tradingName: state.tradingName.value,
-          operationArea: state.operationArea.value
+          operationArea: state.businessArea.value
+
         })
         if (errors) {
           toast.error('Ocorreu um erro ao criar conta')
@@ -693,10 +433,7 @@ export default {
       handleSubmit,
       validaStepOne,
       validaStepTwo,
-      validaStepThree,
-      validaStepResume,
-      validaStepAgenda,
-      adicionarElemento
+      validaStepThree
     }
   }
 }

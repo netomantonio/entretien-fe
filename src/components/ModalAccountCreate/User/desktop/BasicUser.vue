@@ -11,10 +11,10 @@
   </div>
 </template>
 <script>
-import ContactUser from "@/components/ModalAccountCreate/User/ContactUser.vue";
-import ProfileChoice from "@/components/ModalAccountCreate/User/ProfileChoice.vue";
-import CreatePassword from "@/components/ModalAccountCreate/User/CreatePassword.vue";
-import FingerprintUser from "@/components/ModalAccountCreate/User/FingerprintUser.vue";
+import ContactUser from "@/components/ModalAccountCreate/User/desktop/ContactUser.vue";
+import ProfileChoice from "@/components/ModalAccountCreate/User/desktop/ProfileChoice.vue";
+import CreatePassword from "@/components/ModalAccountCreate/User/desktop/CreatePassword.vue";
+import FingerprintUser from "@/components/ModalAccountCreate/User/desktop/FingerprintUser.vue";
 
 export default {
   name: 'BasicUser',
