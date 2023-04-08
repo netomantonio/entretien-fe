@@ -15,11 +15,6 @@
             </li>
             <li
               class="px-6 py-2 mr-2 font-bold text-white rounded-full cursor-pointer focus:outline-none"
-              @click="() => router.push({ name: 'Scheduling'})">
-              Agendamentos
-            </li>
-            <li
-              class="px-6 py-2 mr-2 font-bold text-white rounded-full cursor-pointer focus:outline-none"
               @click="() => router.push({ name: 'Calendar'})">
               Calendario
             </li>

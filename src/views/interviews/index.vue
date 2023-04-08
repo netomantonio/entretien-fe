@@ -2,7 +2,7 @@
     <Interviews/>
 </template>
 <script>
-import Interviews from "@/components/Interviews.vue";
+import Interviews from "@/components/Interviews/Interviews.vue";
 
 export default {
   components: {

@@ -26,7 +26,7 @@
             <!--            <button class="bg-indigo-600 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer">New-->
             <!--              Report-->
             <!--            </button>-->
-            <button class="bg-indigo-600 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer" @click="() => handleInterviewCreate()">
+            <button class="bg-brand-main px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer" @click="() => handleInterviewCreate()">
               Nova entrevista
             </button>
           </div>
@@ -36,12 +36,11 @@
         <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
           <div class="inline-block min-w-full shadow rounded-lg overflow-hidden">
             <table class="min-w-full leading-normal">
-
               <thead>
               <tr>
                 <th
                   class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                  Candidate
+                  Candidato
                 </th>
                 <th
                   class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
@@ -49,19 +48,19 @@
                 </th>
                 <th
                   class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                  Created at
+                  Data de criação
                 </th>
                 <th
                   class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                   Status
                 </th>
                 <th
-                  class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                  class="border-b-2 border-gray-200 bg-gray-100">
                 </th>
               </tr>
               </thead>
               <tbody>
-              <tr v-for="interview in interviews" v-bind:key="interview.createdAt">
+              <tr v-for="interview in interviews" v-bind:key="interview.id">
                 <InterviewListItem :interview="interview"></InterviewListItem>
               </tr>
               </tbody>
@@ -95,7 +94,7 @@ import {defineComponent} from 'vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-icons/font/bootstrap-icons.css'
 import HeaderLogged from "@/components/HeaderLogged/index.vue";
-import InterviewListItem from "@/components/InterviewListItem.vue";
+import InterviewListItem from "@/components/Interviews/InterviewListItem.vue";
 import services from '@/services'
 import ModalInterviewCreate from "@/components/ModalInterviewCreate/index.vue";
 import useModal from "@/hooks/useModal";
