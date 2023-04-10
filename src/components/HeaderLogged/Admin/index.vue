@@ -31,7 +31,7 @@
           Configurações
         </li>
         <li
-          class="px-6 py-2 font-bold bg-white rounded-full cursos-pointer fucus:outline-none"
+          class="px-6 py-2 font-bold bg-white rounded-full cursos-pointer focus:outline-none"
           @click="handleLogout">
           {{ logoutLabel }}
         </li>
@@ -49,7 +49,7 @@ export default {
     const router = useRouter()
     const logoutLabel = computed(() => {
       const email = window.localStorage.getItem('email')
-      if (!!!email) {
+      if (!email) {
         return '... sair'
       }
       return `${email} (sair)`

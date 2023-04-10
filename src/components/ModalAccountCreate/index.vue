@@ -176,9 +176,9 @@ export default {
     } = useField('tradingName', validateEmptyAndLength3)
 
     const {
-      value: businessAreaValue,
-      errorMessage: businessAreaErrorMessage
-    } = useField('businessArea', validateEmptyAndLength3)
+      value: operationAreaValue,
+      errorMessage: operationAreaErrorMessage
+    } = useField('operationArea', validateEmptyAndLength3)
 
 
     const {
@@ -265,9 +265,9 @@ export default {
         errorMessage: tradingNameErrorMessage
       }
       ,
-      businessArea: {
-        value: businessAreaValue,
-        errorMessage: businessAreaErrorMessage
+      operationArea: {
+        value: operationAreaValue,
+        errorMessage: operationAreaErrorMessage
       },
       professionalRecord: {
         value: professionalRecordValue,
@@ -335,7 +335,7 @@ export default {
 
       }
       if (state.role === 'manager') {
-        if (!state.cnpj.value || !state.companyName.value || !state.tradingName.value || !state.businessArea.value) {
+        if (!state.cnpj.value || !state.companyName.value || !state.tradingName.value || !state.operationArea.value) {
           state.hasErrors = true
           return
         }
@@ -413,8 +413,7 @@ export default {
           cnpj: state.cnpj.value,
           companyName: state.companyName.value,
           tradingName: state.tradingName.value,
-          operationArea: state.businessArea.value
-
+          operationArea: state.operationArea.value
         })
         if (errors) {
           toast.error('Ocorreu um erro ao criar conta')

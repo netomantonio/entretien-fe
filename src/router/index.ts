@@ -16,9 +16,9 @@ const routes = [
     path: '/calendar',
     name: 'Calendar',
     component: Calendar,
-    // meta: {
-    //   hasAuth: true
-    // }
+    meta: {
+      hasAuth: true
+    }
   },
   {
     path: '/profile',
@@ -32,7 +32,16 @@ const routes = [
     path: '/dashboard',
     name: 'Dashboard',
     component: Dashboard,
-
+    meta: {
+      hasAuth: true
+    }
+  },  {
+    path: '/profile',
+    name: 'Profile',
+    component: Profile,
+    meta: {
+      hasAuth: true
+    }
   },
   {
     path: '/:pathMatch(.*)*',
