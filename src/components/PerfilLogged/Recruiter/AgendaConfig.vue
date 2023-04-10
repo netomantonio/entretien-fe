@@ -156,7 +156,7 @@ export default {
       agenda.push(new Schedule(dayOfWeek, startingAt, endingAt))
       const {
         errors
-      } = await services.schedules.registerSchedule({
+      } = await services.schedules.register({
         agenda
       })
       if (errors) {
@@ -181,7 +181,7 @@ export default {
     async function excluir(id) {
       const index = internalState.agendaTable.findIndex(item => item.id === id)
       if (index > -1) {
-        const {errors} = await services.schedules.deleteSchedulesByRecruiter({id: parseInt(id)})
+        const {errors} = await services.schedules.delete({id: parseInt(id)})
         internalState.agendaTable.splice(index, 1);
         if (errors) {
           toast.error('Ocorreu um erro ao deletar horário, tente mais tarde')

@@ -15,7 +15,7 @@ export default httpClient => ({
       erros: errors
     }
   },
-  registerSchedule: async ({
+  register: async ({
                              agenda
                            }) => {
     const response = await httpClient.post('/api/recruiters/schedules', {
@@ -35,7 +35,7 @@ export default httpClient => ({
       erros: errors
     }
   },
-  deleteSchedulesByRecruiter: async ({
+  delete: async ({
                                     id
                                   }) => {
     const response = await httpClient.delete(`/api/recruiters/schedules/${id}`)
