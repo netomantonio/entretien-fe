@@ -115,12 +115,12 @@ export default {
           password: state.password.value
         })
 
-        if (!!data) {
+        if (data) {
           window.localStorage.setItem('token', data.token)
           window.localStorage.setItem('roles', data.roles[0])
           window.localStorage.setItem('email', data.email)
           window.localStorage.setItem('id', data.id)
-          await router.push({name: 'PerfilLogged'})
+          await router.push({name: 'Dashboard'})
           state.isLoading = false
           modal.close()
           return

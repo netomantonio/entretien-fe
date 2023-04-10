@@ -67,19 +67,19 @@
             <label class="block mt-2">
                 <span class=" font-medium text-gray-800">Area de Atuação</span>
                 <input
-                        v-model="state.businessArea.value"
+                        v-model="state.operationArea.value"
                         :class="{
-              'border-brand-danger': !!state.businessArea.errorMessage
+              'border-brand-danger': !!state.operationArea.errorMessage
             }"
                         class="block w-full px-1 py-1 mt-1 bg-gray-100 border-1 border-transparent rounded"
                         placeholder="Tecnologia da Informação"
                         type="text"
                 >
                 <span
-                        v-if="!!state.businessArea.errorMessage"
+                        v-if="!!state.operationArea.errorMessage"
                         class="block font-medium text-brand-danger"
                 >
-            {{ state.businessArea.errorMessage }}
+            {{ state.operationArea.errorMessage }}
           </span>
             </label>
         </div>
