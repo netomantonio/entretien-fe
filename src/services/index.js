@@ -1,6 +1,7 @@
 import axios from 'axios'
 import AuthService from '@/services/auth'
 import RegisterService from '@/services/register'
+import SchedulesService from '@/services/schedules'
 import UserService from '@/services/users'
 import {useToast} from 'vue-toastification'
 import {setGlobalLoading} from "@/store/global"
@@ -9,7 +10,6 @@ const toast = useToast()
 const API_ENVS = {
   production: '',
   development: '',
-  homolog: '',
   local: 'http://localhost:5000'
 }
 
@@ -52,5 +52,6 @@ httpClient.interceptors.response.use(
 export default {
   auth: AuthService(httpClient),
   users: UserService(httpClient),
-  register: RegisterService(httpClient)
+  register: RegisterService(httpClient),
+  schedules: SchedulesService(httpClient)
 }

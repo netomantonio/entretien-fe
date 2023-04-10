@@ -1,11 +1,11 @@
 <!--suppress ALL -->
 <template>
-  <recruiter-user-info :handle-update-info="handleUpdateInfo" :state="state"/>
+<!--  <recruiter-user-info :handle-update-info="handleUpdateInfo" :state="state"/>-->
 
   <agenda-config
     :state="state"
     :handle-agenda-submit="handleAgendaSubmit"
-    :days-of-week="['Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado', 'Domingo']"
+    :agenda="state.agenda"
   />
 
 </template>
@@ -97,7 +97,7 @@ export default {
         five: false,
         final: false,
         resume: false,
-        agenda: false
+        agendaStep: false
       },
       companies: [
         {
@@ -162,19 +162,7 @@ export default {
         prefessionalInfo: false,
         agendaConfig: false
       },
-      agenda: {
-        daysOfWeek: [{'MONDAY': [{startingAt: '', endingAt: ''}]}, {
-          'TUESDAY': [{
-            startingAt: '',
-            endingAt: ''
-          }]
-        }, {'WEDNESDAY': [{startingAt: '', endingAt: ''}]}, {
-          'THURSDAY': [{
-            startingAt: '',
-            endingAt: ''
-          }]
-        }, {'FRIDAY': [{startingAt: '', endingAt: ''}]}]
-      }
+      agenda: []
     })
 
     function addTimeOfTheDay() {

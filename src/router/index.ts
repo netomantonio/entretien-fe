@@ -6,8 +6,6 @@ const Calendar = () => import('../views/calendar/index.vue')
 const Dashboard = () => import('@/views/dashboard/index.vue')
 const Profile = () => import('@/views/profile/index.vue')
 
-const Profile = () => import('@/views/profile/index.vue')
-
 const routes = [
   {
     path: '/',
