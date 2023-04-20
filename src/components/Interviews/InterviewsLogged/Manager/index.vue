@@ -4,17 +4,20 @@
     <!--  List Container  -->
     <div class="p-8 rounded-md w-full">
       <!--   Header   -->
-      <div class="flex items-center justify-between pb-6">
-        <div>
-          <h2 class="text-gray-600 font-semi-bold">Entrevistas</h2>
-        </div>
-        <div class="flex items-center justify-between">
-          <div class="lg:ml-40 ml-10 space-x-8">
-            <button class="bg-brand-main px-4 py-2 rounded-md text-white font-semi-bold tracking-wide cursor-pointer" @click="() => handleInterviewCreate()">
-              Nova entrevista
-            </button>
+
+      <div class="flex items-center justify-between pb-6 w-full">
+        <div class="flex-1">
+          <div>
+            <h2 class="text-gray-600 font-semi-bold">Entrevistas</h2>
           </div>
         </div>
+        <div v-if="!state.mostrarFormulario">
+          <button class="bg-brand-main px-4 py-2 rounded-md text-white font-semi-bold tracking-wide cursor-pointer"
+                  @click="state.mostrarFormulario = true">
+            Nova entrevista
+          </button>
+        </div>
+        <create-new-interview :handle-interview-create="handleInterviewCreate" :state="state" :valide-cpf="valideCpf"/>
       </div>
       <div>
         <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
@@ -44,7 +47,7 @@
               </tr>
               </thead>
               <tbody>
-              <tr v-for="interview in interviews" v-bind:key="interview.id">
+              <tr v-for="interview in state.interviews" v-bind:key="interview.id">
                 <InterviewListItem :interview="interview"></InterviewListItem>
               </tr>
               </tbody>
@@ -57,54 +60,107 @@
 </template>
 
 <script>
-import {defineComponent} from 'vue'
+import {defineComponent, reactive} from 'vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-icons/font/bootstrap-icons.css'
 import HeaderLogged from "@/components/HeaderLogged/index.vue";
 import InterviewListItem from "@/components/Interviews/InterviewsLogged/Manager/InterviewListItem.vue";
 import services from '@/services'
-import ModalInterviewCreate from "@/components/ModalInterviewCreate/index.vue";
-import useModal from "@/hooks/useModal";
+import Icon from "@/components/Icon/index.vue";
+import {getGlobalLoading, setGlobalLoading} from "@/store/global";
+import {useToast} from "vue-toastification";
+import {useField} from "vee-validate";
+import CreateNewInterview from "@/components/Interviews/InterviewsLogged/Manager/CreateNewInterview.vue";
 
 export default defineComponent({
-  components: {
-    HeaderLogged,
-    InterviewListItem,
-    ModalInterviewCreate
-  },
-  setup() {
-
-    const modal = useModal()
-
-    function handleInterviewCreate() {
-      modal.open({
-        component: 'ModalInterviewCreate'
-      })
-    }
-
-    //
-    return {
-      handleInterviewCreate
-    }
-  },
-  data: () => ({
-    interviews: null
-  }),
-  methods: {
-    handleEvents(events) {
-      this.currentEvents = events
+    components: {
+      CreateNewInterview,
+      HeaderLogged,
+      InterviewListItem,
+      Icon
     },
-    async loadInterview() {
-      let data = await services.interview.getInterviewsByManager()
-      return data.data
+    setup() {
+
+      const toast = useToast()
+
+      function valideCpf() {
+        if (!state.cpf.value) {
+          state.hasErrors = true
+          return
+        }
+        return true
+      }
+
+      const {
+        value: cpfValue,
+        errorMessage: cpfErrorMessage
+      } = useField('cpf')
+      // } = useField('cpf', validateCpf)
+
+      const {
+        value: observationValue,
+        errorMessage: observationErrorMessage
+      } = useField('observation')
+      // } = useField('observation', validateInterviewObservation)
+
+      const state = reactive({
+        mostrarFormulario: false,
+        hasErrors: false,
+        interviews: null,
+        isLoading: getGlobalLoading(),
+        cpf: {
+          value: cpfValue,
+          errorMessage: cpfErrorMessage
+        },
+        observation: {
+          value: observationValue,
+          errorMessage: observationErrorMessage
+        }
+      });
+      async function handleInterviewCreate() {
+        toast.clear()
+        // setGlobalLoading(true)
+        if (state.hasErrors) {
+          toast.error('Todos os campos devem estar preenchidos')
+          setGlobalLoading(false)
+        }
+
+        const {
+          errors
+        } = await services.interview.createInterview({
+          cpf: state.cpf.value,
+          observation: state.observation.value
+        })
+        if (errors) {
+          toast.error('Ocorreu um erro ao criar a entrevista')
+        }
+        setGlobalLoading(false)
+        state.hasErrors = false
+        if (!errors)
+          toast.success('Entrevista criada!')
+        new Promise(resolve => setTimeout(resolve, 5000))
+        state.mostrarFormulario = false
+        state.cpf = ""
+        state.observation = ""
+        await loadInterview()
+      }
+
+      async function loadInterview() {
+        const {data} = await services.interview.getInterviewsByManager()
+        state.interviews = data
+      }
+
+
+      loadInterview()
+
+      //
+      return {
+        handleInterviewCreate,
+        state,
+        valideCpf
+      }
     }
-  },
-  mounted() {
-    this.loadInterview()
-      .then(value => {
-        this.interviews = value
-      })
   }
-})
+)
 
 </script>
