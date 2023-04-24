@@ -29,7 +29,7 @@ const routes = [
   },
   {
     path: '/interviews',
-    name: 'Interview',
+    name: 'Interviews',
     component: Interviews,
 
   },
