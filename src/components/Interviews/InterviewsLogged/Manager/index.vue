@@ -44,11 +44,14 @@
                 <th
                   class="border-b-2 border-gray-200 bg-gray-100">
                 </th>
+                <th
+                  class="border-b-2 border-gray-200 bg-gray-100">
+                </th>
               </tr>
               </thead>
               <tbody>
               <tr v-for="interview in state.interviews" v-bind:key="interview.id">
-                <InterviewListItem :interview="interview"></InterviewListItem>
+                <InterviewListItem :interview="interview" @delete="handleDelete"></InterviewListItem>
               </tr>
               </tbody>
             </table>
@@ -151,11 +154,30 @@ export default defineComponent({
       }
 
 
+      async function handleDelete(id){
+        toast.clear()
+        const {
+          errors
+        } = await services.interview.deleteInterview({
+          id
+        })
+        if (errors) {
+          toast.error('Ocorreu um erro ao deletar a entrevista')
+        }
+        setGlobalLoading(false)
+        state.hasErrors = false
+        if (!errors)
+          toast.success('Entrevista excluída!')
+        new Promise(resolve => setTimeout(resolve, 5000))
+        await loadInterview()
+      }
+
       loadInterview()
 
       //
       return {
         handleInterviewCreate,
+        handleDelete,
         state,
         valideCpf
       }
