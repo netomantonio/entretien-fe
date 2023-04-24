@@ -140,8 +140,8 @@ export default defineComponent({
           toast.success('Entrevista criada!')
         new Promise(resolve => setTimeout(resolve, 5000))
         state.mostrarFormulario = false
-        state.cpf = ""
-        state.observation = ""
+        state.cpf.value = ""
+        state.observation.value = ""
         await loadInterview()
       }
 
