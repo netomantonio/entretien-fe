@@ -28,9 +28,14 @@
       <span class="relative m-auto">{{ getInterviewStatus }}</span>
     </span>
   </td>
-  <td class="td-container ">
+  <td class="td-container-icon">
     <p class="text-gray-900 whitespace-no-wrap m-auto">
       <font-awesome-icon icon="pen-to-square" class="text-brand-main action-icon"/>
+    </p>
+  </td>
+  <td class="td-container-icon">
+    <p v-if="canDelete()" @click="$emit('delete', this.interview.id)" class="text-gray-900 whitespace-no-wrap m-auto">
+      <font-awesome-icon icon="trash" class="text-brand-main action-icon"/>
     </p>
   </td>
 </template>
@@ -77,6 +82,17 @@ export default defineComponent({
           return 'gray'
       }
     }
+  },
+  methods: {
+    canDelete(){
+      switch (InterviewStatus[this.interview.interviewStatus]) {
+        case InterviewStatus.TO_BE_SCHEDULE:
+        case InterviewStatus.WAITING_CANDIDATE_REGISTRATION:
+          return true
+        default:
+          return false
+      }
+    }
   }
 })
 </script>
@@ -84,6 +100,17 @@ export default defineComponent({
 <style scoped>
 .td-container {
   padding: 1rem 3rem;
+  --bs-bg-opacity: 1;
+  background-color: rgba(var(--bs-white-rgb), var(--bs-bg-opacity));
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  --tw-border-opacity: 1;
+  border-color: rgba(229, 231, 235, var(--tw-border-opacity));
+  border-bottom-width: 1px;
+}
+
+.td-container-icon {
+  padding: 1rem 1rem;
   --bs-bg-opacity: 1;
   background-color: rgba(var(--bs-white-rgb), var(--bs-bg-opacity));
   font-size: 0.875rem;
