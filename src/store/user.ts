@@ -10,10 +10,6 @@ export function cleanCurrentUser() {
   state.currentUser = {}
 }
 
-export function setCurrentUser(user) {
+export function setCurrentUser(user: any) {
   state.currentUser = user
-}
-
-export function setApiKey(apiKey) {
-  state.currentUser = {...state.currentUser, apiKey}
 }

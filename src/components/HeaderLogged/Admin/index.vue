@@ -49,7 +49,7 @@ export default {
     const router = useRouter()
     const logoutLabel = computed(() => {
       const email = window.localStorage.getItem('email')
-      if (!!!email) {
+      if (!email) {
         return '... sair'
       }
       return `${email} (sair)`

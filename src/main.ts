@@ -6,7 +6,7 @@ import {library} from '@fortawesome/fontawesome-svg-core'
 import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
 import { faUser, faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 // @ts-ignore
-import router from './router/index.js'
+import router from './router'
 // @ts-ignore
 import VueTheMask from 'vue-the-mask'
 // Plugins
