@@ -31,7 +31,7 @@
         </h1>
         <div style="margin-bottom: 20px;"></div>
         <p class="text-lg font-bold text-white">
-          Candidato com autonomia para <br> escolherem o melhor horário! <br>
+          Candidato com autonomia para <br> escolher o melhor horário! <br>
           E mais economia para sua empresa.
         </p>
         <div>

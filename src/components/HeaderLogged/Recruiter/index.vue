@@ -20,15 +20,17 @@
         <li
           class="px-6 py-2 mr-2 font-bold text-white rounded-full cursor-pointer focus:outline-none"
           @click="() => router.push({ name: 'Calendar'})">
-          Calendario
+          Calendário
         </li>
         <li
           class="px-6 py-2 mr-2 font-bold text-white rounded-full cursor-pointer focus:outline-none"
           @click="() => router.push({ name: 'Profile'})">
           Perfil
         </li>
-        <li class="px-6 py-2 font-bold bg-white rounded-full cursos-pointer focus:outline-none">
-          <span class="text-sm" @click="handleLogout">{{ logoutLabel }}</span>
+        <li
+          class="px-6 py-2 font-bold bg-white rounded-full cursor-pointer focus:outline-none"
+          @click="handleLogout">
+          {{ logoutLabel }}
         </li>
       </ul>
     </div>
