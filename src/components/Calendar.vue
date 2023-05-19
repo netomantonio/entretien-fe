@@ -6,8 +6,7 @@
     <div class='demo-app-main'>
       <FullCalendar
         :options='calendarOptions'
-        class='demo-app-calendar'
-      >
+        class='demo-app-calendar'>
         <template v-slot:eventContent='arg'>
           <b>{{ arg.timeText }}</b>
           <i>{{ arg.event.title }}</i>
@@ -17,8 +16,8 @@
   </div>
 </template>
 
-<script>
-import {defineComponent} from 'vue'
+<script setup>
+import {ref} from 'vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-icons/font/bootstrap-icons.css'
 import FullCalendar from '@fullcalendar/vue3'
@@ -29,119 +28,108 @@ import {createEventId} from '@/event-utils'
 import ptBrLocale from '@fullcalendar/core/locales/pt-br'
 import bootstrap5Plugin from '@fullcalendar/bootstrap5'
 import HeaderLogged from "@/components/HeaderLogged/index.vue";
-// import {Calendar} from "@fullcalendar/core"
+import services from '@/services'
+import {DayOfTheWeek} from "@/models/dayOfTheWeek";
 
-export default defineComponent({
-  components: {
-    FullCalendar,
-    HeaderLogged
+let calendarOptions = {
+  plugins: [
+    dayGridPlugin,
+    timeGridPlugin,
+    interactionPlugin, // needed for dateClick
+    bootstrap5Plugin,
+  ],
+  headerToolbar: {
+    left: 'prev,next today',
+    center: 'title',
+    right: ''
   },
-  data() {
-
-    return {
-      calendarOptions: {
-        plugins: [
-          dayGridPlugin,
-          timeGridPlugin,
-          interactionPlugin,// needed for dateClick
-          bootstrap5Plugin,
-        ],
-        headerToolbar: {
-          left: 'prev,next today',
-          center: 'title',
-          right: ''
-        },
-        initialView: 'timeGridWeek',
-        // initialEvents: INITIAL_EVENTS, // alternatively, use the `events` setting to fetch from a feed
-        editable: true,
-        selectable: true,
-        selectMirror: true,
-        dayMaxEvents: true,
-        weekends: true,
-        select: this.handleDateSelect,
-        eventClick: this.handleEventClick,
-        eventsSet: this.handleEvents,
-        themeSystem: 'bootstrap5',
-        locale: ptBrLocale,
-        // datesSet
-        //  // you can update a remote database when these fire:
-        // eventAdd: {},
-        // eventChange: {},
-        // eventRemove: {}
-      },
-      currentEvents: [],
-    }
-  },
-  methods: {
-    handleDateSelect(selectInfo) {
-      let title = prompt('Please enter a new title for your event')
-      let calendarApi = selectInfo.view.calendar
-
-      calendarApi.unselect() // clear date selection
-
-
-      if (title) {
-        calendarApi.addEvent({
-          id: createEventId(),
-          title,
-          start: selectInfo.startStr,
-          end: selectInfo.endStr,
-          allDay: selectInfo.allDay
-        })
+  initialView: 'timeGridWeek',
+  eventMinHeight: 60,
+  // initialEvents: INITIAL_EVENTS, // alternatively, use the `events` setting to fetch from a feed
+  editable: false,
+  selectable: true,
+  selectMirror: true,
+  dayMaxEvents: true,
+  weekends: true,
+  select: handleDateSelect,
+  eventClick: handleEventClick,
+  eventsSet: handleEvents,
+  themeSystem: 'bootstrap5',
+  locale: ptBrLocale,
+  events: function (info, successCallback, failureCallback) {
+    services.schedules.getAllAvailableSchedules(
+      `${info.start.getUTCFullYear()}-${String(info.start.getUTCMonth() + 1).padStart(2, '0')}-${info.start.getUTCDate()}`,
+      `${info.end.getUTCFullYear()}-${String(info.end.getUTCMonth() + 1).padStart(2, '0')}-${info.end.getUTCDate()}`
+    ).then(({data, erros}) => {
+      if(erros)
+        failureCallback(erros)
+      else {
+        console.log("data", data)
+        successCallback(data.map(value => ({
+          daysOfWeek: [DayOfTheWeek[value.dayOfTheWeek].toString()],
+          startTime: value.startingAt,
+          endTime: value.endingAt,
+        })))
       }
-    },
-    handleEventClick(clickInfo) {
-      if (confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
-        clickInfo.event.remove()
-      }
-    },
-    handleEvents(events) {
-      this.currentEvents = events
-    },
+    })
   }
-})
+  // datesSet
+  //  // you can update a remote database when these fire:
+  // eventAdd: {},
+  // eventChange: {},
+  // eventRemove: {}
+}
+
+function handleDateSelect(selectInfo) {
+  let title = prompt('Please enter a new title for your event')
+  let calendarApi = selectInfo.view.calendar
+  calendarApi.unselect() // clear date selection
+
+  if (title) {
+    calendarApi.addEvent({
+      id: createEventId(),
+      title,
+      start: selectInfo.startStr,
+      end: selectInfo.endStr,
+      allDay: selectInfo.allDay
+    })
+  }
+}
+
+function handleEventClick(clickInfo) {
+  if (confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
+    clickInfo.event.remove()
+  }
+}
+
+function handleEvents(events) {
+  this.currentEvents = events
+}
+
+async function loadAvailableSchedules(to, from) {
+  console.log("loadAvailableSchedules")
+  const {data} = await services.schedules.getAllSchedules(to, from)
+  return data.map(value => ({
+    daysOfWeek: [DayOfTheWeek[value.dayOfTheWeek].toString()],
+    startTime: value.startingAt,
+    endTime: value.endingAt,
+  }))
+}
+
+function addNewEvent(event) {
+  calendarOptions.events = [...calendarOptions.events, event]
+  console.log('calendarOptions.events', calendarOptions.events)
+}
+
+function btnTest() {
+  console.log('btnTest')
+  const example = {title: 'event 3', start: '2023-05-17'}
+  addNewEvent(example)
+}
+
+
+function createEvents(list) {
+
+}
 
 </script>
-
-<!--<style lang='css'>-->
-
-<!--.demo-app {-->
-<!--  display: flex;-->
-<!--  min-height: 100%;-->
-<!--  font-family: Arial, Helvetica Neue, Helvetica, sans-serif;-->
-<!--  font-size: 14px;-->
-<!--}-->
-
-<!--.demo-app-main {-->
-<!--  flex-grow: 1;-->
-<!--  padding: 3em;-->
-<!--}-->
-
-
-<!--/*.btn-primary {*/-->
-<!--/*  &#45;&#45;bs-btn-bg: #030303;*/-->
-<!--/*}*/-->
-
-<!--:root { /* the calendar root */-->
-<!--  max-width: 1100px;-->
-<!--  margin: 0 auto;-->
-<!--  &#45;&#45;fc-small-font-size: .85em;-->
-<!--  &#45;&#45;fc-neutral-bg-color: rgba(234, 5, 5);-->
-
-<!--  &#45;&#45;fc-border-color: #1aff00;-->
-
-<!--  &#45;&#45;fc-button-text-color: #000d59;-->
-<!--  &#45;&#45;fc-button-bg-color: #ff7300;-->
-<!--  &#45;&#45;fc-button-border-color: #ff9346;-->
-<!--  &#45;&#45;fc-button-hover-bg-color: #a1c9fa;-->
-<!--  &#45;&#45;fc-button-hover-border-color: #118fff;-->
-<!--  &#45;&#45;fc-button-active-bg-color: #cb76fd;-->
-<!--  &#45;&#45;fc-button-active-border-color: #8b2df8;-->
-
-<!--  &#45;&#45;fc-event-bg-color: rgba(55, 136, 216, 0.40);-->
-<!--  &#45;&#45;fc-event-border-color: #d83744;-->
-<!--  &#45;&#45;fc-event-text-color: #fff;-->
-<!--}-->
-
-
-<!--</style>-->
