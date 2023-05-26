@@ -17,7 +17,6 @@
 </template>
 
 <script setup>
-import {ref} from 'vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-icons/font/bootstrap-icons.css'
 import FullCalendar from '@fullcalendar/vue3'
@@ -30,6 +29,30 @@ import bootstrap5Plugin from '@fullcalendar/bootstrap5'
 import HeaderLogged from "@/components/HeaderLogged/index.vue";
 import services from '@/services'
 import {DayOfTheWeek} from "@/models/dayOfTheWeek";
+import { useRoute } from "vue-router";
+import {setGlobalLoading} from "@/store/global";
+import {useToast} from "vue-toastification";
+
+const route = useRoute();
+const toast = useToast()
+
+function getSchedules (info, successCallback, failureCallback) {
+  services.schedules.getAllAvailableSchedules(
+    `${info.start.getUTCFullYear()}-${String(info.start.getUTCMonth() + 1).padStart(2, '0')}-${info.start.getUTCDate()}`,
+    `${info.end.getUTCFullYear()}-${String(info.end.getUTCMonth() + 1).padStart(2, '0')}-${info.end.getUTCDate()}`
+  ).then(({data, erros}) => {
+    if(erros)
+      failureCallback(erros)
+    else {
+      successCallback(data.map(value => ({
+        id: value.id,
+        daysOfWeek: [DayOfTheWeek[value.dayOfTheWeek].toString()],
+        startTime: value.startingAt,
+        endTime: value.endingAt,
+      })))
+    }
+  })
+}
 
 let calendarOptions = {
   plugins: [
@@ -51,28 +74,13 @@ let calendarOptions = {
   selectMirror: true,
   dayMaxEvents: true,
   weekends: true,
-  select: handleDateSelect,
-  eventClick: handleEventClick,
+  // select: handleDateSelect,
+  eventClick: handleInterviewSchedule,
   eventsSet: handleEvents,
   themeSystem: 'bootstrap5',
   locale: ptBrLocale,
-  events: function (info, successCallback, failureCallback) {
-    services.schedules.getAllAvailableSchedules(
-      `${info.start.getUTCFullYear()}-${String(info.start.getUTCMonth() + 1).padStart(2, '0')}-${info.start.getUTCDate()}`,
-      `${info.end.getUTCFullYear()}-${String(info.end.getUTCMonth() + 1).padStart(2, '0')}-${info.end.getUTCDate()}`
-    ).then(({data, erros}) => {
-      if(erros)
-        failureCallback(erros)
-      else {
-        console.log("data", data)
-        successCallback(data.map(value => ({
-          daysOfWeek: [DayOfTheWeek[value.dayOfTheWeek].toString()],
-          startTime: value.startingAt,
-          endTime: value.endingAt,
-        })))
-      }
-    })
-  }
+  events: getSchedules
+
   // datesSet
   //  // you can update a remote database when these fire:
   // eventAdd: {},
@@ -96,9 +104,23 @@ function handleDateSelect(selectInfo) {
   }
 }
 
-function handleEventClick(clickInfo) {
-  if (confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
-    clickInfo.event.remove()
+async function handleInterviewSchedule(clickInfo) {
+  if (confirm(`Confirmar seleção de horário?`)) {
+    const interviewId = route.params.id
+    const scheduleId = clickInfo.event.id
+    const date = clickInfo.event.startStr.split("T")[0]
+
+    const {
+      errors
+    } = await commitInterview(interviewId, scheduleId, date)
+    if (errors) {
+      toast.error('Ocorreu um erro ao agendar a entrevista')
+    }
+    setGlobalLoading(false)
+    if (!errors)
+      toast.success('Entrevista agendada!')
+    new Promise(resolve => setTimeout(resolve, 5000))
+    getSchedules()
   }
 }
 
@@ -106,30 +128,10 @@ function handleEvents(events) {
   this.currentEvents = events
 }
 
-async function loadAvailableSchedules(to, from) {
-  console.log("loadAvailableSchedules")
-  const {data} = await services.schedules.getAllSchedules(to, from)
-  return data.map(value => ({
-    daysOfWeek: [DayOfTheWeek[value.dayOfTheWeek].toString()],
-    startTime: value.startingAt,
-    endTime: value.endingAt,
-  }))
-}
-
-function addNewEvent(event) {
-  calendarOptions.events = [...calendarOptions.events, event]
-  console.log('calendarOptions.events', calendarOptions.events)
-}
-
-function btnTest() {
-  console.log('btnTest')
-  const example = {title: 'event 3', start: '2023-05-17'}
-  addNewEvent(example)
+async function commitInterview(interviewId, scheduleId, date) {
+  return await services.interview.commitInterview({interviewId, scheduleId, date})
 }
 
 
-function createEvents(list) {
-
-}
 
 </script>
