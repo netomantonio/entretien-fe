@@ -8,6 +8,8 @@ const Profile = () => import('@/views/profile/index.vue')
 
 const Interviews = () => import('@/views/interviews/index.vue')
 
+const Schedules = () => import('@/views/schedules/index.vue')
+
 const routes = [
   {
     path: '/',
@@ -49,7 +51,15 @@ const routes = [
     path: '/interviews',
     name: 'Interviews',
     component: Interviews,
-
+  },
+  {
+    path: '/schedules/:id',
+    name: 'Schedules',
+    component: Schedules,
+    props: true,
+    meta: {
+      hasAuth: true
+    }
   },
   {
     path: '/:pathMatch(.*)*',

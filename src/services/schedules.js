@@ -1,7 +1,7 @@
 export default httpClient => ({
   getSchedulesByRecruiter: async ({
-    id
-  }) => {
+                                    id
+                                  }) => {
     const response = await httpClient.get(`/api/recruiters/schedules/${id}`)
     let errors = null
     if (!response.data) {
@@ -16,8 +16,8 @@ export default httpClient => ({
     }
   },
   register: async ({
-                             agenda
-                           }) => {
+                     agenda
+                   }) => {
     const response = await httpClient.post('/api/recruiters/schedules', {
       agenda
     })
@@ -36,8 +36,8 @@ export default httpClient => ({
     }
   },
   delete: async ({
-                                    id
-                                  }) => {
+                   id
+                 }) => {
     const response = await httpClient.delete(`/api/recruiters/schedules/${id}`)
     let errors = null
     if (!response.data) {
@@ -50,5 +50,23 @@ export default httpClient => ({
       data: response.data,
       erros: errors
     }
+  },
+  getAllAvailableSchedules: async (
+    from, to
+  ) => {
+    const response = await httpClient.get(`/api/schedules/period`, {params: {from, to}})
+    let errors = null
+    if (!response.data) {
+      errors = {
+        status: response.request.status,
+        statusText: response.request.statusText
+      }
+    }
+    return {
+      data: response.data,
+      erros: errors
+    }
   }
+
+
 })
