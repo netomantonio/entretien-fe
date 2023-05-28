@@ -1,7 +1,7 @@
  enum InterviewStatus {
    WAITING_CANDIDATE = 'Aguardando candidato',
    WAITING_CANDIDATE_REGISTRATION = 'Aguardando registro do candidato',
-   TO_BE_SCHEDULE = 'Agurdando agendamento',
+   TO_BE_SCHEDULE = 'Aguardando agendamento',
    SCHEDULE = 'Agendada',
    IN_PROGRESS = 'Em andamento',
    ABSENT_CANDIDATE = 'Candidato ausente',
