@@ -152,8 +152,7 @@ export default {
     }
 
     async function addSchedule(dayOfWeek, startingAt, endingAt) {
-      const agenda = []
-      agenda.push(new Schedule(dayOfWeek, startingAt, endingAt))
+      const agenda = new Schedule(dayOfWeek, startingAt, endingAt)
       const {
         errors
       } = await services.schedules.register({
