@@ -8,16 +8,16 @@
         <li
           class="px-6 py-2 mr-2 font-bold text-white rounded-full cursor-pointer focus:outline-none"
           @click="() => router.push({ name: 'Curriculum'})">
-          Curriculo
+          Currículo
         </li>
         <li
           class="px-6 py-2 mr-2 font-bold text-white rounded-full cursor-pointer focus:outline-none"
-          @click="() => router.push({ name: 'Interview'})">
+          @click="() => router.push({ name: 'Interviews'})">
           Entrevistas
         </li>
         <li
           class="px-6 py-2 mr-2 font-bold text-white rounded-full cursor-pointer focus:outline-none"
-          @click="() => router.push({ name: 'Scheduling'})">
+          @click="() => router.push({ name: 'Schedules'})">
           Agendamentos
         </li>
         <li
@@ -27,7 +27,7 @@
         </li>
         <li
           class="px-6 py-2 mr-2 font-bold text-white rounded-full cursor-pointer focus:outline-none"
-          @click="() => router.push({ name: 'Perfil'})">
+          @click="() => router.push({ name: 'Profile'})">
           Perfil
         </li>
         <li
