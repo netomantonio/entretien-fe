@@ -34,7 +34,7 @@ const DEFAULT_WIDTH = 'w-90%'
 export default {
   components: {
     ModalLogin,
-    ModalAccountCreate
+    ModalAccountCreate,
   },
   setup() {
     const modal = useModal()
