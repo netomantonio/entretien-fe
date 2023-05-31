@@ -3,7 +3,6 @@
     <h6 class="text-3xl font-black text-gray-800">
       Entre na sua conta
     </h6>
-
     <button
       class="text-4xl text-gray-600 focus:outline-none"
       @click="close">
@@ -116,12 +115,12 @@ export default {
           password: state.password.value
         })
 
-        if (!!data) {
+        if (data) {
           window.localStorage.setItem('token', data.token)
           window.localStorage.setItem('roles', data.roles[0])
           window.localStorage.setItem('email', data.email)
           window.localStorage.setItem('id', data.id)
-          await router.push({name: 'Calendar'})
+          await router.push({name: 'Dashboard'})
           state.isLoading = false
           modal.close()
           return

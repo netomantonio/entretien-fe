@@ -7,7 +7,7 @@
       <ul class="flex list-none">
         <li
           class="px-6 py-2 mr-2 font-bold text-white rounded-full cursor-pointer focus:outline-none"
-          @click="() => router.push({ name: 'Interview'})">
+          @click="() => router.push({ name: 'Interviews'})">
           Entrevistas
         </li>
         <li
@@ -18,15 +18,15 @@
         <li
           class="px-6 py-2 mr-2 font-bold text-white rounded-full cursor-pointer focus:outline-none"
           @click="() => router.push({ name: 'Calendar'})">
-          Calendario
+          Calendário
         </li>
         <li
           class="px-6 py-2 mr-2 font-bold text-white rounded-full cursor-pointer focus:outline-none"
-          @click="() => router.push({ name: 'Perfil'})">
+          @click="() => router.push({ name: 'Profile'})">
           Perfil
         </li>
         <li
-          class="px-6 py-2 font-bold bg-white rounded-full cursos-pointer fucus:outline-none"
+          class="px-6 py-2 font-bold bg-white rounded-full cursos-pointer focus:outline-none"
           @click="handleLogout">
           {{ logoutLabel }}
         </li>
@@ -44,7 +44,7 @@ export default {
     const router = useRouter()
     const logoutLabel = computed(() => {
       const email = window.localStorage.getItem('email')
-      if (!!!email) {
+      if (!email) {
         return '... sair'
       }
       return `${email} (sair)`

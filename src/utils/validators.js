@@ -14,6 +14,18 @@ export function validateEmptyAndLength3(value) {
   return true
 }
 
+export function validateInterviewObservation(value) {
+  if (!value) {
+    return '*Este campo é obrigatório'
+  }
+
+  if (value.length < 240) {
+    return '*Este campo precisa de no mínimo 240 caracteres'
+  }
+
+  return true
+}
+
 export function validateEmptyAndEmail(value) {
   if (!value) {
     return '*Este campo é obrigatório'
