@@ -85,8 +85,8 @@ let calendarOptions = {
 
 function getSchedules(info, successCallback, failureCallback) {
   services.schedules.getAllAvailableSchedules(
-    `${info.start.getUTCFullYear()}-${String(info.start.getUTCMonth() + 1).padStart(2, '0')}-${info.start.getUTCDate()}`,
-    `${info.end.getUTCFullYear()}-${String(info.end.getUTCMonth() + 1).padStart(2, '0')}-${info.end.getUTCDate()}`
+    `${info.start.getUTCFullYear()}-${String(info.start.getUTCMonth() + 1).padStart(2, '0')}-${String(info.start.getUTCDate()).padStart(2, '0')}`,
+    `${info.end.getUTCFullYear()}-${String(info.end.getUTCMonth() + 1).padStart(2, '0')}-${String(info.end.getUTCDate()).padStart(2, '0')}`
   ).then(({data, erros}) => {
     if (erros)
       failureCallback(erros)
@@ -130,7 +130,7 @@ async function commitInterview(interviewId, scheduleId, date) {
 }
 
 </script>
-<style>
+<style scoped>
 
 .container {
   height: 100px; /* Defina a altura do contêiner pai */
