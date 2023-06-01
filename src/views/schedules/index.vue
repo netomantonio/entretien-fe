@@ -86,7 +86,7 @@ let calendarOptions = {
 function getSchedules(info, successCallback, failureCallback) {
   services.schedules.getAllAvailableSchedules(
     `${info.start.getUTCFullYear()}-${String(info.start.getUTCMonth() + 1).padStart(2, '0')}-${String(info.start.getUTCDate()).padStart(2, '0')}`,
-    `${info.end.getUTCFullYear()}-${String(info.end.getUTCMonth() + 1).padStart(2, '0')}-${String(info.end.getUTCDate()).padStart(2, '0')}`
+    `${info.end.getUTCFullYear()}-${String(info.end.getUTCMonth() + 1).padStart(2, '0')}-${String(info.end.getUTCDate() - 1).padStart(2, '0')}`
   ).then(({data, erros}) => {
     if (erros)
       failureCallback(erros)
