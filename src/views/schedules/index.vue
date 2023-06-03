@@ -2,13 +2,13 @@
   <div class="flex justify-center w-full h-28 bg-brand-main">
     <header-logged/>
   </div>
-  <div class='container full-calendar mt-50 mb-100'>
-    <h2 class="text-gray-600 font-semi-bold mt-10 mb-5">
+  <div class="container py-5">
+    <h2 class=" text-gray-600 font-semi-bold">
       Selecione um horário disponível para agendar a entrevista:
     </h2>
   </div>
   <div class='container'>
-    <div class='full-calendar mb-20'>
+    <div class='full-calendar mt-20 mb-20'>
       <FullCalendar
         :options='calendarOptions'
         class='fc-button'>
@@ -22,28 +22,70 @@
 </template>
 
 <script setup>
-import FullCalendar from "@fullcalendar/vue3"
-import HeaderLogged from "@/components/HeaderLogged/index.vue"
-import services from "@/services"
-import dayGridPlugin from "@fullcalendar/daygrid"
-import timeGridPlugin from "@fullcalendar/timegrid"
-import interactionPlugin from "@fullcalendar/interaction"
-import bootstrap5Plugin from "@fullcalendar/bootstrap5"
-import ptBrLocale from "@fullcalendar/core/locales/pt-br"
-import {useToast} from "vue-toastification"
-import {useRoute} from "vue-router"
-import {setGlobalLoading} from "@/store/global"
-import {DayOfTheWeek} from "@/models/dayOfTheWeek"
-
-const route = useRoute()
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-icons/font/bootstrap-icons.css'
+import FullCalendar from '@fullcalendar/vue3'
+import dayGridPlugin from '@fullcalendar/daygrid'
+import timeGridPlugin from '@fullcalendar/timegrid'
+import interactionPlugin from '@fullcalendar/interaction'
+import ptBrLocale from '@fullcalendar/core/locales/pt-br'
+import bootstrap5Plugin from '@fullcalendar/bootstrap5'
+import HeaderLogged from "@/components/HeaderLogged/index.vue";
+import services from '@/services'
+import {useToast} from "vue-toastification";
+import {DayOfTheWeek} from "@/models/dayOfTheWeek";
+import {useRouter} from "vue-router";
+const route = useRouter()
 const toast = useToast()
-const id = route.params.id
+
+function getSchedules(info, successCallback, failureCallback) {
+  services.schedules.getAllAvailableSchedules(
+    `${info.start.getUTCFullYear()}-${String(info.start.getUTCMonth() + 1).padStart(2, '0')}-${String(info.start.getUTCDate()).padStart(2, '0')}`,
+    `${info.end.getUTCFullYear()}-${String(info.end.getUTCMonth() + 1).padStart(2, '0')}-${String(info.end.getUTCDate() - 1).padStart(2, '0')}`
+  ).then(({data, erros}) => {
+    if (erros)
+      failureCallback(erros)
+    else {
+      successCallback(data.map(value => ({
+        id: value.id,
+        daysOfWeek: [DayOfTheWeek[value.dayOfTheWeek].toString()],
+        startTime: value.startingAt,
+        endTime: value.endingAt,
+      })))
+    }
+  })
+}
+
+async function commitInterview(interviewId, scheduleId, date) {
+  return await services.interview.commitInterview({interviewId, scheduleId, date})
+}
+
+async function handleInterviewSchedule(clickInfo) {
+  const id = window.localStorage.getItem("schedulerInterviewId")
+  if (confirm(`Confirmar seleção de horário?`)) {
+    const interviewId = id
+    const scheduleId = clickInfo.event.id
+    const date = clickInfo.event.startStr.split("T")[0]
+
+    const {
+      errors
+    } = await commitInterview(interviewId, scheduleId, date)
+    if (errors) {
+      toast.error('Ocorreu um erro ao agendar a entrevista')
+    }
+    if (!errors)
+      toast.success('Entrevista agendada!')
+    new Promise(resolve => setTimeout(resolve, 5000))
+    window.localStorage.removeItem("schedulerInterviewId")
+    await route.push({name: "Interviews"})
+  }
+}
 
 let calendarOptions = {
   plugins: [
     dayGridPlugin,
     timeGridPlugin,
-    interactionPlugin, // needed for dateClick
+    interactionPlugin,
     bootstrap5Plugin,
   ],
   headerToolbar: {
@@ -59,7 +101,6 @@ let calendarOptions = {
   dayMaxEvents: true,
   weekends: true,
   eventClick: handleInterviewSchedule,
-  eventsSet: handleEvents,
   themeSystem: 'bootstrap5',
   locale: ptBrLocale,
   events: getSchedules,
@@ -81,57 +122,11 @@ let calendarOptions = {
   allDaySlot: false,
   height: 'auto',
   contentHeight: 'auto'
-
 }
 
-function getSchedules(info, successCallback, failureCallback) {
-  services.schedules.getAllAvailableSchedules(
-    `${info.start.getUTCFullYear()}-${String(info.start.getUTCMonth() + 1).padStart(2, '0')}-${String(info.start.getUTCDate()).padStart(2, '0')}`,
-    `${info.end.getUTCFullYear()}-${String(info.end.getUTCMonth() + 1).padStart(2, '0')}-${String(info.end.getUTCDate() - 1).padStart(2, '0')}`
-  ).then(({data, erros}) => {
-    if (erros)
-      failureCallback(erros)
-    else {
-      successCallback(data.map(value => ({
-        id: value.id,
-        daysOfWeek: [DayOfTheWeek[value.dayOfTheWeek].toString()],
-        startTime: value.startingAt,
-        endTime: value.endingAt,
-      })))
-    }
-  })
-}
-
-async function handleInterviewSchedule(clickInfo) {
-  if (confirm(`Confirmar seleção de horário?`)) {
-    const interviewId = id
-    const scheduleId = clickInfo.event.id
-    const date = clickInfo.event.startStr.split("T")[0]
-
-    const {
-      errors
-    } = await commitInterview(interviewId, scheduleId, date)
-    if (errors) {
-      toast.error('Ocorreu um erro ao agendar a entrevista')
-    }
-    setGlobalLoading(false)
-    if (!errors)
-      toast.success('Entrevista agendada!')
-    new Promise(resolve => setTimeout(resolve, 5000))
-    getSchedules()
-  }
-}
-
-function handleEvents(events) {
-  this.currentEvents = events
-}
-
-async function commitInterview(interviewId, scheduleId, date) {
-  return await services.interview.commitInterview({interviewId, scheduleId, date})
-}
 
 </script>
-<style scoped>
+<style>
 
 :root .fc-button button {
   @apply bg-white text-brand-main rounded border-2 border-white;

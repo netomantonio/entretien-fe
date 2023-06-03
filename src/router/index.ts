@@ -53,7 +53,7 @@ const routes = [
     component: Interviews,
   },
   {
-    path: '/schedules/:id',
+    path: '/schedules/',
     name: 'Schedules',
     component: Schedules,
     props: true,
