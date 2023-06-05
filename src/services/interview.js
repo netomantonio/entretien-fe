@@ -1,4 +1,19 @@
 export default httpClient => ({
+  getInterviewsByRecruiter: async () => {
+    const response = await httpClient.get('/api/recruiters/interviews')
+    let errors = null
+    if (!response.data) {
+      errors = {
+        status: response.request.status,
+        statusText: response.request.statusText
+      }
+    }
+
+    return {
+      data: response.data,
+      erros: errors
+    }
+  },
   getInterviewsByCandidate: async () => {
     const response = await httpClient.get('/api/candidate/interviews')
     let errors = null
