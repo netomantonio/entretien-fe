@@ -9,14 +9,12 @@
 <script>
 
 import HeaderLogged from "@/components/HeaderLogged/index.vue"
-import HeaderLoggedMobile from "@/components/HeaderLoggedMobile/index.vue"
 import ProfileLogged from "@/components/PerfilLogged/index.vue"
 
 export default {
   components: {
     HeaderLogged,
-    ProfileLogged,
-    HeaderLoggedMobile
+    ProfileLogged
   }
 }
 
