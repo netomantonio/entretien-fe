@@ -60,13 +60,11 @@ let calendarOptions = {
   },
   initialView: 'timeGridWeek',
   eventMinHeight: 60,
-  // initialEvents: INITIAL_EVENTS, // alternatively, use the `events` setting to fetch from a feed
   editable: false,
   selectable: false,
   selectMirror: true,
   dayMaxEvents: true,
   weekends: true,
-  // select: handleDateSelect,
   eventClick: null,
   eventsSet: handleEvents,
   themeSystem: 'bootstrap5',

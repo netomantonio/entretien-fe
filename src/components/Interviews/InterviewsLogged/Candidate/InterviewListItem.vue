@@ -30,7 +30,7 @@
   </td>
   <td class="td-container-icon">
     <p v-if="getInterviewStatus === 'Aguardando agendamento'" class="text-gray-900 whitespace-no-wrap m-auto">
-      <button @click="() => router.push({ name: 'Schedules', params: { id: getInterviewId }})" class="hover:bg-brand-main text-brand-main font-semi-bold hover:text-white py-2 px-4 hover:border-transparent rounded">
+      <button @click="scheduler" class="hover:bg-brand-main text-brand-main font-semi-bold hover:text-white py-2 px-4 hover:border-transparent rounded">
         Agendar
       </button>
     </p>
@@ -45,12 +45,25 @@ export default defineComponent({
   setup() {
     const router = useRouter()
 
+    function scheduler() {
+      window.localStorage.setItem("schedulerInterviewId", this.interview.id.toString())
+      router.push({ name: 'Schedules' })
+    }
+
     return {
-      router
+      router,
+      scheduler
     }
   },
   data: () => ({}),
-  props: ['interview'],
+  props: {
+    interview: {
+      id: String,
+      companyName: String,
+      appointmentDate: String,
+      status: String
+    }
+  },
   computed: {
     getAppointmentDate() {
       if (this.interview.appointmentDate) return this.interview.appointmentDate.toString()
