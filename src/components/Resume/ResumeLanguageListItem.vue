@@ -19,7 +19,12 @@
           </select>
         </div>
       </div>
-
+      <div class="pt-3">
+        <button class="ml-5 px-3 py-3 items-center space-x-4 rounded-md text-white group bg-brand-danger"
+                @click="props.handleRemove(props.index)">
+          <font-awesome-icon icon="trash" class="text-white text-xl"/>
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -28,7 +33,7 @@
 import {LanguageProficiencyLevels} from "@/models/LanguageProficiencyLevels"
 import {computed} from "vue";
 
-const props = defineProps(['modelValue'])
+const props = defineProps(['modelValue', 'index', 'handleRemove'])
 const emit = defineEmits(['update:modelValue'])
 
 const value = computed({
