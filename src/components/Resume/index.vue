@@ -1,12 +1,33 @@
 <template>
   <div class="w-full">
     <div v-if="state.resume">
-      <div class="p-5 mx-5 flex-1 w-full">
+      <div class="pt-3 px-5 mx-4 flex-1 w-full">
         <div class="w-full mt-5">
-          <h2 class="">Currículo</h2>
+          <h2 class="text-gray-600 font-semi-bold">Currículo</h2>
         </div>
-        <div>
-
+        <div class="my-10 grid grid-cols-12 gap-x-6 gap-y-8">
+          <div v-if="state.resume" class="col-span-4">
+            <label for="language" class="mt-2 text-sm font-medium text-gray-900">Cargo Pretendido</label>
+            <input type="text"
+                   v-model="state.resume.desiredJobTitle"
+                   class="block w-full rounded-md border-0 px-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+          </div>
+          <div v-if="state.resume" class="col-span-10">
+            <label for="language" class="mt-2 text-sm font-medium text-gray-900">Apresentação</label>
+            <input type="text"
+                   v-model="state.resume.presentation"
+                   class="block w-full rounded-md border-0 px-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+          </div>
+          <div v-if="state.resume.educationLevel" class="col-span-3">
+            <label for="country" class="block text-sm font-medium leading-6 text-gray-900">Escolaridade</label>
+            <div class="mt-2">
+              <select
+                v-model="state.resume.educationLevel"
+                class="block w-full rounded-md border-0 px-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
+                <option v-for="level in EducationLevels" v-bind:key="level">{{ level }}</option>
+              </select>
+            </div>
+          </div>
         </div>
         <!-- Professional experience -->
         <div v-if="state.resume" class="w-full my-3 pt-5 border-t-2">
@@ -88,6 +109,7 @@ import ResumeLanguageListItem from '@/components/Resume/ResumeLanguageListItem.v
 import ResumeProfessionalExperienceListItem from '@/components/Resume/ResumeProfessionalExperienceListItem.vue'
 import ResumeAcademicEducationListItem from '@/components/Resume/ResumeAcademicEducationListItem.vue'
 import {LanguageProficiencyLevels} from "@/models/LanguageProficiencyLevels";
+import {EducationLevels} from "@/models/EducationLevels";
 import {reactive, toRaw} from "vue";
 import services from "@/services";
 import {useToast} from 'vue-toastification'
@@ -98,15 +120,18 @@ const state = reactive({resume: null})
 async function getResume() {
   toast.clear()
   const {data, errors} = await services.resume.getMyResume()
-  if(errors){
+  if (errors) {
     toast.error("Não foi possível carregar seu currículo.")
-    state.resume = {}
+    state.resume = null
   } else {
     state.resume = data
     if (state.resume.languages) {
       state.resume.languages.forEach((language) => {
         language.languageProficiencyLevel = LanguageProficiencyLevels[language.languageProficiencyLevel]
       })
+    }
+    if (state.resume.educationLevel) {
+      state.resume.educationLevel = EducationLevels[state.resume.educationLevel]
     }
   }
 }
@@ -119,16 +144,20 @@ async function saveResumeChanges() {
       language.languageProficiencyLevel = getLanguageLevel(language.languageProficiencyLevel)
     })
   }
+  resume.educationLevel = getEducationLevel(resume.educationLevel)
   const {data, errors} = await services.resume.saveMyResume(resume)
   if (errors) {
-    toast.error('Ocorreu um erro ao atualizar os dados de ')
+    toast.error('Ocorreu um erro ao atualizar os dados do currículo.')
   } else if (!errors) {
-    toast.success('Entrevista agendada!')
+    toast.success('Currículo Atualizado!')
     state.resume = data
     if (state.resume.languages) {
       state.resume.languages.forEach((language) => {
         language.languageProficiencyLevel = LanguageProficiencyLevels[language.languageProficiencyLevel]
       })
+    }
+    if (state.resume.educationLevel) {
+      state.resume.educationLevel = EducationLevels[state.resume.educationLevel]
     }
   }
 }
@@ -172,8 +201,8 @@ function removeLanguages(index) {
   state.resume.languages.splice(index, 1)
 }
 
-function getLanguageLevel(language){
-  switch (language){
+function getLanguageLevel(language) {
+  switch (language) {
     case "Primário":
       return "ELEMENTARY"
     case "Intermediário":
@@ -184,6 +213,25 @@ function getLanguageLevel(language){
       return "FLUENT"
     default:
       return "ELEMENTARY"
+  }
+}
+
+function getEducationLevel(education) {
+  switch (education) {
+    case "Ensino Fundamental":
+      return "ENSINO_FUNDAMENTAL"
+    case "Ensino Médio":
+      return "ENSINO_MEDIO"
+    case "Graduação":
+      return "GRADUACAO"
+    case "Pós Graduação":
+      return "POS_GRADUACAO"
+    case "Mestrado":
+      return "MESTRADO"
+    case "Doutorado":
+      return "DOUTORADO"
+    default:
+      return "Ensino Fundamental"
   }
 }
 
