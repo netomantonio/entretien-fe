@@ -1,6 +1,6 @@
 <template>
   <div class="mt-10">
-    <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 ">
+    <div class="grid gap-x-6 gap-y-8 sm:grid-cols-6 ">
       <div class="sm:col-span-3">
         <label for="language" class="block text-sm font-medium leading-6 text-gray-900">Curso</label>
         <div class="mt-2">
@@ -17,10 +17,12 @@
                    class="block w-full rounded-md border-0 px-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
           </div>
         </div>
-          <button class="ml-5 px-3 py-2 items-center space-x-4 rounded-md text-white group bg-brand-danger"
-                  @click="props.handleRemove(props.index)">
-            <font-awesome-icon icon="trash" class="text-white text-xl"/>
-          </button>
+        <div class="flex justify-center content-center items-end">
+            <button class="ml-5 px-3 py-3 rounded-md text-white bg-brand-danger"
+                    @click="props.handleRemove(props.index)">
+              <font-awesome-icon icon="trash" class="text-white text-base"/>
+            </button>
+        </div>
       </div>
 
     </div>
