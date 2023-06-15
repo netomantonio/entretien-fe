@@ -110,5 +110,23 @@ export default httpClient => ({
       data: response.data,
       erros: errors
     }
+  },
+  getInterviewById: async ({
+                            id,
+                          }) => {
+    const response = await httpClient.get(`/api/interview/${id}`)
+    let errors = null
+
+    if (!response.data) {
+      errors = {
+        status: response.request.status,
+        statusText: response.request.statusText
+      }
+    }
+
+    return {
+      data: response.data,
+      erros: errors
+    }
   }
 })

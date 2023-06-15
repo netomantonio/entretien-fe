@@ -1,10 +1,11 @@
 import {createApp} from 'vue'
 import Toast, {POSITION} from 'vue-toastification'
+import PrimeVue from 'primevue/config'
 import App from './App.vue'
 /* fontawesome */
 import {library} from '@fortawesome/fontawesome-svg-core'
 import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
-import { faUser, faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faUser, faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons"
 // @ts-ignore
 import router from './router'
 // @ts-ignore
@@ -16,9 +17,10 @@ import '@/assets/css/tailwind.css'
 import '@/assets/css/fonts.css'
 import 'vue-toastification/dist/index.css'
 
-library.add(faUser, faPenToSquare, faTrash);
+library.add(faUser, faPenToSquare, faTrash)
 
 const app = createApp(App)
+app.use(PrimeVue)
 app.use(router)
 app.use(Toast, {position: POSITION.BOTTOM_RIGHT})
 app.use(VueTheMask)

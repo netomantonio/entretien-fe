@@ -10,6 +10,8 @@ const Interviews = () => import('@/views/interviews/index.vue')
 
 const Schedules = () => import('@/views/schedules/index.vue')
 
+const InterviewDetails = () => import('@/views/interviewDetails/index.vue')
+
 const routes = [
   {
     path: '/',
@@ -51,12 +53,23 @@ const routes = [
     path: '/interviews',
     name: 'Interviews',
     component: Interviews,
+    meta: {
+      hasAuth: true
+    }
   },
   {
     path: '/schedules/',
     name: 'Schedules',
     component: Schedules,
     props: true,
+    meta: {
+      hasAuth: true
+    }
+  },
+  {
+    path: '/interviews/:id/edit',
+    name: 'InterviewDetails',
+    component: InterviewDetails,
     meta: {
       hasAuth: true
     }

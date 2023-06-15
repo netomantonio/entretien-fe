@@ -38,6 +38,7 @@
     "password-validator": "^5.3.0",
     "pinia": "^2.0.23",
     "postcss": "^8.4.21",
+    "primevue": "^3.29.2",
     "roboto-fontface": "*",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.2",
     "tiny-emitter": "^2.1.0",
