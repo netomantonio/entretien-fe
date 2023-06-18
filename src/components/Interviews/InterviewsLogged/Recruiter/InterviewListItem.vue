@@ -109,7 +109,8 @@ export default defineComponent({
         '&sessionId=' + sessionID +
         '&interviewId=' + interviewId +
         '&appServerUrl=' + APPLICATION_SERVER_OPENVIDU_URL +
-        '&appFrontendUrl=' + APPLICATION_FRONTEND_URL
+        '&appFrontendUrl=' + APPLICATION_FRONTEND_URL +
+        '&userRole=' + 'ROLE_RECRUITER'
 
     },
 
@@ -173,7 +174,7 @@ export default defineComponent({
       }
     },
     getObservation(){
-      return this.interview.managerObservation.toString()
+      return this.interview.recruiterObservation.toString()
     }
   }
 })

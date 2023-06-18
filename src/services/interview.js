@@ -52,7 +52,7 @@ export default httpClient => ({
                           }) => {
     const response = await httpClient.post('/api/interview', {
       candidateCpf: cpf,
-      managerObservation: observation,
+      recruiterObservation: observation,
     })
     let errors = null
 
@@ -124,6 +124,26 @@ export default httpClient => ({
       }
     }
 
+    return {
+      data: response.data,
+      erros: errors
+    }
+  },
+  updateInterview: async ({
+    id,
+    interviewRequest: commitObservationInterviewRequest,
+  }) => {
+    console.log("não deveria chegar aqui")
+    const response = await httpClient.patch(`/api/interview/${id}`, {
+      commitObservationInterviewRequest: commitObservationInterviewRequest
+    })
+    let errors
+    if (!response.data) {
+      errors = {
+        status: response.request.status,
+        statusText: response.request.statusText
+      }
+    }
     return {
       data: response.data,
       erros: errors

@@ -104,13 +104,8 @@ export default defineComponent({
         '&sessionId=' + sessionID +
         '&interviewId=' + interviewId +
         '&appServerUrl=' + APPLICATION_SERVER_OPENVIDU_URL +
-        '&appFrontendUrl=' + APPLICATION_FRONTEND_URL
-
-    },
-
-    getAppointmentDate() {
-      if (this.interview.appointmentDate) return this.interview.appointmentDate.toString()
-      return null
+        '&appFrontendUrl=' + APPLICATION_FRONTEND_URL +
+        '&userRole=' + 'ROLE_CANDIDATE'
     },
     getInterviewId() {
       return this.interview.id.toString()

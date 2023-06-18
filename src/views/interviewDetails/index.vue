@@ -20,7 +20,6 @@
         <svg
           class="absolute bottom-0 overflow-hidden"
           preserveAspectRatio="none"
-          version="1.1"
           viewBox="0 0 2560 100"
           x="0"
           xmlns="http://www.w3.org/2000/svg"
@@ -83,17 +82,37 @@
               <div class="mb-2 text-gray-700">
                 <i class="fas fa-university mr-2 text-lg text-gray-500"></i
                 >Observações para a empresa:
-                <textarea v-model="state.interview.managerObservation" class="resize w-full h-40 border rounded border-brand-main focus:border-deeppink-300"></textarea>
+                <textarea v-model="state.interview.managerObservation.value"
+                          class="resize w-full h-40 border rounded border-brand-main focus:border-deeppink-300"></textarea>
+                <span
+                  v-if="!!state.interview.managerObservation.errorMessage"
+                  class="block font-medium text-brand-danger"
+                >
+                      {{ state.interview.managerObservation.errorMessage }}
+                </span>
               </div>
               <div class="mb-2 text-gray-700">
                 <i class="fas fa-university mr-2 text-lg text-gray-500"></i
                 >Observações para o candidato:
-                <textarea v-model="state.interview.candidateObservation" class="resize w-full h-40 border rounded border-brand-main focus:border-deeppink-300"></textarea>
+                <textarea v-model="state.interview.candidateObservation.value"
+                          class="resize w-full h-40 border rounded border-brand-main focus:border-deeppink-300"></textarea>
+                <span
+                  v-if="!!state.interview.candidateObservation.errorMessage"
+                  class="block font-medium text-brand-danger"
+                >
+                      {{ state.interview.candidateObservation.errorMessage }}
+                </span>
               </div>
               <div class="mb-2 text-gray-700">
                 <i class="fas fa-university mr-2 text-lg text-gray-500"></i
                 >Pontuação:
-                <input type="number" class="ml-5" v-model="state.interview.score">
+                <input type="number" class="ml-5" v-model="state.interview.score.value">
+                <span
+                  v-if="!!state.interview.score.errorMessage"
+                  class="block font-medium text-brand-danger"
+                >
+                      {{ state.interview.score.errorMessage }}
+                </span>
               </div>
             </div>
             <div class="mt-10 py-10 border-t border-gray-300 text-center">
@@ -101,7 +120,7 @@
                 <div class="w-full lg:w-9/12 px-4">
                   <p class="mb-4 text-lg leading-relaxed text-gray-800">
                     <label for="interviewID"><strong>Observações para você</strong></label><br>
-                    {{ state.interview.recruiterObservation }}
+                    {{ state.interview.recruiterObservation.value }}
                   </p>
                 </div>
               </div>
@@ -118,8 +137,9 @@ import HeaderLogged from "@/components/HeaderLogged/index.vue"
 import services from "@/services";
 import {useToast} from "vue-toastification";
 import {reactive} from "vue";
-import {useRoute} from "vue-router";
-import {InterviewEditByRecruiter} from "./InterviewEditByRecruiter"
+import {useRoute, useRouter} from "vue-router";
+import {useField} from "vee-validate";
+import {validateEmptyScore, validateInterviewObservations} from "@/utils/validators";
 
 export default {
   components: {
@@ -127,12 +147,55 @@ export default {
   },
   setup() {
     const route = useRoute()
+    const router = useRouter()
     const toast = useToast()
+
+    const {
+      value: managerObservationValue,
+      errorMessage: managerObservationErrorMessage
+    } = useField('managerObservation', validateInterviewObservations)
+
+    const {
+      value: recruiterObservationValue,
+      errorMessage: recruiterObservationErrorMessage
+    } = useField('recruiterObservation', validateInterviewObservations)
+
+    const {
+      value: candidateObservationValue,
+      errorMessage: candidateObservationErrorMessage
+    } = useField('candidateObservation', validateInterviewObservations)
+
+    const {
+      value: scoreValue,
+      errorMessage: scoreErrorMessage
+    } = useField('score', validateEmptyScore)
 
     const state = reactive({
       mostrarFormulario: false,
       hasErrors: false,
-      interview: InterviewEditByRecruiter
+      interview: {
+        id: Number,
+        candidateName: String,
+        managerName: String,
+        companyName: String,
+        startingAt: String,
+        score: {
+          value: scoreValue,
+          errorMessage: scoreErrorMessage
+        },
+        managerObservation: {
+          value: managerObservationValue,
+          errorMessage: managerObservationErrorMessage
+        },
+        recruiterObservation: {
+          value: recruiterObservationValue,
+          errorMessage: recruiterObservationErrorMessage
+        },
+        candidateObservation: {
+          value: candidateObservationValue,
+          errorMessage: candidateObservationErrorMessage
+        }
+      }
     });
 
     async function handleGetInterview() {
@@ -148,22 +211,53 @@ export default {
         toast.error('Ocorreu um erro ao carregar a entrevista')
       }
       state.hasErrors = false
-      if (!errors)
-        state.interview = new InterviewEditByRecruiter(
-          data.id,
-          data.candidate.firstName +' '+ data.candidate.lastName,
-          data.manager.firstName,
-          data.manager.companyName,
-          data.startingAt,
-          data.score,
-          data.recruiterObservation,
-          data.managerObservation,
-          data.candidateObservation
-        )
+      if (!errors) {
+        state.interview.id = data.id
+        state.interview.candidateName = data.candidate.firstName + ' ' + data.candidate.lastName
+        state.interview.managerName = data.manager.firstName
+        state.interview.companyName = data.manager.companyName
+        state.interview.startingAt = data.startingAt
+        state.interview.score.value = data.score
+        state.interview.recruiterObservation.value = data.recruiterObservation
+        state.interview.managerObservation.value = data.managerObservation
+        state.interview.candidateObservation.value = data.candidateObservation
+      }
       new Promise(resolve => setTimeout(resolve, 5000))
     }
 
+    function validateFormInterviewEdit() {
+      if (
+        !state.interview.candidateObservation.value ||
+        !state.interview.managerObservation.value ||
+        !state.interview.recruiterObservation.value ||
+        !state.interview.score.value
+      ) {
+        toast.info("Todos os campos devem estar preenchidos corretamente")
+        return false
+      }
+      return true
+    }
+
     async function handleUpdateInterview() {
+      if (!validateFormInterviewEdit()) return
+      let interviewCommitObservationRequest = {
+        candidateObservation: state.interview.candidateObservation.value,
+        managerObservation: state.interview.managerObservation.value,
+        score: state.interview.score.value
+      }
+      const {data, erros} = await services.interview.updateInterview(
+        {
+            id: state.interview.id,
+          commitObservationInterviewRequest: interviewCommitObservationRequest
+        }
+      )
+      if (!!erros) {
+        toast.error("Erro ao salvar avaliação da entrevista, por favor tente novamente mais tarde")
+      }
+      if (data) {
+        toast.success("Informações foram salvas com sucesso")
+        router.push({})
+      }
 
     }
 
