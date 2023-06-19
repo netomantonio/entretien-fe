@@ -1,21 +1,27 @@
 <template>
   <div class="ml-0">
-    <div class="flex items-center space-x-4">
+    <div class="flex-col items-center">
       <div class="flex-1 inline-flex items-center text-sm font-semibold text-gray-900 dark:text-white">
-        Google Inc.
+        {{props.interview.manager.companyName}}
       </div>
-      <div class=" min-w-0">
-        <p class="mb-0 text-sm font-medium text-gray-900 truncate dark:text-white">
-          24/06
+      <div class="ml-0 flex">
+        <p class="mt-0.5 mr-2 text-sm font-medium text-gray-900 truncate dark:text-white">
+        {{ props.interview.startingAt.split("T")[1].slice(0, 5) }}
         </p>
         <p class="text-sm text-gray-500 truncate dark:text-gray-400">
-          10:00
+        {{ props.interview.startingAt.split("T")[0].replaceAll("-", "/") }}
         </p>
       </div>
     </div>
   </div>
 </template>
 <script setup>
+
+const props = defineProps({
+  interview: {},
+});
+
+console.log(props.interview)
 
 </script>
 <style>
