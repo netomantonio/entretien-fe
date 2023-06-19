@@ -87,11 +87,11 @@ export default httpClient => ({
     }
   },
   commitInterview: async (
-        {
-          interviewId,
-          scheduleId,
-          date
-        }) => {
+    {
+      interviewId,
+      scheduleId,
+      date
+    }) => {
     const response = await httpClient.post(`/api/interview/commit`, {
       interviewId,
       scheduleId,
@@ -112,8 +112,8 @@ export default httpClient => ({
     }
   },
   getInterviewById: async ({
-                            id,
-                          }) => {
+                             id,
+                           }) => {
     const response = await httpClient.get(`/api/interview/${id}`)
     let errors = null
 
@@ -130,22 +130,26 @@ export default httpClient => ({
     }
   },
   updateInterview: async ({
-    id,
-    interviewRequest: commitObservationInterviewRequest,
-  }) => {
-    console.log("não deveria chegar aqui")
+                            id,
+                            candidateObservation,
+                            managerObservation,
+                            score,
+                            interviewStatus
+                          }) => {
     const response = await httpClient.patch(`/api/interview/${id}`, {
-      commitObservationInterviewRequest: commitObservationInterviewRequest
+      candidateObservation,
+      managerObservation,
+      score,
+      interviewStatus
     })
     let errors
-    if (!response.data) {
+    if (response.request.status !== 200) {
       errors = {
         status: response.request.status,
         statusText: response.request.statusText
       }
     }
     return {
-      data: response.data,
       erros: errors
     }
   }

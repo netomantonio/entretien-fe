@@ -48,10 +48,10 @@
               >
                 <div class="py-6 px-3 mt-32 sm:mt-0">
                   <button
-                    @click="handleUpdateInterview"
                     class="bg-pink-500 active:bg-pink-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1"
                     style="transition: all 0.15s ease 0s;"
                     type="button"
+                    @click="handleUpdateInterview"
                   >
                     Salvar
                   </button>
@@ -63,7 +63,7 @@
             </div>
             <div class="text-center mt-12">
               <h3
-                class="text-4xl font-semibold leading-normal mb-2 text-gray-800 mb-2"
+                class="text-4xl font-semi-bold leading-normal text-gray-800 mb-2"
               >
                 {{ state.interview.candidateName }}
               </h3>
@@ -77,7 +77,19 @@
               </div>
               <div class="mb-2 text-gray-700 mt-10">
                 <i class="fas fa-briefcase mr-2 text-lg text-gray-500"></i
-                >Entrevista - {{ state.interview.id }}
+                >Código da entrevista : {{ state.interview.id }}
+              </div>
+              <div class="mt-10 py-10 border-t border-gray-300 text-center">
+                <div class="flex flex-wrap justify-center">
+                  <div class="w-full lg:w-9/12 px-4">
+                    <p class="mb-4 text-lg leading-relaxed text-gray-800">
+                      <label for="interviewID"><strong>Observações para você</strong></label>
+                      <br>
+                      {{ state.interview.recruiterObservation.value }}
+                    </p>
+                    <div class="border-t"></div>
+                  </div>
+                </div>
               </div>
               <div class="mb-2 text-gray-700">
                 <i class="fas fa-university mr-2 text-lg text-gray-500"></i
@@ -103,10 +115,19 @@
                       {{ state.interview.candidateObservation.errorMessage }}
                 </span>
               </div>
-              <div class="mb-2 text-gray-700">
-                <i class="fas fa-university mr-2 text-lg text-gray-500"></i
+              <div class="border-t">
+                <label class="block mb-2 mt-5 text-sm font-medium text-gray-900 dark:text-white" for="interviewStatus">Escolha o status da entrevista
+                </label>
+                <select id="interviewStatus"
+                        v-model="state.interview.statusSelected.value"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                  <option v-for="status in state.statusList" :value="status">{{ status }}</option>
+                </select>
+              </div>
+              <div class="mb-2 mt-5 border-t text-gray-700">
+                <i class="fas mt-3 fa-university mr-2 text-lg text-gray-500"></i
                 >Pontuação:
-                <input type="number" class="ml-5" v-model="state.interview.score.value">
+                <input v-model="state.interview.score.value" class="ml-5" type="number">
                 <span
                   v-if="!!state.interview.score.errorMessage"
                   class="block font-medium text-brand-danger"
@@ -114,17 +135,16 @@
                       {{ state.interview.score.errorMessage }}
                 </span>
               </div>
+              <button
+                class="bg-pink-500 mt-5 mb-5 active:bg-pink-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2"
+                style="transition: all 0.15s ease 0s;"
+                type="button"
+                @click="handleUpdateInterview"
+              >
+                Salvar
+              </button>
             </div>
-            <div class="mt-10 py-10 border-t border-gray-300 text-center">
-              <div class="flex flex-wrap justify-center">
-                <div class="w-full lg:w-9/12 px-4">
-                  <p class="mb-4 text-lg leading-relaxed text-gray-800">
-                    <label for="interviewID"><strong>Observações para você</strong></label><br>
-                    {{ state.interview.recruiterObservation.value }}
-                  </p>
-                </div>
-              </div>
-            </div>
+            <div class="py-5 border-t"></div>
           </div>
         </div>
       </div>
@@ -140,6 +160,7 @@ import {reactive} from "vue";
 import {useRoute, useRouter} from "vue-router";
 import {useField} from "vee-validate";
 import {validateEmptyScore, validateInterviewObservations} from "@/utils/validators";
+import InterviewStatusListByRecruiterEdit from "@/views/interviewDetails/InterviewStatusListByRecruiterEdit";
 
 export default {
   components: {
@@ -170,7 +191,13 @@ export default {
       errorMessage: scoreErrorMessage
     } = useField('score', validateEmptyScore)
 
+    const {
+      value: statusSelectedValue,
+      errorMessage: statusSelectedErrorMessage
+    } = useField('statusSelected')
+
     const state = reactive({
+      statusList: InterviewStatusListByRecruiterEdit,
       mostrarFormulario: false,
       hasErrors: false,
       interview: {
@@ -194,6 +221,10 @@ export default {
         candidateObservation: {
           value: candidateObservationValue,
           errorMessage: candidateObservationErrorMessage
+        },
+        statusSelected: {
+          value: statusSelectedValue,
+          errorMessage: statusSelectedErrorMessage
         }
       }
     });
@@ -230,7 +261,8 @@ export default {
         !state.interview.candidateObservation.value ||
         !state.interview.managerObservation.value ||
         !state.interview.recruiterObservation.value ||
-        !state.interview.score.value
+        !state.interview.score.value ||
+        !state.interview.statusSelected.value
       ) {
         toast.info("Todos os campos devem estar preenchidos corretamente")
         return false
@@ -238,25 +270,30 @@ export default {
       return true
     }
 
+    function getInterviewStatus() {
+      for (let key in InterviewStatusListByRecruiterEdit) {
+        if (InterviewStatusListByRecruiterEdit[key] === state.interview.statusSelected.value) {
+          return key
+        }
+      }
+      return null
+    }
+
     async function handleUpdateInterview() {
       if (!validateFormInterviewEdit()) return
-      let interviewCommitObservationRequest = {
-        candidateObservation: state.interview.candidateObservation.value,
-        managerObservation: state.interview.managerObservation.value,
-        score: state.interview.score.value
-      }
-      const {data, erros} = await services.interview.updateInterview(
-        {
-            id: state.interview.id,
-          commitObservationInterviewRequest: interviewCommitObservationRequest
+      const {erros} = await services.interview.updateInterview({
+          id: state.interview.id,
+          candidateObservation: state.interview.candidateObservation.value,
+          managerObservation: state.interview.managerObservation.value,
+          score: state.interview.score.value,
+          interviewStatus: getInterviewStatus()
         }
       )
-      if (!!erros) {
+      if (erros) {
         toast.error("Erro ao salvar avaliação da entrevista, por favor tente novamente mais tarde")
-      }
-      if (data) {
+      } else {
         toast.success("Informações foram salvas com sucesso")
-        router.push({})
+        await router.push({name: 'Interviews'})
       }
 
     }
