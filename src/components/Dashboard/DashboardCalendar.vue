@@ -9,23 +9,21 @@
                     :options='calendarOptions'
                     class='fc-button'>
       </FullCalendar>
-      <div class="flex-1 mt-5 px-3">
+      <div class="flex-1 mt-5 px-3" v-if="state.interviews">
         <div>
           Entrevistas:
         </div>
         <div class="flow-root">
           <ul class="ml-0 pl-0 divide-y divide-gray-200 dark:divide-gray-700">
-            <li class="py-3 sm:py-4">
-              <DashboardCalendarInterviewListItem/>
-            </li>
-            <li class="py-3 sm:py-4">
-              <DashboardCalendarInterviewListItem/>
+            <li v-for="interview in state.interviews" :key="interview.id" class="py-3 sm:py-4">
+              <DashboardCalendarInterviewListItem :interview="interview"/>
             </li>
           </ul>
         </div>
       </div>
+      <div v-else>
+      </div>
     </div>
-
   </div>
 </template>
 
@@ -38,18 +36,29 @@ import ptBrLocale from '@fullcalendar/core/locales/pt-br'
 import bootstrap5Plugin from '@fullcalendar/bootstrap5'
 import services from '@/services'
 import DashboardCalendarInterviewListItem from "@/components/Dashboard/DashboardCalendarInterviewListItem.vue";
+import {reactive} from "vue";
 
-function getThisMonthCandidateInterviews() {
-  services.interview.getInterviewsByCandidate().then(({data, erros}) => {
-    if (erros) {
-      // Sinalizar o erro no calendário
+const state = reactive({
+  interviews: null
+})
+
+function getThisMonthCandidateInterviews(info, successCallback, failureCallback) {
+  const date = new Date()
+  services.interview.getInterviewsWithinPeriodByCandidate(
+    (date.getFullYear() + "-" + String(date.getMonth() + 1).padStart(2, '0') + "-" + "01"),
+    (date.getFullYear() + "-" + String(date.getMonth() + 2).padStart(2, '0') + "-" + "01")
+  ).then(({data, errors}) => {
+    if (errors) {
+      failureCallback(errors)
     } else {
-      data.interviews.filter(interview => interview.status === 'SCHEDULE').map(value => ({
-        id: value.id,
-        start: new Date(value.appointmentDate),
-        end: new Date(new Date(value.appointmentDate).getTime() + (60 * 60 * 1000)),
-        title: value.companyName
-      }))
+      state.interviews = data
+      successCallback(
+        data.map(value => ({
+          id: value.id,
+          start: String(value.startingAt).split("T")[0],
+          title: value.manager.companyName
+        }))
+      )
     }
   })
 }
