@@ -87,11 +87,11 @@ export default httpClient => ({
     }
   },
   commitInterview: async (
-        {
-          interviewId,
-          scheduleId,
-          date
-        }) => {
+    {
+      interviewId,
+      scheduleId,
+      date
+    }) => {
     const response = await httpClient.post(`/api/interview/commit`, {
       interviewId,
       scheduleId,
@@ -109,6 +109,36 @@ export default httpClient => ({
     return {
       data: response.data,
       erros: errors
+    }
+  },
+  getInterviewsWithinPeriodByCandidate: async (
+    from, to
+  ) => {
+    const response = await httpClient.get(`/api/interview/candidate/period`, {params: {from, to}})
+    let errors = null
+    if (!response.data) {
+      errors = {
+        status: response.request.status,
+        statusText: response.request.statusText
+      }
+    }
+    return {
+      data: response.data,
+      erros: errors
+    }
+  },
+  getCandidateNextInterview: async () => {
+    const response = await httpClient.get(`/api/interview/candidate/next`)
+    let errors = null
+    if (!response.data) {
+      errors = {
+        status: response.request.status,
+        statusText: response.request.statusText
+      }
+    }
+    return {
+      data: response.data,
+      errors: errors
     }
   }
 })
