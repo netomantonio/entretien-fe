@@ -4,6 +4,7 @@ import RegisterService from '../services/register'
 import SchedulesService from '../services/schedules'
 import UserService from '../services/users'
 import InterviewService from '../services/interview'
+import ResumeService from '../services/resume'
 import {useToast} from 'vue-toastification'
 import {setGlobalLoading} from "@/store/global"
 
@@ -55,5 +56,6 @@ export default {
   users: UserService(httpClient),
   register: RegisterService(httpClient),
   interview: InterviewService(httpClient),
-  schedules: SchedulesService(httpClient)
+  schedules: SchedulesService(httpClient),
+  resume: ResumeService(httpClient)
 }

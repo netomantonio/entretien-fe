@@ -10,6 +10,8 @@ const Interviews = () => import('@/views/interviews/index.vue')
 
 const Schedules = () => import('@/views/schedules/index.vue')
 
+const Curriculum = () => import('@/views/resume/index.vue')
+
 const InterviewDetails = () => import('@/views/interviewDetails/index.vue')
 
 const routes = [
@@ -62,6 +64,14 @@ const routes = [
     name: 'Schedules',
     component: Schedules,
     props: true,
+    meta: {
+      hasAuth: true
+    }
+  },
+  {
+    path: '/curriculum/',
+    name: 'Curriculum',
+    component: Curriculum,
     meta: {
       hasAuth: true
     }
