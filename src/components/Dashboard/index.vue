@@ -8,9 +8,8 @@
         <DashboardCalendar />
       </div>
       <div class="md:col-span-2 lg:col-span-1">
-        col 2
+        <DashboardNextInterview />
       </div>
-
     </div>
     <div class="px-6 pt-6 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
 
@@ -551,6 +550,7 @@
 <script setup>
 import DashboardHeader from "@/components/Dashboard/DashboardHeader.vue";
 import DashboardCalendar from "@/components/Dashboard/DashboardCalendar.vue";
+import DashboardNextInterview from "@/components/Dashboard/DashboardNextInterview.vue";
 </script>
 <style scoped>
 </style>

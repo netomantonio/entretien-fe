@@ -4,7 +4,7 @@ import App from './App.vue'
 /* fontawesome */
 import {library} from '@fortawesome/fontawesome-svg-core'
 import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
-import { faUser, faPenToSquare, faTrash, faMessage, faBell, faCalendarDay } from "@fortawesome/free-solid-svg-icons";
+import { faUser, faPenToSquare, faTrash, faMessage, faBell, faCalendarDay, faCircleExclamation } from "@fortawesome/free-solid-svg-icons";
 // @ts-ignore
 import router from './router'
 // @ts-ignore
@@ -16,7 +16,7 @@ import '@/assets/css/tailwind.css'
 import '@/assets/css/fonts.css'
 import 'vue-toastification/dist/index.css'
 
-library.add(faUser, faPenToSquare, faTrash, faMessage, faBell, faCalendarDay);
+library.add(faUser, faPenToSquare, faTrash, faMessage, faBell, faCalendarDay, faCircleExclamation);
 
 const app = createApp(App)
 app.use(router)
