@@ -21,8 +21,6 @@ const props = defineProps({
   interview: {},
 });
 
-console.log(props.interview)
-
 </script>
 <style>
 

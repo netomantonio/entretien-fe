@@ -35,7 +35,7 @@ import dayGridPlugin from '@fullcalendar/daygrid'
 import ptBrLocale from '@fullcalendar/core/locales/pt-br'
 import bootstrap5Plugin from '@fullcalendar/bootstrap5'
 import services from '@/services'
-import DashboardCalendarInterviewListItem from "@/components/Dashboard/DashboardCalendarInterviewListItem.vue";
+import DashboardCalendarInterviewListItem from "@/components/Dashboard/DashboardCalendar/DashboardCalendarInterviewListItem.vue";
 import {reactive} from "vue";
 
 const state = reactive({
