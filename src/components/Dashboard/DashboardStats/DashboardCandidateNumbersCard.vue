@@ -7,7 +7,7 @@
 </template>
 <script setup>
 import DashboardTwoValuesMiniCard from "@/components/Dashboard/DashboardStats/DashboardTwoValuesMiniCard.vue";
-import {reactive, toRaw} from "vue";
+import {reactive} from "vue";
 import services from "@/services";
 import DashboardOneValueMiniCard from "@/components/Dashboard/DashboardStats/DashboardOneValueMiniCard.vue";
 
@@ -40,13 +40,10 @@ const state = reactive({
 
 async function getCandidateNumbers() {
   const {data, errors} = await services.interview.getCandidateInterviewStats()
-  console.log("getCandidateNumbers()")
-  console.log("data", data)
   state.numbers1.qtd.toBeScheduleInterviewsQtd = data.toBeScheduleInterviewsQtd
   state.numbers1.qtd.scheduleInterviewsQtd = data.scheduleInterviewsQtd
   state.numbers2.qtd = data.totalConcludeInterviewsQtd
   state.numbers3.qtd = data.totalInterviewsQtd
-  console.log("state", toRaw(state))
 }
 
 getCandidateNumbers()

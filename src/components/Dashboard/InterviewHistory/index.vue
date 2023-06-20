@@ -1,5 +1,5 @@
 <template>
-  <div v-if="state.interviews" class="justify-center w-full mr-5 pr-5">
+  <div v-if="props.data" class="justify-center w-full mr-5 pr-5">
     <div class="flex m-0 p-0">
       <font-awesome-icon icon="clock-rotate-left" class="text-gray-600 text-xl mr-2 mt-1"/>
       <h5 class="text-gray-600 text-lg">Histórico</h5>
@@ -29,12 +29,12 @@
               </tr>
               </thead>
               <tbody>
-              <tr v-for="interview in state.interviews" v-bind:key="interview.id">
+              <tr v-for="interview in props.data.interviews" v-bind:key="interview.id">
                 <InterviewListItem :interview="interview"></InterviewListItem>
               </tr>
               </tbody>
             </table>
-            <div v-if="state.interviews.length === 0" class="flex-1 text-gray-600 py-5 text-center">Você ainda não
+            <div v-if="props.data.interviews.length === 0" class="flex-1 text-gray-600 py-5 text-center">Você ainda não
               concluiu nenhuma entrevista.
             </div>
           </div>
@@ -44,38 +44,13 @@
   </div>
 </template>
 
-<script>
-import {defineComponent, reactive} from 'vue'
+<script setup>
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-icons/font/bootstrap-icons.css'
 import InterviewListItem from "@/components/Interviews/InterviewsLogged/Candidate/InterviewListItem.vue";
-import services from '@/services'
-import {getGlobalLoading} from "@/store/global";
 
-export default defineComponent({
-    components: {
-      InterviewListItem
-    },
-    setup() {
-      const state = reactive({
-        hasErrors: false,
-        interviews: null,
-        isLoading: getGlobalLoading(),
-      });
-
-      async function loadInterview() {
-        const {data} = await services.interview.getInterviewsByCandidate()
-        state.interviews = data.interviews.filter(interview => interview.status == "CONCLUDED")
-      }
-
-      loadInterview()
-      return {
-        state: {
-          interviews: []
-        }
-      }
-    }
-  }
-)
+const props = defineProps({
+  data: null,
+})
 
 </script>

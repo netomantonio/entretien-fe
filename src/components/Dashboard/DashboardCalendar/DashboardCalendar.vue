@@ -1,5 +1,5 @@
 <template>
-  <div class=''>
+  <div v-if="props.data" class=''>
     <div class="flex">
       <font-awesome-icon icon="calendar-day" class="text-gray-600 text-xl mr-2 mt-1"/>
       <h5 class="text-gray-600 text-lg">Entrevistas do mês</h5>
@@ -9,13 +9,13 @@
                     :options='calendarOptions'
                     class='fc-button'>
       </FullCalendar>
-      <div class="flex-1 mt-5 px-3" v-if="state.interviews">
+      <div class="flex-1 mt-5 px-3" v-if="props.data.interviews">
         <div>
           Entrevistas:
         </div>
         <div class="flow-root">
           <ul class="ml-0 pl-0 divide-y divide-gray-200 dark:divide-gray-700">
-            <li v-for="interview in state.interviews" :key="interview.id" class="py-3 sm:py-4">
+            <li v-for="interview in props.data.interviews" :key="interview.id" class="py-3 sm:py-4">
               <DashboardCalendarInterviewListItem :interview="interview"/>
             </li>
           </ul>
@@ -34,34 +34,12 @@ import FullCalendar from '@fullcalendar/vue3'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import ptBrLocale from '@fullcalendar/core/locales/pt-br'
 import bootstrap5Plugin from '@fullcalendar/bootstrap5'
-import services from '@/services'
-import DashboardCalendarInterviewListItem from "@/components/Dashboard/DashboardCalendar/DashboardCalendarInterviewListItem.vue";
-import {reactive} from "vue";
+import DashboardCalendarInterviewListItem
+  from "@/components/Dashboard/DashboardCalendar/DashboardCalendarInterviewListItem.vue";
 
-const state = reactive({
-  interviews: null
+const props = defineProps({
+  data: {}
 })
-
-function getThisMonthCandidateInterviews(info, successCallback, failureCallback) {
-  const date = new Date()
-  services.interview.getInterviewsWithinPeriodByCandidate(
-    (date.getFullYear() + "-" + String(date.getMonth() + 1).padStart(2, '0') + "-" + "01"),
-    (date.getFullYear() + "-" + String(date.getMonth() + 2).padStart(2, '0') + "-" + "01")
-  ).then(({data, errors}) => {
-    if (errors) {
-      failureCallback(errors)
-    } else {
-      state.interviews = data
-      successCallback(
-        data.map(value => ({
-          id: value.id,
-          start: String(value.startingAt).split("T")[0],
-          title: value.manager.companyName
-        }))
-      )
-    }
-  })
-}
 
 let calendarOptions = {
   plugins: [
@@ -81,10 +59,9 @@ let calendarOptions = {
   dayMaxEvents: true,
   weekends: true,
   eventClick: null,
-  eventsSet: handleEvents,
   themeSystem: 'bootstrap5',
   locale: ptBrLocale,
-  events: getThisMonthCandidateInterviews,
+  events: props.data.getThisMonthInterviews,
   eventColor: "#f6709f",
   views: {},
   allDaySlot: false,
@@ -92,22 +69,12 @@ let calendarOptions = {
   contentHeight: 'auto'
 }
 
-function handleEvents(events) {
-  this.currentEvents = events
-}
-
-
 </script>
-<style>
+<style scoped>
 #calendar {
   width: 400px;
   margin: 20px 0 0 0;
   font-size: 10px;
-
-}
-
-.fc-toolbar {
-  font-size: .9em;
 }
 
 .fc-toolbar h2 {
@@ -127,9 +94,6 @@ function handleEvents(events) {
   height: 4px;
 }
 
-.fc-more-popover {
-  width: 100px;
-}
 
 .fc-view-month .fc-event, .fc-view-agendaWeek .fc-event, .fc-content {
   font-size: 0;
@@ -141,14 +105,5 @@ function handleEvents(events) {
   font-size: 0;
   overflow: hidden;
   width: 2px !important;
-}
-
-.fc-agenda-axis {
-  width: 20px !important;
-  font-size: .7em;
-}
-
-.fc-button-content {
-  padding: 0;
 }
 </style>
