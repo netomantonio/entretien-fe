@@ -1,28 +1,26 @@
 <template>
-  <div v-if="props.data" class=''>
-    <div class="flex">
-      <font-awesome-icon icon="calendar-day" class="text-gray-600 text-xl mr-2 mt-1"/>
-      <h5 class="text-gray-600 text-lg">Entrevistas do mês</h5>
+  <div class="flex">
+    <font-awesome-icon icon="calendar-day" class="text-gray-600 text-xl mr-2 mt-1"/>
+    <h5 class="text-gray-600 text-lg">Entrevistas do mês</h5>
+  </div>
+  <div class="flex">
+    <FullCalendar id="calendar"
+                  :options='calendarOptions'
+                  class='fc-button'>
+    </FullCalendar>
+    <div class="flex-1 mt-5 px-3" v-if="props.interviews">
+      <div>
+        Entrevistas:
+      </div>
+      <div class="flow-root">
+        <ul class="ml-0 pl-0 divide-y divide-gray-200 dark:divide-gray-700">
+          <li v-for="interview in props.interviews" :key="interview.id" class="py-3 sm:py-4">
+            <DashboardCalendarInterviewListItem :interview="interview"/>
+          </li>
+        </ul>
+      </div>
     </div>
-    <div class="flex">
-      <FullCalendar id="calendar"
-                    :options='calendarOptions'
-                    class='fc-button'>
-      </FullCalendar>
-      <div class="flex-1 mt-5 px-3" v-if="props.data.interviews">
-        <div>
-          Entrevistas:
-        </div>
-        <div class="flow-root">
-          <ul class="ml-0 pl-0 divide-y divide-gray-200 dark:divide-gray-700">
-            <li v-for="interview in props.data.interviews" :key="interview.id" class="py-3 sm:py-4">
-              <DashboardCalendarInterviewListItem :interview="interview"/>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <div v-else>
-      </div>
+    <div v-else>
     </div>
   </div>
 </template>
@@ -38,7 +36,8 @@ import DashboardCalendarInterviewListItem
   from "@/components/Dashboard/DashboardCalendar/DashboardCalendarInterviewListItem.vue";
 
 const props = defineProps({
-  data: {}
+  interviews: {},
+  getEvents: Function
 })
 
 let calendarOptions = {
@@ -61,7 +60,7 @@ let calendarOptions = {
   eventClick: null,
   themeSystem: 'bootstrap5',
   locale: ptBrLocale,
-  events: props.data.getThisMonthInterviews,
+  events: props.getEvents,
   eventColor: "#f6709f",
   views: {},
   allDaySlot: false,

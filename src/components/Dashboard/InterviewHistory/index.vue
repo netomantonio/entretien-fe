@@ -1,5 +1,5 @@
 <template>
-  <div v-if="props.data" class="justify-center w-full mr-5 pr-5">
+  <div class="justify-center w-full mr-5 pr-5">
     <div class="flex m-0 p-0">
       <font-awesome-icon icon="clock-rotate-left" class="text-gray-600 text-xl mr-2 mt-1"/>
       <h5 class="text-gray-600 text-lg">Histórico</h5>
@@ -20,7 +20,7 @@
                 </th>
                 <th
                   class="px-5 py-3 bg-gray-100 text-left text-xs font-semi-bold text-gray-600 uppercase tracking-wider">
-                  Recruiter
+                  {{ props.user }}
                 </th>
                 <th
                   class="px-5 py-3 bg-gray-100 text-left text-xs font-semi-bold text-gray-600 uppercase tracking-wider">
@@ -29,13 +29,13 @@
               </tr>
               </thead>
               <tbody>
-              <tr v-for="interview in props.data.interviews" v-bind:key="interview.id">
-                <InterviewListItem :interview="interview"></InterviewListItem>
+              <tr v-for="interview in props.interviewHistory" v-bind:key="interview.id">
+                <InterviewListItem :user="interview.candidate" :interview="interview"></InterviewListItem>
               </tr>
               </tbody>
             </table>
-            <div v-if="props.data.interviews.length === 0" class="flex-1 text-gray-600 py-5 text-center">Você ainda não
-              concluiu nenhuma entrevista.
+            <div v-if="props.interviewHistory.length === 0" class="flex-1 text-gray-600 py-5 text-center">
+              Você ainda não concluiu nenhuma entrevista.
             </div>
           </div>
         </div>
@@ -47,10 +47,11 @@
 <script setup>
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-icons/font/bootstrap-icons.css'
-import InterviewListItem from "@/components/Interviews/InterviewsLogged/Candidate/InterviewListItem.vue";
+import InterviewListItem from "@/components/Dashboard/InterviewHistory/InterviewListItem.vue";
 
 const props = defineProps({
-  data: null,
+  interviewHistory: {},
+  user: String
 })
 
 </script>

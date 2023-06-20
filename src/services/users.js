@@ -69,5 +69,22 @@ export default httpClient => ({
       data: response.data,
       errors: errors
     }
+  },
+  getRecruiterDashboard: async (
+    from, to
+  ) => {
+    const response = await httpClient.get(`/api/recruiters/dashboard`, {params: {from, to}})
+    let errors = null
+    if (!response.data) {
+      errors = {
+        status: response.request.status,
+        statusText: response.request.statusText
+      }
+    }
+
+    return {
+      data: response.data,
+      errors: errors
+    }
   }
 })
