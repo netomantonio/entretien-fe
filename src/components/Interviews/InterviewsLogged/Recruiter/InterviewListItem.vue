@@ -20,6 +20,7 @@
   </td>
   <td class="td-container">
     <p class="text-gray-900 whitespace-no-wrap m-auto">
+      {{ getObservation }}
     </p>
   </td>
   <td class="td-container">
@@ -43,12 +44,13 @@
     </div>
   </td>
   <td class="td-container-icon">
-<!--    TODO("[ADICIONAR AQUI AS CONDIÇÕES PARA VALIDAR AS AÇÕES]")-->
-    <p v-if="getInterviewStatus === 'SCHEDULE'" class="text-gray-900 whitespace-no-wrap m-auto">
-      <button
-        class="hover:bg-brand-main text-brand-main font-semi-bold hover:text-white py-2 px-4 hover:border-transparent rounded">
-        EXEMPLO
-      </button>
+<!--    Actions -->
+    <p class="text-gray-900 text-center whitespace-no-wrap m-auto">
+      <a v-if="getInterviewStatus === 'Agendada' && checkCallLiberation" :href="videoCall"
+         class="hover:bg-brand-main text-xs text-brand-main font-semi-bold hover:text-white py-1 px-2 hover:border-transparent rounded"
+         @click="videoCall">
+        Entrar na reunião
+      </a>
     </p>
   </td>
 </template>
@@ -57,6 +59,12 @@
 import {defineComponent} from "vue";
 import InterviewStatus from "@/components/Interviews/InterviewStatus";
 import {useRouter} from 'vue-router'
+import {v4 as uuid} from "uuid";
+
+const APPLICATION_VIDEO_CALL_URL = process.env.APPLICATION_VIDEO_CALL_URL
+const APPLICATION_SERVER_OPENVIDU_URL = process.env.APPLICATION_SERVER_OPENVIDU_URL
+const APPLICATION_FRONTEND_URL = process.env.APPLICATION_FRONTEND_URL
+const RANGE_TIME_SHOW_CONNECTION_INTERVIEW = process.env.RANGE_TIME_SHOW_CONNECTION_INTERVIEW
 
 export default defineComponent({
   setup() {
@@ -77,6 +85,35 @@ export default defineComponent({
     }
   },
   computed: {
+
+    checkCallLiberation() {
+      let [datePart, timePart] = this.interview.startingAt.toString().split("T")
+      let [year, month, day, ] = datePart.split("-")
+      let [hours, minutes] = timePart.split(":")
+
+      let monthIndex = parseInt(month, 10) - 1
+
+      let appointmentDate = new Date(year, monthIndex, day, hours, minutes)
+      let minTimeAcceptableConnection = new Date(appointmentDate.getTime() - RANGE_TIME_SHOW_CONNECTION_INTERVIEW * 60 * 1000)
+      let maxTimeAcceptableConnection = new Date(appointmentDate.getTime() + RANGE_TIME_SHOW_CONNECTION_INTERVIEW * 60 * 1000)
+      let dataAtual = new Date()
+      return dataAtual >= minTimeAcceptableConnection && dataAtual <= maxTimeAcceptableConnection
+    },
+
+    videoCall() {
+      let interviewId = this.interview.id.toString()
+      let sessionID = uuid()
+      let token = window.localStorage.getItem('token')
+      return APPLICATION_VIDEO_CALL_URL +
+        'token=' + token +
+        '&sessionId=' + sessionID +
+        '&interviewId=' + interviewId +
+        '&appServerUrl=' + APPLICATION_SERVER_OPENVIDU_URL +
+        '&appFrontendUrl=' + APPLICATION_FRONTEND_URL +
+        '&userRole=' + 'ROLE_RECRUITER'
+
+    },
+
     getSocialNetworking() {
       return this.interview.candidate.socialNetworking
     },
@@ -135,6 +172,9 @@ export default defineComponent({
         default:
           return 'gray'
       }
+    },
+    getObservation(){
+      return this.interview.recruiterObservation.toString()
     }
   }
 })

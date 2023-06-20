@@ -55,7 +55,7 @@ export default {
     })
 
     function handleLogout() {
-      window.localStorage.removeItem('token')
+      window.localStorage.clear()
       cleanCurrentUser()
       router.push({name: 'Home'})
     }

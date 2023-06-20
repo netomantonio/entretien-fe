@@ -14,7 +14,7 @@
   </td>
   <td class="td-container">
     <p class="text-gray-900 whitespace-no-wrap m-auto">
-      {{ interview.managerObservation }}
+      {{ interview.recruiterObservation }}
     </p>
   </td>
   <td class="td-container">

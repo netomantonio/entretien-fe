@@ -29,25 +29,40 @@
     </p>
   </td>
   <td class="td-container-icon">
-    <p v-if="getInterviewStatus === 'Aguardando agendamento'" class="text-gray-900 whitespace-no-wrap m-auto">
-      <button @click="scheduler" class="hover:bg-brand-main text-brand-main font-semi-bold hover:text-white py-2 px-4 hover:border-transparent rounded">
+    <p class="text-gray-900 text-center whitespace-no-wrap m-auto">
+      <button
+        v-if="getInterviewStatus === 'Aguardando agendamento'"
+        class="hover:bg-brand-main text-brand-main text-xs font-semi-bold hover:text-white py-2 px-4 hover:border-transparent rounded"
+        @click="scheduler">
         Agendar
       </button>
+      <a v-if="getInterviewStatus === 'Agendada' && checkCallLiberation" :href="videoCall"
+         class="hover:bg-brand-main text-xs text-brand-main font-semi-bold hover:text-white py-1 px-2 hover:border-transparent rounded"
+         @click="videoCall">
+        Entrar na reunião
+      </a>
     </p>
   </td>
 </template>
 
 <script>
-import {defineComponent} from "vue";
-import InterviewStatus from "@/components/Interviews/InterviewStatus";
+import {defineComponent} from "vue"
+import InterviewStatus from "@/components/Interviews/InterviewStatus"
 import {useRouter} from 'vue-router'
+import {v4 as uuid} from 'uuid'
+
+const APPLICATION_VIDEO_CALL_URL = process.env.APPLICATION_VIDEO_CALL_URL
+const APPLICATION_SERVER_OPENVIDU_URL = process.env.APPLICATION_SERVER_OPENVIDU_URL
+const APPLICATION_FRONTEND_URL = process.env.APPLICATION_FRONTEND_URL
+const RANGE_TIME_SHOW_CONNECTION_INTERVIEW = process.env.RANGE_TIME_SHOW_CONNECTION_INTERVIEW
+
 export default defineComponent({
   setup() {
     const router = useRouter()
 
     function scheduler() {
       window.localStorage.setItem("schedulerInterviewId", this.interview.id.toString())
-      router.push({ name: 'Schedules' })
+      router.push({name: 'Schedules'})
     }
 
     return {
@@ -65,9 +80,32 @@ export default defineComponent({
     }
   },
   computed: {
-    getAppointmentDate() {
-      if (this.interview.appointmentDate) return this.interview.appointmentDate.toString()
-      return null
+
+    checkCallLiberation() {
+      let [datePart, timePart] = this.interview.appointmentDate.toString().split(" ")
+      let [day, month, year] = datePart.split("/")
+      let [hours, minutes] = timePart.split(":")
+
+      let monthIndex = parseInt(month, 10) - 1
+
+      let appointmentDate = new Date(year, monthIndex, day, hours, minutes)
+      let minTimeAcceptableConnection = new Date(appointmentDate.getTime() - RANGE_TIME_SHOW_CONNECTION_INTERVIEW * 60 * 1000)
+      let maxTimeAcceptableConnection = new Date(appointmentDate.getTime() + RANGE_TIME_SHOW_CONNECTION_INTERVIEW * 60 * 1000)
+      let dataAtual = new Date()
+      return dataAtual >= minTimeAcceptableConnection && dataAtual <= maxTimeAcceptableConnection
+    },
+
+    videoCall() {
+      let interviewId = this.interview.id.toString()
+      let sessionID = uuid()
+      let token = window.localStorage.getItem('token')
+      return APPLICATION_VIDEO_CALL_URL +
+        'token=' + token +
+        '&sessionId=' + sessionID +
+        '&interviewId=' + interviewId +
+        '&appServerUrl=' + APPLICATION_SERVER_OPENVIDU_URL +
+        '&appFrontendUrl=' + APPLICATION_FRONTEND_URL +
+        '&userRole=' + 'ROLE_CANDIDATE'
     },
     getInterviewId() {
       return this.interview.id.toString()
@@ -78,7 +116,7 @@ export default defineComponent({
     getInterviewStatus() {
       return InterviewStatus[this.interview.status]
     },
-    getStatusColor(){
+    getStatusColor() {
       switch (InterviewStatus[this.interview.status]) {
         case InterviewStatus.WAITING_CANDIDATE :
           return '#f88676'
@@ -106,7 +144,7 @@ export default defineComponent({
     }
   },
   methods: {
-    canDelete(){
+    canDelete() {
       switch (InterviewStatus[this.interview.status]) {
         case InterviewStatus.TO_BE_SCHEDULE:
         case InterviewStatus.WAITING_CANDIDATE_REGISTRATION:

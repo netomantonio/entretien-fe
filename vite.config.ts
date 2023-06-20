@@ -4,7 +4,7 @@ import vuetify, {transformAssetUrls} from 'vite-plugin-vuetify'
 import {VitePWA} from 'vite-plugin-pwa'
 
 // Utilities
-import {defineConfig} from 'vite'
+import {defineConfig, loadEnv} from 'vite'
 import {fileURLToPath, URL} from 'node:url'
 import legacy from '@vitejs/plugin-legacy'
 
@@ -17,14 +17,14 @@ function getHash(file) {
   return hash.slice(0, 8);
 }
 
+export default defineConfig(({ command, mode }) => {
+  const env = loadEnv(mode, process.cwd(), '');
 
-// https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [
+  // Plugins
+  const plugins = [
     vue({
-      template: {transformAssetUrls}
+      template: { transformAssetUrls }
     }),
-    // https://github.com/vuetifyjs/vuetify-loader/tree/next/packages/vite-plugin
     vuetify({
       autoImport: true,
     }),
@@ -37,23 +37,29 @@ export default defineConfig({
     legacy({
       targets: ['defaults', 'not IE 11']
     })
-  ],
-  define: {'process.env': {}},
-  resolve: {
-    alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
+  ];
+
+  return {
+    plugins,
+    define: {
+      'process.env': env
     },
-    extensions: [
-      '.js',
-      '.json',
-      '.jsx',
-      '.mjs',
-      '.ts',
-      '.tsx',
-      '.vue',
-    ],
-  },
-  server: {
-    port: 3000,
-  }
-})
+    resolve: {
+      alias: {
+        '@': fileURLToPath(new URL('./src', import.meta.url))
+      },
+      extensions: [
+        '.js',
+        '.json',
+        '.jsx',
+        '.mjs',
+        '.ts',
+        '.tsx',
+        '.vue',
+      ],
+    },
+    server: {
+      port: 3000,
+    }
+  };
+});
