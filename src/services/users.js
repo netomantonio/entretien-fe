@@ -55,8 +55,10 @@ export default httpClient => ({
       errors: errors
     }
   },
-  getCandidateResumeLastUpdate: async () => {
-  const response = await httpClient.get(`/api/candidate/resume/last-update`)
+  getCandidateDashboard: async (
+    from, to
+  ) => {
+    const response = await httpClient.get(`/api/candidate/dashboard`, {params: {from, to}})
     let errors = null
     if (!response.data) {
       errors = {

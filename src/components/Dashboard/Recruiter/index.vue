@@ -4,7 +4,7 @@
     <div class="px-6 pt-6 grid gap-6 md:grid-cols-2 lg:grid-cols-2">
       <div class="md:col-span-2 lg:col-span-1">
         <DashboardNextInterview v-if="state.data.nextInterview" :nextInterview="state.data.nextInterview"
-                                :lastUpdate="state.data.lastScheduleUpdate"
+                                :lastUpdate="state.data.lastUpdate"
                                 :text="'Última atualização dos seus horários em: '"/>
       </div>
       <div class="md:col-span-2 lg:col-span-1">
