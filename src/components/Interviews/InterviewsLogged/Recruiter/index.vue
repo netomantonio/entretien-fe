@@ -57,7 +57,7 @@
               </thead>
               <tbody>
               <tr v-for="interview in state.interviews" v-bind:key="interview.id">
-                <InterviewListItem :interview="interview"></InterviewListItem>
+                <InterviewListItem :interview="interview" @videoCall="handleVideoCall"  load-interview=""></InterviewListItem>
               </tr>
               </tbody>
             </table>
@@ -98,7 +98,8 @@ export default {
 
     //
     return {
-      state
+      state,
+      loadInterview
     }
   }
 }
