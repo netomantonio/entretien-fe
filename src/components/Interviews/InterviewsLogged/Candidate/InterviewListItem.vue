@@ -24,8 +24,8 @@
     </span>
   </td>
   <td class="td-container">
-    <p v-if="getAppointmentDate !== null" class="text-gray-900 whitespace-no-wrap m-auto">
-      {{ getAppointmentDate }}
+    <p v-if="this.interview.appointmentDate !== undefined" class="text-gray-900 whitespace-no-wrap m-auto">
+      {{ this.interview.appointmentDate }}
     </p>
   </td>
   <td class="td-container-icon">
@@ -49,7 +49,6 @@
 import {defineComponent} from "vue"
 import InterviewStatus from "@/components/Interviews/InterviewStatus"
 import {useRouter} from 'vue-router'
-import {v4 as uuid} from 'uuid'
 
 const APPLICATION_VIDEO_CALL_URL = process.env.APPLICATION_VIDEO_CALL_URL
 const APPLICATION_SERVER_OPENVIDU_URL = process.env.APPLICATION_SERVER_OPENVIDU_URL
@@ -76,7 +75,8 @@ export default defineComponent({
       id: String,
       companyName: String,
       appointmentDate: String,
-      status: String
+      status: String,
+      sessionId: String
     }
   },
   computed: {
@@ -97,7 +97,7 @@ export default defineComponent({
 
     videoCall() {
       let interviewId = this.interview.id.toString()
-      let sessionID = uuid()
+      let sessionID = this.interview.sessionId
       let token = window.localStorage.getItem('token')
       return APPLICATION_VIDEO_CALL_URL +
         'token=' + token +

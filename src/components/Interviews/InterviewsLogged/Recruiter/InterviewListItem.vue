@@ -9,7 +9,7 @@
     </div>
   </td>
   <td class="td-container">
-    <a :href="getSocialNetworking" target="_blank" class="text-gray-900 whitespace-no-wrap m-auto link-personalizado">
+    <a :href="getSocialNetworking" class="text-gray-900 whitespace-no-wrap m-auto link-personalizado" target="_blank">
       {{ getCandidateName }}
     </a>
   </td>
@@ -25,7 +25,8 @@
   </td>
   <td class="td-container">
     <span class="relative inline-block px-3 py-1 font-semi-bold leading-tight">
-      <span class="absolute inset-0 status-pill opacity-50 rounded-full"></span>
+      <span :style="{backgroundColor: getStatusColor}"
+            class="absolute inset-0 status-pill opacity-50 rounded-full"></span>
       <span class="relative m-auto">{{ getInterviewStatus }}</span>
     </span>
   </td>
@@ -44,11 +45,11 @@
     </div>
   </td>
   <td class="td-container-icon">
-<!--    Actions -->
+    <!-- Actions -->
     <p class="text-gray-900 text-center whitespace-no-wrap m-auto">
       <a v-if="getInterviewStatus === 'Agendada' && checkCallLiberation" :href="videoCall"
          class="hover:bg-brand-main text-xs text-brand-main font-semi-bold hover:text-white py-1 px-2 hover:border-transparent rounded"
-         @click="videoCall">
+         @click="$emit('videoCall')">
         Entrar na reunião
       </a>
     </p>
@@ -59,7 +60,6 @@
 import {defineComponent} from "vue";
 import InterviewStatus from "@/components/Interviews/InterviewStatus";
 import {useRouter} from 'vue-router'
-import {v4 as uuid} from "uuid";
 
 const APPLICATION_VIDEO_CALL_URL = process.env.APPLICATION_VIDEO_CALL_URL
 const APPLICATION_SERVER_OPENVIDU_URL = process.env.APPLICATION_SERVER_OPENVIDU_URL
@@ -77,18 +77,18 @@ export default defineComponent({
   data: () => ({}),
   props: {
     interview: {
-      id: String,
-      companyName: String,
-      appointmentDate: String,
-      interviewStatus: String,
-      score: String
+      type: Object,
+      required: true
+    },
+    loadInterview: {
+      type: Function,
+      required: true
     }
   },
   computed: {
-
     checkCallLiberation() {
       let [datePart, timePart] = this.interview.startingAt.toString().split("T")
-      let [year, month, day, ] = datePart.split("-")
+      let [year, month, day,] = datePart.split("-")
       let [hours, minutes] = timePart.split(":")
 
       let monthIndex = parseInt(month, 10) - 1
@@ -99,10 +99,9 @@ export default defineComponent({
       let dataAtual = new Date()
       return dataAtual >= minTimeAcceptableConnection && dataAtual <= maxTimeAcceptableConnection
     },
-
     videoCall() {
       let interviewId = this.interview.id.toString()
-      let sessionID = uuid()
+      let sessionID = this.interview.sessionId
       let token = window.localStorage.getItem('token')
       return APPLICATION_VIDEO_CALL_URL +
         'token=' + token +
@@ -111,9 +110,7 @@ export default defineComponent({
         '&appServerUrl=' + APPLICATION_SERVER_OPENVIDU_URL +
         '&appFrontendUrl=' + APPLICATION_FRONTEND_URL +
         '&userRole=' + 'ROLE_RECRUITER'
-
     },
-
     getSocialNetworking() {
       return this.interview.candidate.socialNetworking
     },
@@ -173,7 +170,7 @@ export default defineComponent({
           return 'gray'
       }
     },
-    getObservation(){
+    getObservation() {
       return this.interview.recruiterObservation.toString()
     }
   }

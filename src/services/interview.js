@@ -15,7 +15,7 @@ export default httpClient => ({
     }
   },
   getInterviewsByCandidate: async () => {
-    const response = await httpClient.get('/api/candidate/interviews')
+    const response = await httpClient.get('/api/interview/candidate')
     let errors = null
     if (!response.data) {
       errors = {
