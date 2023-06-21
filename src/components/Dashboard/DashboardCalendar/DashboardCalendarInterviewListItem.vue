@@ -5,10 +5,10 @@
     </div>
     <div class="ml-0 flex">
       <p class="mt-0.5 mr-2 text-sm font-medium text-gray-900 truncate dark:text-white">
-        {{ props.interview.date.split("T")[1].slice(0, 5) }}
+        {{ props.interview.startingAt.split("T")[1].slice(0, 5) }}
       </p>
       <p class="text-sm text-gray-500 truncate dark:text-gray-400">
-        {{ props.interview.date.split("T")[0].replaceAll("-", "/") }}
+        {{ props.interview.startingAt.split("T")[0].replaceAll("-", "/") }}
       </p>
     </div>
   </div>

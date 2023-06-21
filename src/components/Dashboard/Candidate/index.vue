@@ -5,7 +5,7 @@
       <div class="md:col-span-2 lg:col-span-1">
         <DashboardNextInterview v-if="state.data.nextInterview" :nextInterview="state.data.nextInterview"
                                 :lastUpdate="state.data.lastUpdate"
-                                :text="'Última atualização dos seus horários em: '"/>
+                                text="Última atualização do seu currículo em: "/>
       </div>
       <div class="hidden md:col-span-2 lg:col-span-1">
       </div>

@@ -1,5 +1,14 @@
 <template>
   <td class="td-container">
+    <div class="flex items-center ml-5">
+      <div class="ml-3">
+        <p class="text-gray-900 whitespace-no-wrap m-auto">
+          {{ getInterviewId }}
+        </p>
+      </div>
+    </div>
+  </td>
+  <td class="td-container">
     <p class="text-gray-900 whitespace-no-wrap m-auto">
       {{ getCompanyName }}
     </p>
@@ -19,16 +28,31 @@
       {{ getAppointmentDate }}
     </p>
   </td>
+  <td class="td-container-icon">
+    <p v-if="getInterviewStatus === 'Aguardando agendamento'" class="text-gray-900 whitespace-no-wrap m-auto">
+      <button @click="scheduler" class="hover:bg-brand-main text-brand-main font-semi-bold hover:text-white py-2 px-4 hover:border-transparent rounded">
+        Agendar
+      </button>
+    </p>
+  </td>
 </template>
 
 <script>
 import {defineComponent} from "vue";
 import InterviewStatus from "@/components/Interviews/InterviewStatus";
+import {useRouter} from 'vue-router'
 export default defineComponent({
   setup() {
+    const router = useRouter()
+
+    function scheduler() {
+      window.localStorage.setItem("schedulerInterviewId", this.interview.id.toString())
+      router.push({ name: 'Schedules' })
+    }
 
     return {
-
+      router,
+      scheduler
     }
   },
   data: () => ({}),

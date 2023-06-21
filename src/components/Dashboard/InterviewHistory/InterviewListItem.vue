@@ -17,7 +17,7 @@
   </td>
   <td class="td-container">
     <p v-if="getAppointmentDate !== null" class="text-gray-900 whitespace-no-wrap m-auto">
-      {{ props.interview.date }}
+      {{ props.interview.startingAt }}
     </p>
   </td>
 </template>

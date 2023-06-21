@@ -22,7 +22,7 @@ const props = defineProps({
   title: String,
   icon: String,
   value: Number,
-  valueName: String,
+  valueName: String
 });
 
 </script>
