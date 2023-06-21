@@ -15,7 +15,15 @@ import {
   faClipboardList,
   faListCheck,
   faClockRotateLeft,
-  faUserCheck
+  faUserCheck,
+  faUserTie,
+  faUserGear,
+  faUsers,
+  faClock,
+  faPersonCircleQuestion,
+  faIdCard,
+  faTriangleExclamation,
+  faCircleInfo
 } from "@fortawesome/free-solid-svg-icons";
 // @ts-ignore
 import router from './router'
@@ -39,7 +47,16 @@ library.add(
   faClipboardList,
   faListCheck,
   faClockRotateLeft,
-  faUserCheck);
+  faUserCheck,
+  faUserTie,
+  faUserGear,
+  faUsers,
+  faClock,
+  faPersonCircleQuestion,
+  faIdCard,
+  faTriangleExclamation,
+  faCircleInfo
+);
 
 const app = createApp(App)
 app.use(router)
