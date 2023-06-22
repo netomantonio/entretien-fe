@@ -32,8 +32,8 @@ import {useToast} from "vue-toastification";
 const toast = useToast()
 
 function getSchedules() {
-  services.interview.getInterviewsByCandidate().then(({data, erros}) => {
-    if (erros)
+  services.interview.getInterviewsByCandidate().then(({data, errors}) => {
+    if (errors)
       toast("erro ao carregar suas entrevistas agendadas")
     else {
       data.interviews.filter(interview => interview.status === 'SCHEDULE').map(value => ({
