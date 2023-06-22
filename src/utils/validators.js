@@ -14,7 +14,7 @@ export function validateEmptyAndLength3(value) {
   return true
 }
 
-export function validateInterviewObservation(value) {
+export function validateInterviewObservations(value) {
   if (!value) {
     return '*Este campo é obrigatório'
   }
@@ -81,5 +81,14 @@ export function validateEmptyAndLength5(value) {
     return '*Este campo precisa de no mínimo 5 caracteres'
   }
 
+  return true
+}
+
+export function validateEmptyScore(value) {
+  if (value <= 0) {
+    return '*A pontuação deve ser maior que zero'
+  } else if (value > 5){
+    return '*A pontuação máxima é 5'
+  }
   return true
 }
