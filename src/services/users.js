@@ -1,6 +1,6 @@
 export default httpClient => ({
   getMe: async () => {
-    const response = await httpClient.get('/api/user/me', {
+    const response = await httpClient.get('/api/candidate/me', {
       headers: {
         'Content-Type': 'application/json',
       }
