@@ -4,7 +4,27 @@ import App from './App.vue'
 /* fontawesome */
 import {library} from '@fortawesome/fontawesome-svg-core'
 import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
-import { faUser, faPenToSquare, faTrash, faCalendarDays, faGraduationCap, faBriefcase, faPlus, faEarthAmerica } from "@fortawesome/free-solid-svg-icons";
+import {
+  faUser,
+  faPenToSquare,
+  faTrash,
+  faMessage,
+  faBell,
+  faCalendarDay,
+  faCircleExclamation,
+  faClipboardList,
+  faListCheck,
+  faClockRotateLeft,
+  faUserCheck,
+  faUserTie,
+  faUserGear,
+  faUsers,
+  faClock,
+  faPersonCircleQuestion,
+  faIdCard,
+  faTriangleExclamation,
+  faCircleInfo
+} from "@fortawesome/free-solid-svg-icons";
 // @ts-ignore
 import router from './router'
 // @ts-ignore
@@ -16,7 +36,27 @@ import '@/assets/css/tailwind.css'
 import '@/assets/css/fonts.css'
 import 'vue-toastification/dist/index.css'
 
-library.add(faUser, faPenToSquare, faTrash, faCalendarDays, faGraduationCap, faBriefcase, faPlus, faEarthAmerica);
+library.add(
+  faUser,
+  faPenToSquare,
+  faTrash,
+  faMessage,
+  faBell,
+  faCalendarDay,
+  faCircleExclamation,
+  faClipboardList,
+  faListCheck,
+  faClockRotateLeft,
+  faUserCheck,
+  faUserTie,
+  faUserGear,
+  faUsers,
+  faClock,
+  faPersonCircleQuestion,
+  faIdCard,
+  faTriangleExclamation,
+  faCircleInfo
+);
 
 const app = createApp(App)
 app.use(router)

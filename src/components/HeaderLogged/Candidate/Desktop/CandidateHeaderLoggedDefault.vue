@@ -5,7 +5,7 @@
         <ul class="flex list-none space-x-4">
           <li
             class="w-36 mr-20 mt-0 cursor-pointer focus:outline-none"
-          >
+            @click="() => router.push({ name: 'Dashboard'})">
             <img alt="logo" class="w-full" src="../../../../assets/images/logo_white.png">
           </li>
         </ul>
