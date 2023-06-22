@@ -87,11 +87,11 @@ export default httpClient => ({
     }
   },
   commitInterview: async (
-        {
-          interviewId,
-          scheduleId,
-          date
-        }) => {
+    {
+      interviewId,
+      scheduleId,
+      date
+    }) => {
     const response = await httpClient.post(`/api/interview/commit`, {
       interviewId,
       scheduleId,
@@ -106,6 +106,70 @@ export default httpClient => ({
       }
     }
 
+    return {
+      data: response.data,
+      erros: errors
+    }
+  },
+  getInterviewsWithinPeriodByCandidate: async (
+    from, to
+  ) => {
+    const response = await httpClient.get(`/api/interview/candidate/period`, {params: {from, to}})
+    let errors = null
+    if (!response.data) {
+      errors = {
+        status: response.request.status,
+        statusText: response.request.statusText
+      }
+    }
+    return {
+      data: response.data,
+      erros: errors
+    }
+  },
+  getInterviewsWithinPeriodByRecruiter: async (
+    from, to
+  ) => {
+    const response = await httpClient.get(`/api/interview/recruiter/period`, {params: {from, to}})
+    let errors = null
+    if (!response.data) {
+      errors = {
+        status: response.request.status,
+        statusText: response.request.statusText
+      }
+    }
+    return {
+      data: response.data,
+      erros: errors
+    }
+  },
+  getInterviewsWithinPeriodByManager: async (
+    from, to
+  ) => {
+    const response = await httpClient.get(`/api/interview/manager/period`, {params: {from, to}})
+    let errors = null
+    if (!response.data) {
+      errors = {
+        status: response.request.status,
+        statusText: response.request.statusText
+      }
+    }
+    return {
+      data: response.data,
+      erros: errors
+    }
+  },
+  getThisMonth: async (
+    from, to
+  ) => {
+    const response = await httpClient.get(`/api/interview/period`, {params: {from, to}})
+    let errors = null
+    if (!response.data) {
+      errors = {
+        status: response.request.status,
+        statusText: response.request.statusText
+      }
+    }
     return {
       data: response.data,
       erros: errors
