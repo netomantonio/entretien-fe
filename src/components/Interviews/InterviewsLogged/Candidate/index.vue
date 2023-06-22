@@ -37,7 +37,7 @@
                   Data agendada
                 </th>
                 <th
-                  class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semi-bold text-gray-600 uppercase tracking-wider">
+                  class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semi-bold text-gray-600 uppercase tracking-wider">
                   Ações
                 </th>
                 <th
