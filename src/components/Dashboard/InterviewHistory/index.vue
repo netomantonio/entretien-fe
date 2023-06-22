@@ -35,7 +35,7 @@
               </tbody>
             </table>
             <div v-if="props.interviewHistory.length === 0" class="flex-1 text-gray-600 py-5 text-center">
-              Você ainda não concluiu nenhuma entrevista.
+              {{ props.nothingToShowMessage }}
             </div>
           </div>
         </div>
@@ -51,7 +51,8 @@ import InterviewListItem from "@/components/Dashboard/InterviewHistory/Interview
 
 const props = defineProps({
   interviewHistory: {},
-  user: String
+  user: String,
+  nothingToShowMessage: String
 })
 
 </script>

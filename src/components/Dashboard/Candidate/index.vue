@@ -1,6 +1,6 @@
 <template>
   <div class="z-10 top-0 h-16 bg-white py-3 2xl:container">
-    <DashboardHeader/>
+    <DashboardHeader subtitle="Candidate"/>
     <div class="px-6 pt-6 grid gap-6 md:grid-cols-2 lg:grid-cols-2">
       <div class="md:col-span-2 lg:col-span-1">
         <DashboardNextInterview v-if="state.data.nextInterview" :nextInterview="state.data.nextInterview"
@@ -13,7 +13,8 @@
     <div class="md:mt-5 px-6 pt-6 grid lg:gap-6 md:grid-cols-3 lg:grid-cols-3">
       <div class="md:col-span-2 lg:col-span-2 mr-5">
         <InterviewHistory v-if="state.data.interviewsHistory" :user="'Candidato'"
-                          :interviewHistory="state.data.interviewsHistory"/>
+                          :interviewHistory="state.data.interviewsHistory"
+                          nothing-to-show-message="Você ainda não concluiu nenhuma entrevista."/>
       </div>
       <div class="md:col-span-1 lg:col-span-1">
         <DashboardCandidateNumbersCard v-if="state.data.interviewsStats" :interviewsStats="state.data.interviewsStats"/>
