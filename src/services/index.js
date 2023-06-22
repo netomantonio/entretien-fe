@@ -1,10 +1,10 @@
 import axios from 'axios'
-import AuthService from '@/services/auth'
-import RegisterService from '@/services/register'
-import SchedulesService from '@/services/schedules'
-import UserService from '@/services/users'
-import InterviewService from '@/services/interview'
-import ResumeService from '@/services/resume'
+import AuthService from '../services/auth'
+import RegisterService from '../services/register'
+import SchedulesService from '../services/schedules'
+import UserService from '../services/users'
+import InterviewService from '../services/interview'
+import ResumeService from '../services/resume'
 import {useToast} from 'vue-toastification'
 import {setGlobalLoading} from "@/store/global"
 
@@ -12,7 +12,7 @@ const toast = useToast()
 const API_ENVS = {
   production: '',
   development: '',
-  local: 'http://localhost:5000'
+  local: process.env.APPLICATION_ENTRETIEN_SERVER_URL
 }
 
 const httpClient = axios.create({

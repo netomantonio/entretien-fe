@@ -15,7 +15,7 @@ export default httpClient => ({
     }
   },
   getInterviewsByCandidate: async () => {
-    const response = await httpClient.get('/api/candidate/interviews')
+    const response = await httpClient.get('/api/interview/candidate')
     let errors = null
     if (!response.data) {
       errors = {
@@ -52,7 +52,7 @@ export default httpClient => ({
                           }) => {
     const response = await httpClient.post('/api/interview', {
       candidateCpf: cpf,
-      managerObservation: observation,
+      recruiterObservation: observation,
     })
     let errors = null
 
@@ -172,6 +172,48 @@ export default httpClient => ({
     }
     return {
       data: response.data,
+      erros: errors
+    }
+  },
+  getInterviewById: async ({
+                             id,
+                           }) => {
+    const response = await httpClient.get(`/api/interview/${id}`)
+    let errors = null
+
+    if (!response.data) {
+      errors = {
+        status: response.request.status,
+        statusText: response.request.statusText
+      }
+    }
+
+    return {
+      data: response.data,
+      erros: errors
+    }
+  },
+  updateInterview: async ({
+                            id,
+                            candidateObservation,
+                            managerObservation,
+                            score,
+                            interviewStatus
+                          }) => {
+    const response = await httpClient.patch(`/api/interview/${id}`, {
+      candidateObservation,
+      managerObservation,
+      score,
+      interviewStatus
+    })
+    let errors
+    if (response.request.status !== 200) {
+      errors = {
+        status: response.request.status,
+        statusText: response.request.statusText
+      }
+    }
+    return {
       erros: errors
     }
   }
