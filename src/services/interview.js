@@ -127,38 +127,26 @@ export default httpClient => ({
       erros: errors
     }
   },
-  getCandidateNextInterview: async () => {
-    const response = await httpClient.get(`/api/interview/candidate/next`)
-    let errors = null
-    if (!response.data) {
-      errors = {
-        status: response.request.status,
-        statusText: response.request.statusText
-      }
-    }
-    return {
-      data: response.data,
-      errors: errors
-    }
-  },
-  getCandidateInterviewStats: async () => {
-    const response = await httpClient.get(`/api/interview/candidate/stats`)
-    let errors = null
-    if (!response.data) {
-      errors = {
-        status: response.request.status,
-        statusText: response.request.statusText
-      }
-    }
-    return {
-      data: response.data,
-      errors: errors
-    }
-  },
   getInterviewsWithinPeriodByRecruiter: async (
     from, to
   ) => {
     const response = await httpClient.get(`/api/interview/recruiter/period`, {params: {from, to}})
+    let errors = null
+    if (!response.data) {
+      errors = {
+        status: response.request.status,
+        statusText: response.request.statusText
+      }
+    }
+    return {
+      data: response.data,
+      erros: errors
+    }
+  },
+  getInterviewsWithinPeriodByManager: async (
+    from, to
+  ) => {
+    const response = await httpClient.get(`/api/interview/manager/period`, {params: {from, to}})
     let errors = null
     if (!response.data) {
       errors = {
