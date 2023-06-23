@@ -29,11 +29,6 @@
     </span>
   </td>
   <td class="td-container-icon">
-    <p class="text-gray-900 whitespace-no-wrap m-auto">
-      <font-awesome-icon icon="pen-to-square" class="text-brand-main action-icon"/>
-    </p>
-  </td>
-  <td class="td-container-icon">
     <p v-if="canDelete()" @click="$emit('delete', this.interview.id)" class="text-gray-900 whitespace-no-wrap m-auto">
       <font-awesome-icon icon="trash" class="text-brand-main action-icon"/>
     </p>

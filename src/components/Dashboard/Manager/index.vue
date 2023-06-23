@@ -1,6 +1,6 @@
 <template>
   <div class="z-10 top-0 h-16 bg-white py-3 2xl:container">
-        <DashboardHeader subtitle="Manager"/>
+        <DashboardHeader title="Painel do Gerente"/>
     <div class="px-6 pt-6 grid gap-6 md:grid-cols-3 lg:grid-cols-3">
       <div class="md:col-span-2 lg:col-span-2">
         <DashboardCalendar v-if="state.data.thisMonthScheduledInterviews"

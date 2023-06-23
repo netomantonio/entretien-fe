@@ -1,6 +1,6 @@
 <template>
   <div class="z-10 top-0 h-16 bg-white py-3 2xl:container">
-    <DashboardHeader subtitle="Recruiter"/>
+    <DashboardHeader title="Painel do Recrutador"/>
     <div class="px-6 pt-6 grid gap-6 md:grid-cols-2 lg:grid-cols-2">
       <div class="md:col-span-2 lg:col-span-1">
         <DashboardNextInterview v-if="state.data.nextInterview" :nextInterview="state.data.nextInterview"

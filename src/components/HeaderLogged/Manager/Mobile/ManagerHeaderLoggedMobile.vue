@@ -48,7 +48,6 @@ export default {
 
     const menuItems = [
       { name: 'Interviews', route: 'Interviews', label: 'Entrevistas' },
-      { name: 'Calendar', route: 'Calendar', label: 'Calendário' },
       { name: 'Profile', route: 'Profile', label: 'Perfil' }
     ]
 

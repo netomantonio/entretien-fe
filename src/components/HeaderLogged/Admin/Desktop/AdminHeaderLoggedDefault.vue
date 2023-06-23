@@ -29,11 +29,6 @@
           </li>
           <li
             class="font-bold text-white rounded-full cursor-pointer focus:outline-none"
-            @click="() => router.push({ name: 'Calendar'})">
-            Calendário
-          </li>
-          <li
-            class="font-bold text-white rounded-full cursor-pointer focus:outline-none"
             @click="handleLogout">
             {{ logoutLabel }}
           </li>

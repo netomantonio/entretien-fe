@@ -48,8 +48,7 @@ export default {
     const menuItems = [
       { name: 'Dashboard', route: 'Dashboard', label: 'Dashboard' },
       { name: 'User', route: 'User', label: 'Usuários' },
-      { name: 'Interviews', route: 'Interviews', label: 'Entrevistas' },
-      { name: 'Calendar', route: 'Calendar', label: 'Calendário' }
+      { name: 'Interviews', route: 'Interviews', label: 'Entrevistas' }
     ]
 
     function handleLogout() {
