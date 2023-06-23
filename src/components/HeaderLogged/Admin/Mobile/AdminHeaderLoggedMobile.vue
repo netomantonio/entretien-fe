@@ -1,6 +1,6 @@
 <template>
   <div class="flex items-center justify-between w-4/5 max-w-6xl py-10 block sm:hidden">
-    <div class="w-28 lg:w-36">
+    <div @click="() => router.push({ name: 'Dashboard'})" class="w-28 lg:w-36">
       <img alt="logo" class="w-full" src="@/assets/images/logo_white.png">
     </div>
     <div class="flex">
