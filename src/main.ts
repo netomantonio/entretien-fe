@@ -23,7 +23,8 @@ import {
   faPersonCircleQuestion,
   faIdCard,
   faTriangleExclamation,
-  faCircleInfo
+  faCircleInfo,
+  faCircleUser
 } from "@fortawesome/free-solid-svg-icons";
 // @ts-ignore
 import router from './router'
@@ -55,7 +56,8 @@ library.add(
   faPersonCircleQuestion,
   faIdCard,
   faTriangleExclamation,
-  faCircleInfo
+  faCircleInfo,
+  faCircleUser
 );
 
 const app = createApp(App)
