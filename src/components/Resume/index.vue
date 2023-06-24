@@ -3,7 +3,7 @@
     <div v-if="state.resume">
       <div class="pt-3 px-5 mx-4 flex-1 w-full">
         <div class="w-full mt-5">
-          <h2 class="text-gray-600 font-semi-bold">Currículo</h2>
+          <h2 class="text-gray-600 font-semibold">Currículo</h2>
         </div>
         <div class="my-10 grid grid-cols-12 gap-x-6 gap-y-8">
           <div v-if="state.resume" class="col-span-4">

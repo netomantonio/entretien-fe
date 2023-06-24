@@ -8,11 +8,11 @@
       <div class="flex items-center justify-between pb-6 w-full">
         <div class="flex-1">
           <div>
-            <h2 class="text-gray-600 font-semi-bold">Entrevistas</h2>
+            <h2 class="text-gray-600 font-semibold">Entrevistas</h2>
           </div>
         </div>
         <div v-if="!state.mostrarFormulario">
-          <button class="bg-brand-main px-4 py-2 rounded-md text-white font-semi-bold tracking-wide cursor-pointer"
+          <button class="bg-brand-main px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer"
                   @click="state.mostrarFormulario = true">
             Nova entrevista
           </button>
@@ -26,19 +26,19 @@
               <thead>
               <tr>
                 <th
-                  class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semi-bold text-gray-600 uppercase tracking-wider">
+                  class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                   Candidato
                 </th>
                 <th
-                  class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semi-bold text-gray-600 uppercase tracking-wider">
+                  class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                   OBS.
                 </th>
                 <th
-                  class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semi-bold text-gray-600 uppercase tracking-wider">
+                  class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                   Data de criação
                 </th>
                 <th
-                  class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semi-bold text-gray-600 uppercase tracking-wider">
+                  class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                   Status
                 </th>
                 <th

@@ -1,6 +1,8 @@
 <template>
   <div class="flex items-center justify-between w-4/5 max-w-6xl py-10 block sm:hidden">
-    <div class="w-28 lg:w-36">
+    <div
+      @click="() => router.push({ name: 'Dashboard'})"
+      class="w-28 lg:w-36">
       <img alt="logo" class="w-full" src="@/assets/images/logo_white.png">
     </div>
     <div class="flex">
@@ -46,9 +48,10 @@ export default {
     const menuOpen = ref(false)
 
     const menuItems = [
-      { name: 'Dashboard', route: 'Dashboard', label: 'Dashboard' },
-      { name: 'User', route: 'User', label: 'Usuários' },
-      { name: 'Interviews', route: 'Interviews', label: 'Entrevistas' }
+      { name: 'Curriculum', route: 'Curriculum', label: 'Currículo' },
+      { name: 'Interviews', route: 'Interviews', label: 'Entrevistas' },
+      { name: 'Schedules', route: 'Schedules', label: 'Agendamentos' },
+      { name: 'Profile', route: 'Profile', label: 'Perfil' }
     ]
 
     function handleLogout() {

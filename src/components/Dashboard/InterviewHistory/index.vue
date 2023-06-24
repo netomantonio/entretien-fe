@@ -12,18 +12,18 @@
               <thead>
               <tr class="border-b-2 border-gray-200">
                 <th
-                  class="px-5 py-3  bg-gray-100 text-left text-xs font-semi-bold text-gray-600 uppercase tracking-wider">
+                  class="px-5 py-3  bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                   Empresa
                 </th>
                 <th
                   class="border-b-2 border-gray-200 bg-gray-100">
                 </th>
                 <th
-                  class="px-5 py-3 bg-gray-100 text-left text-xs font-semi-bold text-gray-600 uppercase tracking-wider">
+                  class="px-5 py-3 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                   {{ props.user }}
                 </th>
                 <th
-                  class="px-5 py-3 bg-gray-100 text-left text-xs font-semi-bold text-gray-600 uppercase tracking-wider">
+                  class="px-5 py-3 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                   Data de realização
                 </th>
               </tr>

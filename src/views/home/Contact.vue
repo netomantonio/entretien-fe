@@ -6,7 +6,7 @@
         Quer saber melhor como funciona e quais são os preços?
       </p>
       <div class="mt-10">
-        <a class="px-6 py-2 mt-10 font-bold text-white rounded-full bg-brand-main focus:outline-none" href="mailto:">
+        <a class="px-6 py-2 mt-10 font-bold text-white rounded-full bg-brand-main focus:outline-none" href="mailto:contato@entretienrh.com">
           Nos mande um e-mail!
         </a>
       </div>
