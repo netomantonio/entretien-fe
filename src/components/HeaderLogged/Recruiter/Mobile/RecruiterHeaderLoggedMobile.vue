@@ -48,6 +48,7 @@ export default {
     const menuOpen = ref(false)
 
     const menuItems = [
+      { name: 'Dashboard', route: 'Dashboard', label: 'Dashboard' },
       { name: 'Interviews', route: 'Interviews', label: 'Entrevistas' },
       { name: 'Profile', route: 'Profile', label: 'Perfil' }
     ]
