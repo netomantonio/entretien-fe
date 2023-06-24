@@ -32,7 +32,7 @@
         <!-- Professional experience -->
         <div v-if="state.resume" class="w-full my-3 pt-5 border-t-2">
           <div class="flex">
-            <font-awesome-icon icon="graduation-cap" class="text-gray-600 pt-0.5 mr-3 text-2xl"/>
+            <font-awesome-icon icon="graduation-cap" class="action-icon-label text-gray-600 pt-0.5 mr-3 text-2xl"/>
             <h5 class="text-gray-600">Experiência Acadêmica</h5>
           </div>
           <div v-if="state.resume.academicEducation">
@@ -43,16 +43,16 @@
                 :handleRemove="removeAcademicEducation"/>
             </div>
           </div>
-          <button class="px-3 py-2 mt-5 flex items-center space-x-4 rounded-md text-white group bg-brand-main"
+          <button class="px-3 py-1 mt-5 flex items-center space-x-4 rounded-md text-white group bg-brand-main"
                   @click="addAcademicEducation">
-            <font-awesome-icon icon="plus" class="text-white pt-0.5 text-2xl"/>
+            <font-awesome-icon icon="plus" class="action-icon-button text-white pt-0.5 text-2xl"/>
             <span class="group-hover:text-gray-700">Incluir</span>
           </button>
         </div>
         <!-- Professional experience -->
         <div class="w-full my-5 mt-5 pt-5 border-t-2">
           <div class="flex">
-            <font-awesome-icon icon="briefcase" class="text-gray-600 pt-0.5 mr-3 text-2xl"/>
+            <font-awesome-icon icon="briefcase" class="action-icon-label text-gray-600 pt-0.5 mr-3 text-2xl"/>
             <h4>Experiência profissional</h4>
           </div>
           <div v-if="state.resume">
@@ -63,16 +63,16 @@
                 :handleRemove="removeProfessionalExperience"/>
             </div>
           </div>
-          <button class="px-3 py-2 mt-5 flex items-center space-x-4 rounded-md text-white group bg-brand-main"
+          <button class="px-3 py-1 mt-5 flex items-center space-x-4 rounded-md text-white group bg-brand-main"
                   @click="addProfessionalExperience">
-            <font-awesome-icon icon="plus" class="text-white pt-0.5 text-2xl"/>
+            <font-awesome-icon icon="plus" class="action-icon-button text-white pt-0.5 text-2xl"/>
             <span class="group-hover:text-gray-700">Incluir</span>
           </button>
         </div>
         <!-- Languages -->
         <div class="w-full my-5 pt-5 border-t-2">
           <div class="flex">
-            <font-awesome-icon icon="earth-america" class="text-gray-600 pt-0.5 mr-3 text-2xl"/>
+            <font-awesome-icon icon="earth-america" class="action-icon-label text-gray-600 pt-0.5 mr-3 text-2xl"/>
             <h4>Lingua estrangeira</h4>
           </div>
           <div v-if="state.resume">
@@ -83,9 +83,9 @@
                 :handleRemove="removeLanguages"/>
             </div>
           </div>
-          <button class="px-3 py-2 mt-5 flex items-center space-x-4 rounded-md text-white group bg-brand-main"
+          <button class="px-3 py-1 mt-5 flex items-center space-x-4 rounded-md text-white group bg-brand-main"
                   @click="addLanguage">
-            <font-awesome-icon icon="plus" class="text-white pt-0.5 text-2xl"/>
+            <font-awesome-icon icon="plus" class="action-icon-button text-white pt-0.5 text-2xl"/>
             <span class="group-hover:text-gray-700">Incluir</span>
           </button>
         </div>
@@ -240,5 +240,11 @@ getResume()
 </script>
 
 <style scoped>
+.action-icon-button {
+  height: 0.95rem;
+}
 
+.action-icon-label {
+  height: 1.4rem;
+}
 </style>
