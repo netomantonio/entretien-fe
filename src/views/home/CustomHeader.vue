@@ -35,7 +35,9 @@
           E mais economia para sua empresa.
         </p>
         <div>
-          <button class="px-6 py-2 mt-10 font-bold bg-white rounded-full text-brand-main focus:outline-none">
+          <button
+            @click="() => emit('create-account')"
+            class="px-6 py-2 mt-10 font-bold bg-white rounded-full text-brand-main focus:outline-none">
             Descubra como otimizar suas contratações agora!
           </button>
         </div>

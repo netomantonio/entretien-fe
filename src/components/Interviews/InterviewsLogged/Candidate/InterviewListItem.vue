@@ -18,7 +18,7 @@
     </p>
   </td>
   <td class="td-container">
-    <span class="relative inline-block px-3 py-1 font-semi-bold leading-tight">
+    <span class="relative inline-block px-3 py-1 font-semibold leading-tight">
       <span class="absolute inset-0 status-pill opacity-50 rounded-full"></span>
       <span class="relative m-auto">{{ getInterviewStatus }}</span>
     </span>
@@ -32,12 +32,12 @@
     <p class="text-gray-900 text-center whitespace-no-wrap m-auto">
       <button
         v-if="getInterviewStatus === 'Aguardando agendamento'"
-        class="hover:bg-brand-main text-brand-main text-xs font-semi-bold hover:text-white py-2 px-4 hover:border-transparent rounded"
+        class="hover:bg-brand-main text-brand-main text-xs font-semibold hover:text-white py-2 px-4 hover:border-transparent rounded"
         @click="scheduler">
         Agendar
       </button>
       <a v-if="getInterviewStatus === 'Agendada' && checkCallLiberation" :href="videoCall"
-         class="hover:bg-brand-main text-xs text-brand-main font-semi-bold hover:text-white py-1 px-2 hover:border-transparent rounded"
+         class="hover:bg-brand-main text-xs text-brand-main font-semibold hover:text-white py-1 px-2 hover:border-transparent rounded"
          @click="videoCall">
         Entrar na reunião
       </a>

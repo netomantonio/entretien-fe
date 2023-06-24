@@ -3,7 +3,7 @@
     <header-logged/>
   </div>
   <div class="container py-5">
-    <h2 class=" text-gray-600 font-semi-bold">
+    <h2 class=" text-gray-600 font-semibold">
       Selecione um horário disponível para agendar a entrevista:
     </h2>
   </div>
