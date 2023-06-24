@@ -14,11 +14,22 @@ const Users = () => import('@/views/users/index.vue')
 
 const InterviewDetails = () => import('@/views/interviewDetails/index.vue')
 
+
+const redirectUserLogged = (to, from, next) => {
+  const token = localStorage.getItem('token')
+  if (token) {
+    next('/dashboard')
+  } else {
+    next()
+  }
+}
+
 const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: Home,
+    beforeEnter: redirectUserLogged,
   },
   {
     path: '/profile',

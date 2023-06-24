@@ -29,6 +29,11 @@
           </li>
           <li
             class="font-bold text-white rounded-full cursor-pointer focus:outline-none"
+            @click="() => router.push({ name: 'Profile'})">
+            Perfil
+          </li>
+          <li
+            class="font-bold text-white rounded-full cursor-pointer focus:outline-none"
             @click="handleLogout">
             {{ logoutLabel }}
           </li>

@@ -39,7 +39,7 @@
                 <button
                         :class="{'opacity-50': state.isLoading}"
                         :disabled="state.isLoading"
-                        class="bg-brand-main px-4 py-2 rounded-md text-white font-semi-bold tracking-wide cursor-pointer"
+                        class="bg-brand-main px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer"
                         type="submit"
                         @click="valideCpf"
                 >

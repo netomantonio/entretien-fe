@@ -23,7 +23,7 @@
     </p>
   </td>
   <td class="td-container">
-    <span class="relative inline-block px-3 py-1 font-semi-bold leading-tight">
+    <span class="relative inline-block px-3 py-1 font-semibold leading-tight">
       <span class="absolute inset-0 status-pill opacity-50 rounded-full"></span>
       <span class="relative m-auto">{{ getInterviewStatus }}</span>
     </span>
