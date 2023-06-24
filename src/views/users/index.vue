@@ -3,19 +3,11 @@
     <header-logged/>
   </div>
   <div class="flex">
-<!--    <Users-logged/>-->
+    <Users-logged/>
   </div>
 </template>
 
-<script>
+<script setup>
 import HeaderLogged from "@/components/HeaderLogged/index.vue"
-// import UsersLogged from "@/components/Users/index.vue";
-
-export default {
-  components: {
-    // UsersLogged,
-    HeaderLogged,
-  }
-}
-
+import UsersLogged from "@/components/Users/index.vue";
 </script>

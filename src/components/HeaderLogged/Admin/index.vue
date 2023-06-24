@@ -4,5 +4,6 @@
 
 </template>
 <script setup>
-import AdminHeaderLoggedDefault from "@/components/HeaderLogged/Admin/Desktop/AdminHeaderLoggedDefault.vue";
+import AdminHeaderLoggedDefault from "@/components/HeaderLogged/Admin/Desktop/AdminHeaderLoggedDefault.vue"
+import AdminHeaderLoggedMobile from "@/components/HeaderLogged/Admin/Mobile/AdminHeaderLoggedMobile.vue"
 </script>
