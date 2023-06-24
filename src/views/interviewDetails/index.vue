@@ -63,7 +63,7 @@
             </div>
             <div class="text-center mt-12">
               <h3
-                class="text-4xl font-semi-bold leading-normal text-gray-800 mb-2"
+                class="text-4xl font-semibold leading-normal text-gray-800 mb-2"
               >
                 {{ state.interview.candidateName }}
               </h3>

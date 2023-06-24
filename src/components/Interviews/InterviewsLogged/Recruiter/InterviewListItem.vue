@@ -24,7 +24,7 @@
     </p>
   </td>
   <td class="td-container">
-    <span class="relative inline-block px-3 py-1 font-semi-bold leading-tight">
+    <span class="relative inline-block px-3 py-1 font-semibold leading-tight">
       <span :style="{backgroundColor: getStatusColor}"
             class="absolute inset-0 status-pill opacity-50 rounded-full"></span>
       <span class="relative m-auto">{{ getInterviewStatus }}</span>
@@ -48,7 +48,7 @@
     <!-- Actions -->
     <p class="text-gray-900 text-center whitespace-no-wrap m-auto">
       <a v-if="getInterviewStatus === 'Agendada' && checkCallLiberation" :href="videoCall"
-         class="hover:bg-brand-main text-xs text-brand-main font-semi-bold hover:text-white py-1 px-2 hover:border-transparent rounded"
+         class="hover:bg-brand-main text-xs text-brand-main font-semibold hover:text-white py-1 px-2 hover:border-transparent rounded"
          @click="$emit('videoCall')">
         Entrar na reunião
       </a>
