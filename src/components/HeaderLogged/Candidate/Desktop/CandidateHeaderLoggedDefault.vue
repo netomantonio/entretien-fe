@@ -14,6 +14,11 @@
         <ul class="flex list-none space-x-4">
           <li
             class="font-bold text-white rounded-full cursor-pointer focus:outline-none"
+            @click="() => router.push({ name: 'Dashboard'})">
+            Dashboard
+          </li>
+          <li
+            class="font-bold text-white rounded-full cursor-pointer focus:outline-none"
             @click="() => router.push({ name: 'Curriculum'})">
             Currículo
           </li>
