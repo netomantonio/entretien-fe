@@ -1,23 +1,27 @@
 <template>
   <div class="z-10 top-0 h-16 bg-white py-3 2xl:container">
     <DashboardHeader title="Painel do Administrador"/>
-    </div>
-    <div class="md:mt-5 px-6 pt-6 grid lg:gap-6 md:grid-cols-3 lg:grid-cols-3">
-      <div class="md:col-span-2 lg:col-span-2 mr-5">
-        <div class="md:col-span-2 lg:col-span-1">
-          <DashboardCalendar v-if="state.data.thisMonthScheduledInterviews"
-                             :interviews="state.data.thisMonthScheduledInterviews"
-                             :getEvents="getThisMonthInterviews"/>
-        </div>
-        <div class="md:col-span-2 lg:col-span-1">
+  </div>
+  <div v-if="state.data" class="md:mt-5 px-6 pt-6 grid lg:gap-6 md:grid-cols-3 lg:grid-cols-3">
+    <div class="md:col-span-2 lg:col-span-2 mr-5">
+      <div class="md:col-span-2 lg:col-span-1">
+        <DashboardCalendar v-if="state.data.thisMonthScheduledInterviews"
+                           :interviews="state.data.thisMonthScheduledInterviews"
+                           :getEvents="getThisMonthInterviews"/>
+      </div>
+      <div class="md:col-span-2 lg:col-span-1">
         <InterviewProblemHistory v-if="state.data.interviewProblemHistory" :user="'Candidato'"
-                          :interviewHistory="state.data.interviewProblemHistory"/>
-        </div>
-      </div>
-      <div class="md:col-span-1 lg:col-span-1">
-        <DashboardAdminNumbersCard v-if="state.data.interviewsStats" :interviewsStats="state.data.interviewsStats"/>
+                                 :interviewHistory="state.data.interviewProblemHistory"/>
       </div>
     </div>
+    <div class="md:col-span-1 lg:col-span-1">
+      <DashboardAdminNumbersCard v-if="state.data.interviewsStats" :interviewsStats="state.data.interviewsStats"/>
+    </div>
+  </div>
+  <div v-else class="flex justify-center items-center py-72">
+    <img class="h-10" src="https://media.tenor.com/On7kvXhzml4AAAAj/loading-gif.gif">
+  </div>
+
 </template>
 
 <script setup>
@@ -29,7 +33,7 @@ import services from "@/services";
 import DashboardCalendar from "@/components/Dashboard/DashboardCalendar/DashboardCalendar.vue";
 
 const state = reactive({
-  data: {}
+  data: null
 })
 const date = new Date()
 const from = (date.getFullYear() + "-" + String(date.getMonth() + 1).padStart(2, '0') + "-" + "01")
