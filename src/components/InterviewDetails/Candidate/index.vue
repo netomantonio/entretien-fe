@@ -147,24 +147,20 @@
                   </p>
                 </div>
               </div>
-                <div class="border-t mt-1"></div>
-                <div class="mt-5 border-gray-300 text-center">
-                  <div class="flex flex-wrap justify-center">
-                    <div class="w-full lg:w-9/12 px-4">
-                      <p class="text-lg leading-relaxed text-gray-800">
-                        <label for="interviewID"><strong>Observações para você</strong></label>
-                        <br>
-                        <p
-                          v-if="state.interview.candidateObservation.value"
-                        >{{ state.interview.candidateObservation.value }}</p>
-                        <p
-                          v-else
-                          class="text-brand-info py-5"
-                        >Sem informações no momento</p>
-                      </p>
-                    </div>
+              <div class="border-t mt-1"></div>
+              <div class="mt-5 border-gray-300 text-center">
+                <div class="flex flex-wrap justify-center">
+                  <div class="w-full lg:w-9/12 px-4">
+                    <p class="text-lg leading-relaxed text-gray-800">
+                      <label for="interviewID"><strong>Observações para você</strong></label>
+                      <br>
+                    <p v-if="state.interview.candidateObservation.value">
+                      {{ state.interview.candidateObservation.value }}
+                    </p>
+                    <p v-else class="text-brand-info py-5">Sem informações no momento</p>
                   </div>
                 </div>
+              </div>
               <div class="border-t">
                 <label class="block mb-2 mt-5 font-medium text-lg text-gray-900 dark:text-white" for="interviewStatus">
                   <strong>Status da entrevista</strong>

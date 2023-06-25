@@ -185,14 +185,13 @@
                       <p class="mb-0 text-lg leading-relaxed text-gray-800">
                         <label for="interviewID"><strong>Observações para você</strong></label>
                         <br>
-                        <p
-                          v-if="state.interview.recruiterObservation.value"
-                        >{{ state.interview.recruiterObservation.value }}</p>
-                        <p
-                          v-else
-                          class="text-brand-info py-5"
-                        >Sem informações no momento</p>
-                      </p>
+                      <p
+                        v-if="state.interview.recruiterObservation.value"
+                      >{{ state.interview.recruiterObservation.value }}</p>
+                      <p
+                        v-else
+                        class="text-brand-info py-5"
+                      >Sem informações no momento</p>
                     </div>
                   </div>
                   <div class="border-t"></div>
@@ -201,55 +200,51 @@
                   <p class="mb-4 text-lg leading-relaxed text-gray-800">
                     <label for="interviewID"><strong>Observações para a empresa</strong></label>
                     <br>
-                    <div
-                      v-if="state.interview.editable === false"
-                    >
-                      <p
-                        v-if="state.interview.managerObservation.value"
-                      >{{ state.interview.managerObservation.value }}</p>
-                      <p
-                        v-else
-                        class="text-brand-info py-5"
-                      >Sem informações no momento</p>
-                    </div>
-                    <div
-                      v-if="state.interview.editable"
-                    >
+                  <div
+                    v-if="state.interview.editable === false"
+                  >
+                    <p
+                      v-if="state.interview.managerObservation.value"
+                    >{{ state.interview.managerObservation.value }}</p>
+                    <p
+                      v-else
+                      class="text-brand-info py-5"
+                    >Sem informações no momento</p>
+                  </div>
+                  <div
+                    v-if="state.interview.editable"
+                  >
                     <textarea
                       v-model="state.interview.managerObservation.value"
                       class="resize w-full h-40 border rounded border-brand-main focus:border-deeppink-300">
                     </textarea>
-                    </div>
-                  </p>
+                  </div>
                   <div class="border-t"></div>
                 </div>
                 <div class="mb-2 mt-5 text-gray-700">
                   <p class="mb-4 text-lg leading-relaxed text-gray-800">
-                    <p class="mb-4 text-lg leading-relaxed text-gray-800">
-                      <label for="interviewID"><strong>Observações para o candidato</strong></label>
-                      <br>
-                      <div
-                        v-if="state.interview.editable === false"
-                      >
-                        <p
-                          v-if="state.interview.candidateObservation.value"
-                        >{{ state.interview.candidateObservation.value }}</p>
-                        <p
-                          v-else
-                          class="text-brand-info py-5"
-                        >Sem informações no momento</p>
-                      </div>
-                      <div
-                        v-if="state.interview.editable"
-                      >
+                  <p class="mb-4 text-lg leading-relaxed text-gray-800">
+                    <label for="interviewID"><strong>Observações para o candidato</strong></label>
+                    <br>
+                  <div
+                    v-if="state.interview.editable === false"
+                  >
+                    <p
+                      v-if="state.interview.candidateObservation.value"
+                    >{{ state.interview.candidateObservation.value }}</p>
+                    <p
+                      v-else
+                      class="text-brand-info py-5"
+                    >Sem informações no momento</p>
+                  </div>
+                  <div
+                    v-if="state.interview.editable"
+                  >
                     <textarea
                       v-model="state.interview.candidateObservation.value"
                       class="resize w-full h-40 border rounded border-brand-main focus:border-deeppink-300">
                     </textarea>
-                      </div>
-                    </p>
-
-                  </p>
+                  </div>
                 </div>
               </div>
               <div class="border-t">
@@ -267,7 +262,7 @@
                   id="interviewStatus"
                   v-model="state.interview.statusSelected.value"
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                  <option v-for="status in state.statusList" :value="status">{{ status }}</option>
+                  <option v-for="status in state.statusList" :value="status" :key="status">{{ status }}</option>
                 </select>
               </div>
               <div
@@ -310,7 +305,6 @@
 </template>
 
 <script>
-import HeaderLogged from "@/components/HeaderLogged/index.vue"
 import services from "@/services";
 import {useToast} from "vue-toastification";
 import {reactive} from "vue";
@@ -324,7 +318,6 @@ import InterviewStatus from "@/components/commons/InterviewStatus";
 
 export default {
   components: {
-    HeaderLogged,
   },
   setup() {
     const route = useRoute()
