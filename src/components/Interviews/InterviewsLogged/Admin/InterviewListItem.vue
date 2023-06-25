@@ -31,7 +31,7 @@
   </td>
   <td class="td-container">
     <div class="flex items-center">
-      {{ props.interview.id }}
+      {{ props.interview.score }}
     </div>
   </td>
 </template>
