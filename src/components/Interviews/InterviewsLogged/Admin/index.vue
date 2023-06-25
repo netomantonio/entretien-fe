@@ -18,7 +18,7 @@
               <thead>
               <tr>
                 <th v-for="title in headerTitles" v-bind:key="title"
-                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    class="px-5 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                   {{ title }}
                 </th>
               </tr>
@@ -37,9 +37,6 @@
 </template>
 <script setup>
 import {reactive} from "vue";
-import HeaderLogged from "@/components/HeaderLogged/index.vue";
-import Icon from "@/components/Icon/index.vue";
-import {getGlobalLoading} from "@/store/global";
 import services from "@/services";
 import InterviewListItem from "@/components/Interviews/InterviewsLogged/Admin/InterviewListItem.vue";
 
@@ -50,7 +47,7 @@ const state = reactive({
 const headerTitles = ["Id", "Data agendada", "Status", "Empresa", "Candidato", "Recrutador", "Pontuação"]
 
 async function loadInterview() {
-  // const {data} = await services.interview.getInterviews()
+  const {data} = await services.interview.getInterviews()
   state.interviews = data
 }
 

@@ -34,8 +34,8 @@ import ListHeader from "@/components/Users/ListHeader.vue";
 const headerList = [
   {name: "Nome", style: null},
   {name: "", style: null},
-  {name: "Criado em", style: "text-sm text-gray-500 font-normal"},
-  {name: "Atualizado em", style: "text-sm text-gray-500 font-normal"},
+  {name: "Criado em", style: null},
+  {name: "Atualizado em", style: null},
   {name: "Email", style: null},
   {name: "Telefone", style: null},
   {name: "CPF", style: null},
