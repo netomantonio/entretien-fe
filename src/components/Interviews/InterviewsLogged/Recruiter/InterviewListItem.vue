@@ -27,7 +27,7 @@
     <span class="relative inline-block px-3 py-1 font-semibold leading-tight">
       <span :style="{backgroundColor: getStatusColor}"
             class="absolute inset-0 status-pill opacity-50 rounded-full"></span>
-      <span class="relative m-auto">{{ getInterviewStatus }}</span>
+      <span class="relative m-auto">{{ getInterviewStatusText }}</span>
     </span>
   </td>
   <td class="td-container">
@@ -47,18 +47,22 @@
   <td class="td-container-icon">
     <!-- Actions -->
     <p class="text-gray-900 text-center whitespace-no-wrap m-auto">
-      <a v-if="getInterviewStatus === 'Agendada' && checkCallLiberation" :href="videoCall"
+      <a v-if="getInterviewStatusText === 'Agendada' && checkCallLiberation" :href="videoCall"
          class="hover:bg-brand-main text-xs text-brand-main font-semibold hover:text-white py-1 px-2 hover:border-transparent rounded"
          @click="$emit('videoCall')">
         Entrar na reunião
       </a>
+      <font-awesome-icon
+        class="ml-5 text-brand-main cursor-pointer action-icon" icon="eye"
+        @click="viewInterview"
+      />
     </p>
   </td>
 </template>
 
 <script>
 import {defineComponent} from "vue";
-import InterviewStatus from "@/components/Interviews/InterviewStatus";
+import InterviewStatus from "@/components/commons/InterviewStatus";
 import {useRouter} from 'vue-router'
 
 const APPLICATION_VIDEO_CALL_URL = process.env.APPLICATION_VIDEO_CALL_URL
@@ -67,11 +71,16 @@ const APPLICATION_FRONTEND_URL = process.env.APPLICATION_FRONTEND_URL
 const RANGE_TIME_SHOW_CONNECTION_INTERVIEW = process.env.RANGE_TIME_SHOW_CONNECTION_INTERVIEW
 
 export default defineComponent({
-  setup() {
+  setup(props) {
     const router = useRouter()
 
+    function viewInterview() {
+      const interviewId = props.interview.id.toString();
+      router.push({ name: "InterviewDetails", params: { id: interviewId } });
+    }
+
     return {
-      router,
+      viewInterview,
     }
   },
   data: () => ({}),
@@ -141,7 +150,7 @@ export default defineComponent({
     getCompanyName() {
       return this.interview.manager.companyName.toString()
     },
-    getInterviewStatus() {
+    getInterviewStatusText() {
       return InterviewStatus[this.interview.interviewStatus]
     },
     getStatusColor() {

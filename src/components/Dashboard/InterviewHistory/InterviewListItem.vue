@@ -1,7 +1,5 @@
 <template>
   <td class="td-container">
-  </td>
-  <td class="td-container">
     <p class="text-gray-900 whitespace-no-wrap m-auto">
       {{ props.interview.company }}
     </p>

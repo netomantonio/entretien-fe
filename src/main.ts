@@ -24,6 +24,12 @@ import {
   faIdCard,
   faTriangleExclamation,
   faCircleInfo,
+  faEye,
+  faUniversity,
+  faPlus,
+  faBriefcase,
+  faGraduationCap,
+  faEarthAmerica,
   faCircleUser
 } from "@fortawesome/free-solid-svg-icons";
 // @ts-ignore
@@ -56,6 +62,13 @@ library.add(
   faPersonCircleQuestion,
   faIdCard,
   faTriangleExclamation,
+  faCircleInfo,
+  faEye,
+  faUniversity,
+  faPlus,
+  faBriefcase,
+  faGraduationCap,
+  faEarthAmerica,
   faCircleInfo,
   faCircleUser
 );
