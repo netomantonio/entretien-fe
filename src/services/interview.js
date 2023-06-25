@@ -217,6 +217,24 @@ export default httpClient => ({
       erros: errors
     }
   },
+  adminUpdateInterviewStatus: async ({
+                                   id,
+                                   interviewStatus
+                                 }) => {
+    const response = await httpClient.patch(`/api/interview/${id}`, {
+      interviewStatus
+    })
+    let errors
+    if (response.request.status !== 200) {
+      errors = {
+        status: response.request.status,
+        statusText: response.request.statusText
+      }
+    }
+    return {
+      erros: errors
+    }
+  },
   getInterviews: async () => {
     const response = await httpClient.get(`/api/interview/`)
     let errors

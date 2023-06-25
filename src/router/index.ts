@@ -79,8 +79,16 @@ const routes = [
       hasAuth: true
     }
   },
-  {
+/*  {
     path: '/interviews/:id/edit',
+    name: 'InterviewDetails',
+    component: InterviewDetails,
+    meta: {
+      hasAuth: true
+    }
+  },*/
+  {
+    path: '/interviews/:id',
     name: 'InterviewDetails',
     component: InterviewDetails,
     meta: {
