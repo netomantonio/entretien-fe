@@ -80,9 +80,7 @@ import CreateNewInterview from "@/components/Interviews/InterviewsLogged/Manager
 export default defineComponent({
     components: {
       CreateNewInterview,
-      HeaderLogged,
-      InterviewListItem,
-      Icon
+      InterviewListItem
     },
     setup() {
 

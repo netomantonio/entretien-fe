@@ -1,6 +1,6 @@
 <template>
   <th
-    :class="`${customStyle || defaultStyle} px-2`">
+    :class="`${customStyle || defaultStyle}`">
     {{ props.title || "" }}
   </th>
 </template>
@@ -12,5 +12,5 @@ const props = defineProps({
   customStyle: String
 })
 
-const defaultStyle = ""
+const defaultStyle = "px-3 py-3 border-b-2 border-gray-200 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
 </script>
