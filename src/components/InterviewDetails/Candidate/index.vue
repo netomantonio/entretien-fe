@@ -74,7 +74,8 @@
               </div>
               <div class="mb-5 text-gray-700 mt-10 text-left">
                 <i class="fas fa-briefcase mr-2 text-lg text-gray-500"></i>
-                <span class="font-semibold">Código da entrevista:</span> {{ state.interview.id }}
+                <span class="font-semibold">Código da entrevista:</span>
+                {{ state.interview.id }}
               </div>
               <div class="grid grid-cols-1 sm:grid-cols-7 gap-3">
                 <div>
@@ -154,10 +155,11 @@
                     <p class="text-lg leading-relaxed text-gray-800">
                       <label for="interviewID"><strong>Observações para você</strong></label>
                       <br>
-                    <p v-if="state.interview.candidateObservation.value">
-                      {{ state.interview.candidateObservation.value }}
+                      <p v-if="state.interview.candidateObservation.value">
+                        {{ state.interview.candidateObservation.value }}
+                      </p>
+                      <p v-else class="text-brand-info py-5">Sem informações no momento</p>
                     </p>
-                    <p v-else class="text-brand-info py-5">Sem informações no momento</p>
                   </div>
                 </div>
               </div>
@@ -193,7 +195,6 @@ import {validateEmptyScore, validateInterviewObservations} from "@/utils/validat
 import {reactive} from "vue";
 import services from "@/services";
 import InterviewStatus from "@/components/commons/InterviewStatus";
-import moment from 'moment'
 import router from "@/router";
 import {dateFormatting, formattingBoolean, getName} from "@/components/commons/utils";
 
