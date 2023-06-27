@@ -14,8 +14,8 @@
     </p>
   </td>
   <td class="td-container">
-    <p v-if="getAppointmentDate !== null" class="text-gray-900 whitespace-no-wrap m-auto">
-      {{ props.interview.startingAt }}
+    <p v-if="props.interview.startingAt !== null" class="text-gray-900 whitespace-no-wrap m-auto">
+      {{ getDate() }}
     </p>
   </td>
 </template>
@@ -26,6 +26,15 @@ const props = defineProps({
   interview: {},
   user: String
 })
+
+function getDate(){
+  if(props.interview.startingAt == null){
+    return " - "
+  } else {
+    const date = new Date(props.interview.startingAt)
+    return (date.toLocaleDateString() + " " + date.toLocaleTimeString())
+  }
+}
 </script>
 
 <style scoped>
