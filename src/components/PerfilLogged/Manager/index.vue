@@ -5,26 +5,15 @@
   </div>
 </template>
 <script>
-import {useToast} from 'vue-toastification'
-import {getGlobalLoading, setGlobalLoading} from "@/store/global";
-import services from "@/services";
-import {reactive} from "vue";
-import {useField} from "vee-validate";
-import {
-  validateCnpj,
-  validateCpf,
-  validateEmptyAndEmail,
-  validateEmptyAndLength3,
-  validateEmptyAndLength5
-} from "@/utils/validators";
-import ManagerUserInfo from "@/components/PerfilLogged/Manager/ManagerUserInfo.vue";
+import {getGlobalLoading} from "@/store/global"
+import {reactive} from "vue"
+import ManagerUserInfo from "@/components/PerfilLogged/Manager/ManagerUserInfo.vue"
 
 export default {
   components: {
     ManagerUserInfo: ManagerUserInfo,
   },
   setup() {
-    const toast = useToast()
 
     const state = reactive({
       hasErrors: false,

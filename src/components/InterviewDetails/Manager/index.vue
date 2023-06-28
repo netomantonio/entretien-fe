@@ -152,7 +152,7 @@
               <div class="mt-5 border-gray-300 text-center">
                 <div class="flex flex-wrap justify-center">
                   <div class="w-full lg:w-9/12 px-4">
-                    <p class="text-lg leading-relaxed text-gray-800">
+                    <div class="text-lg leading-relaxed text-gray-800">
                       <label for="interviewID"><strong>Observações para você</strong></label>
                       <br>
                       <p v-if="state.interview.managerObservation.value">
@@ -161,7 +161,7 @@
                       <p v-else class="text-brand-info py-5">
                         Sem informações no momento
                       </p>
-                    </p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -169,14 +169,14 @@
               <div class="mt-5 border-gray-300 text-center">
                 <div class="flex flex-wrap justify-center">
                   <div class="w-full lg:w-9/12 px-4">
-                    <p class="text-lg leading-relaxed text-gray-800">
+                    <div class="text-lg leading-relaxed text-gray-800">
                       <label for="interviewID"><strong>Observações para você</strong></label>
                       <br>
                       <p v-if="state.interview.managerObservation.value">
                         {{ state.interview.managerObservation.value }}
                       </p>
                       <p v-else class="text-brand-info py-5">Sem informações no momento</p>
-                    </p>
+                    </div>
                   </div>
                 </div>
               </div>

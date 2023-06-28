@@ -61,8 +61,8 @@
 </template>
 
 <script>
-import {defineComponent} from "vue";
-import InterviewStatus from "@/components/commons/InterviewStatus";
+import {defineComponent} from "vue"
+import InterviewStatus from "@/components/commons/InterviewStatus"
 import {useRouter} from 'vue-router'
 
 const APPLICATION_VIDEO_CALL_URL = process.env.APPLICATION_VIDEO_CALL_URL
@@ -75,8 +75,8 @@ export default defineComponent({
     const router = useRouter()
 
     function viewInterview() {
-      const interviewId = props.interview.id.toString();
-      router.push({ name: "InterviewDetails", params: { id: interviewId } });
+      const interviewId = props.interview.id.toString()
+      router.push({ name: "InterviewDetails", params: { id: interviewId } })
     }
 
     return {

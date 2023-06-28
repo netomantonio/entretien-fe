@@ -39,8 +39,7 @@ const to = (date.getFullYear() + "-" + String(date.getMonth() + 2).padStart(2, '
 
 async function getManagerDashboard() {
   const {
-    data,
-    errors
+    data
   } = await services.users.getManagerDashboard(from, to)
   state.data = data
 }

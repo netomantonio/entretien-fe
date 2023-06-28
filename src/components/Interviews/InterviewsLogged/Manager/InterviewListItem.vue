@@ -50,8 +50,8 @@
 
 
 <script>
-import {defineComponent} from "vue";
-import InterviewStatus from "@/components/commons/InterviewStatus";
+import {defineComponent} from "vue"
+import InterviewStatus from "@/components/commons/InterviewStatus"
 import {useRouter} from 'vue-router'
 
 export default defineComponent({
@@ -60,8 +60,8 @@ export default defineComponent({
   setup(props) {
     const router = useRouter()
     function viewInterview() {
-      const interviewId = props.interview.id.toString();
-      router.push({name: "InterviewDetails", params: {id: interviewId}});
+      const interviewId = props.interview.id.toString()
+      router.push({name: "InterviewDetails", params: {id: interviewId}})
     }
     return{
       viewInterview

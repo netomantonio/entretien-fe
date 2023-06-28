@@ -37,7 +37,7 @@
 </template>
 
 <script setup>
-import InterviewStatus from "@/components/commons/InterviewStatus";
+import InterviewStatus from "@/components/commons/InterviewStatus"
 
 const props = defineProps({
   interview: {}

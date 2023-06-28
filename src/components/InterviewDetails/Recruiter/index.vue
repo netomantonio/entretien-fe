@@ -183,7 +183,7 @@
                   class="mt-5 border-gray-300 text-center">
                   <div class="flex flex-wrap justify-center">
                     <div class="w-full lg:w-9/12 px-4">
-                      <p class="mb-0 text-lg leading-relaxed text-gray-800">
+                      <div class="mb-0 text-lg leading-relaxed text-gray-800">
                         <label for="interviewID"><strong>Observações para você</strong></label>
                         <br>
                         <p
@@ -193,13 +193,13 @@
                           v-else
                           class="text-brand-info py-5"
                         >Sem informações no momento</p>
-                      </p>
+                      </div>
                     </div>
                   </div>
                   <div class="border-t"></div>
                 </div>
                 <div class="mb-2 mt-5 text-gray-700">
-                  <p class="mb-4 text-lg leading-relaxed text-gray-800">
+                  <div class="mb-4 text-lg leading-relaxed text-gray-800">
                     <label for="interviewID"><strong>Observações para a empresa</strong></label>
                     <br>
                     <div
@@ -222,11 +222,11 @@
                     </textarea>
                     </div>
                     <div class="border-t"></div>
-                  </p>
+                  </div>
                 </div>
                 <div class="mb-2 mt-5 text-gray-700">
-                  <p class="mb-4 text-lg leading-relaxed text-gray-800">
-                    <p class="mb-4 text-lg leading-relaxed text-gray-800">
+                  <div class="mb-4 text-lg leading-relaxed text-gray-800">
+                    <div class="mb-4 text-lg leading-relaxed text-gray-800">
                       <label for="interviewID"><strong>Observações para o candidato</strong></label>
                       <br>
                       <div
@@ -240,7 +240,7 @@
                           class="text-brand-info py-5"
                         >Sem informações no momento</p>
                       </div>
-                    </p>
+                    </div>
                     <div
                       v-if="state.interview.editable"
                     >
@@ -249,7 +249,7 @@
                         class="resize w-full h-40 border rounded border-brand-main focus:border-deeppink-300">
                       </textarea>
                     </div>
-                  </p>
+                  </div>
                 </div>
               </div>
               <div class="border-t">

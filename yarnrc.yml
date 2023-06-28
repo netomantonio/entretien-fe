@@ -1,0 +1,4 @@
+packageExtensions:
+  eslint-plugin-vue@*:
+    dependencies:
+      eslint: "*"

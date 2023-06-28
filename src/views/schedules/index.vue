@@ -30,11 +30,11 @@ import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
 import ptBrLocale from '@fullcalendar/core/locales/pt-br'
 import bootstrap5Plugin from '@fullcalendar/bootstrap5'
-import HeaderLogged from "@/components/HeaderLogged/index.vue";
+import HeaderLogged from "@/components/HeaderLogged/index.vue"
 import services from '@/services'
-import {useToast} from "vue-toastification";
-import {DayOfTheWeek} from "@/models/dayOfTheWeek";
-import {useRouter} from "vue-router";
+import {useToast} from "vue-toastification"
+import {DayOfTheWeek} from "@/models/dayOfTheWeek"
+import {useRouter} from "vue-router"
 const route = useRouter()
 const toast = useToast()
 

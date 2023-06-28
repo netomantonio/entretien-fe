@@ -69,8 +69,8 @@ export default defineComponent({
     }
 
     function viewInterview() {
-      const interviewId = props.interview.id.toString();
-      router.push({ name: "InterviewDetails", params: { id: interviewId } });
+      const interviewId = props.interview.id.toString()
+      router.push({ name: "InterviewDetails", params: { id: interviewId } })
     }
 
     return {

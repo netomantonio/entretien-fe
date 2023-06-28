@@ -9,5 +9,5 @@
 
 <script setup>
 import HeaderLogged from "@/components/HeaderLogged/index.vue"
-import UsersLogged from "@/components/Users/index.vue";
+import UsersLogged from "@/components/Users/index.vue"
 </script>

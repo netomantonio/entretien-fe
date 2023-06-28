@@ -181,20 +181,20 @@
                 <div class="mt-5 border-gray-300 text-center">
                   <div class="flex flex-wrap justify-center">
                     <div class="w-full lg:w-9/12 px-4">
-                      <p class="mb-0 text-lg leading-relaxed text-gray-800">
+                      <div class="mb-0 text-lg leading-relaxed text-gray-800">
                         <label for="interviewID"><strong>Observações para o recrutador</strong></label>
                         <br>
                         <p v-if="state.interview.recruiterObservation.value">
                           {{ state.interview.recruiterObservation.value }}
                         </p>
                         <p v-else class="text-brand-info py-5">Sem informações no momento</p>
-                      </p>
+                      </div>
                     </div>
                   </div>
                   <div class="border-t"></div>
                 </div>
                 <div class="mb-2 mt-5 text-gray-700">
-                  <p class="mb-4 text-lg leading-relaxed text-gray-800">
+                  <div class="mb-4 text-lg leading-relaxed text-gray-800">
                     <label for="interviewID"><strong>Observações para a empresa</strong></label>
                     <br>
                     <p v-if="state.interview.managerObservation.value">
@@ -202,19 +202,19 @@
                     </p>
                     <p v-else class="text-brand-info py-5">Sem informações no momento</p>
                     <div class="border-t"></div>
-                  </p>
+                  </div>
                 </div>
                 <div class="mb-2 mt-5 text-gray-700">
-                  <p class="mb-4 text-lg leading-relaxed text-gray-800">
-                    <p class="mb-4 text-lg leading-relaxed text-gray-800">
+                  <div class="mb-4 text-lg leading-relaxed text-gray-800">
+                    <div class="mb-4 text-lg leading-relaxed text-gray-800">
                       <label for="interviewID"><strong>Observações para o candidato</strong></label>
                       <br>
                       <p v-if="state.interview.managerObservation.value">
                         {{ state.interview.candidateObservation.value }}
                       </p>
                       <p v-else class="text-brand-info py-5">Sem informações no momento</p>
-                    </p>
-                  </p>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div class="border-t">

@@ -65,16 +65,12 @@
 import {defineComponent, reactive} from 'vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-icons/font/bootstrap-icons.css'
-import HeaderLogged from "@/components/HeaderLogged/index.vue";
 import InterviewListItem from "@/components/Interviews/InterviewsLogged/Candidate/InterviewListItem.vue";
 import services from '@/services'
-import Icon from "@/components/Icon/index.vue";
 import {getGlobalLoading} from "@/store/global";
 export default defineComponent({
     components: {
-      HeaderLogged,
-      InterviewListItem,
-      Icon
+      InterviewListItem
     },
     setup() {
 

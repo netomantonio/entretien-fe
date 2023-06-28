@@ -52,7 +52,7 @@ function getPhone(){
   const phone = props.user.phone.replace(/\D/g,'')
   if(phone.match(/^ *$/) !== null)
     return "Indisponível"
-  const toShow = phone.match(/(\d{2})(\d{5})(\d{4})/);
+  const toShow = phone.match(/(\d{2})(\d{5})(\d{4})/)
   return '(' + toShow[1] + ') ' + toShow[2] + '-' + toShow[3]
 }
 
@@ -61,7 +61,7 @@ function getCpf(){
   if(cpf.match(/^ *$/) !== null)
     return " - "
 
-  const toShow = cpf.match(/(\d{3})(\d{3})(\d{3})(\d{2})/);
+  const toShow = cpf.match(/(\d{3})(\d{3})(\d{3})(\d{2})/)
   return toShow[1] + '. ' + toShow[2] + '.' + toShow[3] + '-' + toShow[4]
 }
 

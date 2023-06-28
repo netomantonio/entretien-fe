@@ -11,17 +11,8 @@
 </template>
 <script>
 import {useToast} from 'vue-toastification'
-import {getGlobalLoading, setGlobalLoading} from "@/store/global";
-import services from "@/services";
-import {reactive} from "vue";
-import {useField} from "vee-validate";
-import {
-  validateCnpj,
-  validateCpf,
-  validateEmptyAndEmail,
-  validateEmptyAndLength3,
-  validateEmptyAndLength5
-} from "@/utils/validators";
+import {getGlobalLoading, setGlobalLoading} from "@/store/global"
+import {reactive} from "vue"
 import RecruiterUserInfo from "@/components/PerfilLogged/Recruiter/RecruiterUserInfo.vue";
 import AgendaConfig from "@/components/PerfilLogged/Recruiter/AgendaConfig.vue";
 
@@ -56,14 +47,6 @@ export default {
       },
       agenda: []
     })
-
-    function addTimeOfTheDay() {
-      state.agenda.timesOfTheDay[1].push({startingAt: '', endingAt: ''})
-    }
-
-    function removeTimeOfTheDay(index) {
-      this.agenda.timesOfTheDay.splice(index, 1)
-    }
 
     async function handleAgendaSubmit() {
       toast.clear()

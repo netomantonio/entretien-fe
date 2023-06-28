@@ -26,10 +26,9 @@
 import {reactive} from 'vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-icons/font/bootstrap-icons.css'
-import UserListItem from "@/components/Users/UserListItem.vue";
+import UserListItem from "@/components/Users/UserListItem.vue"
 import services from '@/services'
-import {getGlobalLoading} from "@/store/global";
-import ListHeader from "@/components/Users/ListHeader.vue";
+import ListHeader from "@/components/Users/ListHeader.vue"
 
 const headerList = [
   {name: "Nome", style: null},

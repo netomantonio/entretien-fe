@@ -206,7 +206,7 @@ export default {
       state.userInfo.phone.value = data.phone
       state.userInfo.email.value = data.email
       state.userInfo.cpf.value = data.cpf
-      if (!!errors) {
+      if (errors) {
         toast.info("Não foi possível carregar as informações, tente mais tarde!")
       }
     }

@@ -21,6 +21,8 @@
       </div>
     </div>
   </div>
+  <div class="mt-20">
+  </div>
 </template>
 
 <script setup>
@@ -40,8 +42,7 @@ const to = (date.getFullYear() + "-" + String(date.getMonth() + 2).padStart(2, '
 
 async function getRecruiterDashboard() {
   const {
-    data,
-    errors
+    data
   } = await services.users.getCandidateDashboard(from, to)
   state.data = data
 }

@@ -302,7 +302,7 @@ export default {
       state.userInfo.companyName.value = data.companyName
       state.userInfo.operationArea.value = data.operationArea
       state.userInfo.cnpj.value = data.cnpj
-      if (!!errors) {
+      if (errors) {
         toast.info("Não foi possível carregar as informações, tente mais tarde!")
       }
     }

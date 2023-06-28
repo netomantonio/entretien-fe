@@ -109,7 +109,8 @@ export default {
         toast.clear()
         state.isLoading = true
         const {
-          data
+          data,
+          errors
         } = await services.auth.login({
           username: state.username.value,
           password: state.password.value

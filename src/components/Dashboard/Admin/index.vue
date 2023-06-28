@@ -19,9 +19,10 @@
     </div>
   </div>
   <div v-else class="flex justify-center items-center py-72">
-    <img class="h-10" src="https://media.tenor.com/On7kvXhzml4AAAAj/loading-gif.gif">
+    <img alt="imagem animada de carregando" class="h-10" src="https://media.tenor.com/On7kvXhzml4AAAAj/loading-gif.gif">
   </div>
-
+  <div class="mt-20">
+  </div>
 </template>
 
 <script setup>
@@ -41,8 +42,7 @@ const to = (date.getFullYear() + "-" + String(date.getMonth() + 2).padStart(2, '
 
 async function getAdminDashboard() {
   const {
-    data,
-    errors
+    data
   } = await services.users.getAdminDashboard(from, to)
   state.data = data
 }

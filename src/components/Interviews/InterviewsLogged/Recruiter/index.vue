@@ -57,7 +57,7 @@
               </thead>
               <tbody>
               <tr v-for="interview in state.interviews" v-bind:key="interview.id">
-                <InterviewListItem :interview="interview" @videoCall="handleVideoCall"  load-interview=""></InterviewListItem>
+                <InterviewListItem :interview="interview" load-interview=""></InterviewListItem>
               </tr>
               </tbody>
             </table>
@@ -68,18 +68,14 @@
   </div>
 </template>
 <script>
-import {reactive} from "vue";
-import HeaderLogged from "@/components/HeaderLogged/index.vue";
-import Icon from "@/components/Icon/index.vue";
+import {reactive} from "vue"
 import {getGlobalLoading} from "@/store/global";
 import services from "@/services";
 import InterviewListItem from "@/components/Interviews/InterviewsLogged/Recruiter/InterviewListItem.vue";
 
 export default {
   components: {
-    HeaderLogged,
-    InterviewListItem,
-    Icon
+    InterviewListItem
   },
   setup() {
     const state = reactive({

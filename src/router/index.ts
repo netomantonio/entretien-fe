@@ -15,7 +15,7 @@ const Users = () => import('@/views/users/index.vue')
 const InterviewDetails = () => import('@/views/interviewDetails/index.vue')
 
 
-const redirectUserLogged = (to, from, next) => {
+const redirectUserLogged = (to: any, from: any, next: any) => {
   const token = localStorage.getItem('token')
   if (token) {
     next('/dashboard')
@@ -43,13 +43,6 @@ const routes = [
     path: '/dashboard',
     name: 'Dashboard',
     component: Dashboard,
-    meta: {
-      hasAuth: true
-    }
-  },  {
-    path: '/profile',
-    name: 'Profile',
-    component: Profile,
     meta: {
       hasAuth: true
     }

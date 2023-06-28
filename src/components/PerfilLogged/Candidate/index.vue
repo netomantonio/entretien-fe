@@ -183,7 +183,7 @@
 
 <script setup>
 import services from "@/services";
-import {useToast} from "vue-toastification";
+import {useToast} from "vue-toastification"
 import {reactive} from 'vue'
 
 const toast = useToast()

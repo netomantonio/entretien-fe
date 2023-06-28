@@ -5,8 +5,6 @@
   <div class="flex pl-10 pr-10">
     <resume/>
   </div>
-  <div class="mt-20">
-  </div>
 </template>
 <script>
 
@@ -21,3 +19,5 @@ export default {
 }
 
 </script>
+<style>
+</style>
