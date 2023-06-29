@@ -1,8 +1,6 @@
 import {createRouter, createWebHistory} from 'vue-router'
 
 const Home = () => import('../views/home/index.vue')
-const Calendar = () => import('../views/calendar/index.vue')
-
 const Dashboard = () => import('@/views/dashboard/index.vue')
 const Profile = () => import('@/views/profile/index.vue')
 
@@ -12,21 +10,26 @@ const Schedules = () => import('@/views/schedules/index.vue')
 
 const Curriculum = () => import('@/views/resume/index.vue')
 
+const Users = () => import('@/views/users/index.vue')
+
 const InterviewDetails = () => import('@/views/interviewDetails/index.vue')
+
+
+const redirectUserLogged = (to: any, from: any, next: any) => {
+  const token = localStorage.getItem('token')
+  if (token) {
+    next('/dashboard')
+  } else {
+    next()
+  }
+}
 
 const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home
-  },
-  {
-    path: '/calendar',
-    name: 'Calendar',
-    component: Calendar,
-    meta: {
-      hasAuth: true
-    }
+    component: Home,
+    beforeEnter: redirectUserLogged,
   },
   {
     path: '/profile',
@@ -40,13 +43,6 @@ const routes = [
     path: '/dashboard',
     name: 'Dashboard',
     component: Dashboard,
-    meta: {
-      hasAuth: true
-    }
-  },  {
-    path: '/profile',
-    name: 'Profile',
-    component: Profile,
     meta: {
       hasAuth: true
     }
@@ -76,10 +72,26 @@ const routes = [
       hasAuth: true
     }
   },
-  {
+/*  {
     path: '/interviews/:id/edit',
     name: 'InterviewDetails',
     component: InterviewDetails,
+    meta: {
+      hasAuth: true
+    }
+  },*/
+  {
+    path: '/interviews/:id',
+    name: 'InterviewDetails',
+    component: InterviewDetails,
+    meta: {
+      hasAuth: true
+    }
+  },
+  {
+    path: '/users',
+    name: 'Users',
+    component: Users,
     meta: {
       hasAuth: true
     }

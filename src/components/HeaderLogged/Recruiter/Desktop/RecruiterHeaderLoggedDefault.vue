@@ -14,13 +14,13 @@
         <ul class="flex list-none space-x-4">
           <li
             class="font-bold text-white rounded-full cursor-pointer focus:outline-none"
-            @click="() => router.push({ name: 'Interviews'})">
-            Entrevistas
+            @click="() => router.push({ name: 'Dashboard'})">
+            Dashboard
           </li>
           <li
             class="font-bold text-white rounded-full cursor-pointer focus:outline-none"
-            @click="() => router.push({ name: 'Calendar'})">
-            Calendário
+            @click="() => router.push({ name: 'Interviews'})">
+            Entrevistas
           </li>
           <li
             class="font-bold text-white rounded-full cursor-pointer focus:outline-none"

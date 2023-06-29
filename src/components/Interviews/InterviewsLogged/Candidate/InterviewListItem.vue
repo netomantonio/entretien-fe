@@ -18,9 +18,9 @@
     </p>
   </td>
   <td class="td-container">
-    <span class="relative inline-block px-3 py-1 font-semi-bold leading-tight">
+    <span class="relative inline-block px-3 py-1 font-semibold leading-tight">
       <span class="absolute inset-0 status-pill opacity-50 rounded-full"></span>
-      <span class="relative m-auto">{{ getInterviewStatus }}</span>
+      <span class="relative m-auto">{{ getInterviewStatusText }}</span>
     </span>
   </td>
   <td class="td-container">
@@ -31,23 +31,27 @@
   <td class="td-container-icon">
     <p class="text-gray-900 text-center whitespace-no-wrap m-auto">
       <button
-        v-if="getInterviewStatus === 'Aguardando agendamento'"
-        class="hover:bg-brand-main text-brand-main text-xs font-semi-bold hover:text-white py-2 px-4 hover:border-transparent rounded"
+        v-if="getInterviewStatusText === 'Aguardando agendamento'"
+        class="hover:bg-brand-main text-brand-main text-xs font-semibold hover:text-white py-1 px-2 hover:border-transparent rounded"
         @click="scheduler">
         Agendar
       </button>
-      <a v-if="getInterviewStatus === 'Agendada' && checkCallLiberation" :href="videoCall"
-         class="hover:bg-brand-main text-xs text-brand-main font-semi-bold hover:text-white py-1 px-2 hover:border-transparent rounded"
+      <a v-if="getInterviewStatusText === 'Agendada' && checkCallLiberation" :href="videoCall"
+         class="hover:bg-brand-main text-xs text-brand-main font-semibold hover:text-white py-1 px-2 hover:border-transparent rounded"
          @click="videoCall">
         Entrar na reunião
       </a>
+      <font-awesome-icon
+        class="ml-5 text-brand-main cursor-pointer action-icon" icon="eye"
+        @click="viewInterview"
+      />
     </p>
   </td>
 </template>
 
 <script>
 import {defineComponent} from "vue"
-import InterviewStatus from "@/components/Interviews/InterviewStatus"
+import InterviewStatus from "@/components/commons/InterviewStatus"
 import {useRouter} from 'vue-router'
 
 const APPLICATION_VIDEO_CALL_URL = process.env.APPLICATION_VIDEO_CALL_URL
@@ -56,16 +60,22 @@ const APPLICATION_FRONTEND_URL = process.env.APPLICATION_FRONTEND_URL
 const RANGE_TIME_SHOW_CONNECTION_INTERVIEW = process.env.RANGE_TIME_SHOW_CONNECTION_INTERVIEW
 
 export default defineComponent({
-  setup() {
+  setup(props) {
     const router = useRouter()
 
     function scheduler() {
-      window.localStorage.setItem("schedulerInterviewId", this.interview.id.toString())
+      window.localStorage.setItem("schedulerInterviewId", props.interview.id.toString())
       router.push({name: 'Schedules'})
+    }
+
+    function viewInterview() {
+      const interviewId = props.interview.id.toString()
+      router.push({ name: "InterviewDetails", params: { id: interviewId } })
     }
 
     return {
       router,
+      viewInterview,
       scheduler
     }
   },
@@ -113,7 +123,7 @@ export default defineComponent({
     getCompanyName() {
       return this.interview.companyName.toString()
     },
-    getInterviewStatus() {
+    getInterviewStatusText() {
       return InterviewStatus[this.interview.status]
     },
     getStatusColor() {
@@ -178,6 +188,10 @@ export default defineComponent({
   --tw-border-opacity: 1;
   border-color: rgba(229, 231, 235, var(--tw-border-opacity));
   border-bottom-width: 1px;
+}
+
+.action-icon {
+  height: 0.80rem;
 }
 
 .status-pill {

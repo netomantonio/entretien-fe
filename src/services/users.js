@@ -1,6 +1,6 @@
 export default httpClient => ({
-  getMe: async () => {
-    const response = await httpClient.get('/api/user/me', {
+  getMeCandidate: async () => {
+    const response = await httpClient.get('/api/candidate/me', {
       headers: {
         'Content-Type': 'application/json',
       }
@@ -118,6 +118,143 @@ export default httpClient => ({
       }
     }
 
+    return {
+      data: response.data,
+      errors: errors
+    }
+  },
+  getUsers: async() => {
+    const response = await httpClient.get(`/api/user`)
+    let errors = null
+    if (!response.data) {
+      errors = {
+        status: response.request.status,
+        statusText: response.request.statusText
+      }
+    }
+
+    return {
+      data: response.data,
+      errors: errors
+    }
+  },
+  updateManager: async (
+    managerUpdateRequest
+  ) => {
+    const response = await httpClient.put(`/api/manager`,
+      {managerUpdateRequest: managerUpdateRequest}
+    )
+    let errors = null
+    if (response.request.status !== 200) {
+      errors = {
+        status: response.request.status,
+        statusText: response.request.statusText
+      }
+    }
+    return {
+      data: response.data,
+      errors: errors
+    }
+  },
+  updateRecruiter: async (
+    recruiterUpdateRequest
+  ) => {
+    const response = await httpClient.put(`/api/recruiters`,
+      {recruiterUpdateRequest: recruiterUpdateRequest}
+    )
+    let errors = null
+    if (response.request.status !== 200) {
+      errors = {
+        status: response.request.status,
+        statusText: response.request.statusText
+      }
+    }
+    return {
+      data: response.data,
+      errors: errors
+    }
+  },
+  getMeRecruiter: async () => {
+    const response = await httpClient.get('/api/recruiters/me', {
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    })
+    let errors = null
+
+    if (!response.data) {
+      errors = {
+        status: response.request.status,
+        statusText: response.request.statusText
+      }
+    }
+
+    return {
+      data: response.data,
+      errors: errors
+    }
+  },
+  getMeManager: async () => {
+    const response = await httpClient.get('/api/manager/me', {
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    })
+    let errors = null
+
+    if (!response.data) {
+      errors = {
+        status: response.request.status,
+        statusText: response.request.statusText
+      }
+    }
+
+    return {
+      data: response.data,
+      errors: errors
+    }
+  },
+  getMeAdmin: async () => {
+    const response = await httpClient.get('/api/user/me', {
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    })
+    let errors = null
+
+    if (!response.data) {
+      errors = {
+        status: response.request.status,
+        statusText: response.request.statusText
+      }
+    }
+
+    return {
+      data: response.data,
+      errors: errors
+    }
+  },
+  updateAdmin: async (
+    firstName,
+    lastName,
+    phone,
+    email,
+    birthDay,
+  ) => {
+    const response = await httpClient.put('/api/user', {
+      firstName,
+      lastName,
+      phone,
+      email,
+      birthDay,
+    })
+    let errors = null
+    if (response.request.status !== 200) {
+      errors = {
+        status: response.request.status,
+        statusText: response.request.statusText
+      }
+    }
     return {
       data: response.data,
       errors: errors
