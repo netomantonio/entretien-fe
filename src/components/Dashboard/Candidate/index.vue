@@ -1,6 +1,6 @@
 <template>
   <div class="z-10 top-0 h-16 bg-white py-3 2xl:container">
-    <DashboardHeader subtitle="Candidate"/>
+    <DashboardHeader title="Painel do Candidato"/>
     <div class="px-6 pt-6 grid gap-6 md:grid-cols-2 lg:grid-cols-2">
       <div class="md:col-span-2 lg:col-span-1">
         <DashboardNextInterview v-if="state.data.nextInterview" :nextInterview="state.data.nextInterview"
@@ -21,6 +21,8 @@
       </div>
     </div>
   </div>
+  <div class="mt-20">
+  </div>
 </template>
 
 <script setup>
@@ -40,8 +42,7 @@ const to = (date.getFullYear() + "-" + String(date.getMonth() + 2).padStart(2, '
 
 async function getRecruiterDashboard() {
   const {
-    data,
-    errors
+    data
   } = await services.users.getCandidateDashboard(from, to)
   state.data = data
 }

@@ -146,7 +146,7 @@
                            class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
                   </div>
                   <div class="text-sm leading-6">
-                    <label for="comments" class="font-medium text-gray-900">Lembrete de entrevistas agendadas</label>
+                    <label class="font-medium text-gray-900">Lembrete de entrevistas agendadas</label>
                     <p class="text-gray-500">Receba um email um dia antes para se lembrar da sua próxima entrevista
                       agendada.</p>
                   </div>
@@ -157,7 +157,7 @@
                            class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
                   </div>
                   <div class="text-sm leading-6">
-                    <label for="candidates" class="font-medium text-gray-900">Avisos de novas entrevistas
+                    <label class="font-medium text-gray-900">Avisos de novas entrevistas
                       solicitadas</label>
                     <p class="text-gray-500">Seja notificado assim que um gestor disponibilizar uma entrevista para
                       você.</p>
@@ -177,11 +177,13 @@
       </div>
     </form>
   </div>
+  <div class="mt-20">
+  </div>
 </template>
 
 <script setup>
 import services from "@/services";
-import {useToast} from "vue-toastification";
+import {useToast} from "vue-toastification"
 import {reactive} from 'vue'
 
 const toast = useToast()
@@ -190,14 +192,14 @@ const state = reactive({
 })
 
 async function loadUserData() {
-  const {data, errors} = await services.users.getMe()
+  const {data, errors} = await services.users.getMeCandidate()
   if (errors) {
     toast.error('Ocorreu um erro ao carregar os seus dados.')
   }
   state.user = data
 }
 
-async function updateUserData(user) {
+async function updateUserData() {
   toast.clear()
   state.isLoading = true
   const {data, errors} = await services.users.updateCandidate(

@@ -1,7 +1,7 @@
 <template>
   <div class="flex items-center justify-between w-4/5 max-w-6xl py-10 block sm:hidden">
     <div
-      @click="() => router.push({ name: 'Dashboard'})">
+      @click="() => router.push({ name: 'Dashboard'})"
       class="w-28 lg:w-36">
       <img alt="logo" class="w-full" src="@/assets/images/logo_white.png">
     </div>
@@ -48,8 +48,8 @@ export default {
     const menuOpen = ref(false)
 
     const menuItems = [
+      { name: 'Dashboard', route: 'Dashboard', label: 'Dashboard' },
       { name: 'Interviews', route: 'Interviews', label: 'Entrevistas' },
-      { name: 'Calendar', route: 'Calendar', label: 'Calendário' },
       { name: 'Profile', route: 'Profile', label: 'Perfil' }
     ]
 

@@ -9,7 +9,7 @@
 
 <script>
 import HeaderLogged from "@/components/HeaderLogged/index.vue"
-import InterviewsLogged from "@/components/Interviews/InterviewsLogged/index.vue";
+import InterviewsLogged from "@/components/Interviews/InterviewsLogged/index.vue"
 
 export default {
   components: {

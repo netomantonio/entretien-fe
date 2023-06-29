@@ -8,7 +8,7 @@
       <div class="flex items-center justify-between pb-6 w-full">
         <div class="flex-1">
           <div>
-            <h2 class="text-gray-600 font-semi-bold">Entrevistas</h2>
+            <h2 class="text-gray-600 font-semibold">Entrevistas</h2>
           </div>
         </div>
       </div>
@@ -19,35 +19,35 @@
               <thead>
               <tr>
                 <th
-                  class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semi-bold text-gray-600 uppercase tracking-wider">
+                  class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                   Identificador
                 </th>
                 <th
-                  class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semi-bold text-gray-600 uppercase tracking-wider">
+                  class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                   Candidato
                 </th>
                 <th
-                  class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semi-bold text-gray-600 uppercase tracking-wider">
+                  class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                   Empresa
                 </th>
                 <th
-                  class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semi-bold text-gray-600 uppercase tracking-wider">
+                  class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                   Observação
                 </th>
                 <th
-                  class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semi-bold text-gray-600 uppercase tracking-wider">
+                  class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                   Status
                 </th>
                 <th
-                  class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semi-bold text-gray-600 uppercase tracking-wider">
+                  class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                   Data agendada
                 </th>
                 <th
-                  class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semi-bold text-gray-600 uppercase tracking-wider">
+                  class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                   Pontuação
                 </th>
                 <th
-                  class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semi-bold text-gray-600 uppercase tracking-wider">
+                  class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                   Ações
                 </th>
                 <th
@@ -57,7 +57,7 @@
               </thead>
               <tbody>
               <tr v-for="interview in state.interviews" v-bind:key="interview.id">
-                <InterviewListItem :interview="interview" @videoCall="handleVideoCall"  load-interview=""></InterviewListItem>
+                <InterviewListItem :interview="interview" load-interview=""></InterviewListItem>
               </tr>
               </tbody>
             </table>
@@ -68,18 +68,14 @@
   </div>
 </template>
 <script>
-import {reactive} from "vue";
-import HeaderLogged from "@/components/HeaderLogged/index.vue";
-import Icon from "@/components/Icon/index.vue";
+import {reactive} from "vue"
 import {getGlobalLoading} from "@/store/global";
 import services from "@/services";
 import InterviewListItem from "@/components/Interviews/InterviewsLogged/Recruiter/InterviewListItem.vue";
 
 export default {
   components: {
-    HeaderLogged,
-    InterviewListItem,
-    Icon
+    InterviewListItem
   },
   setup() {
     const state = reactive({

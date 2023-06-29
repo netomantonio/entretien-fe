@@ -19,7 +19,7 @@
           </li>
           <li
             class="font-bold text-white rounded-full cursor-pointer focus:outline-none"
-            @click="() => router.push({ name: 'User'})">
+            @click="() => router.push({ name: 'Users'})">
             Usuarios
           </li>
           <li
@@ -29,8 +29,8 @@
           </li>
           <li
             class="font-bold text-white rounded-full cursor-pointer focus:outline-none"
-            @click="() => router.push({ name: 'Calendar'})">
-            Calendário
+            @click="() => router.push({ name: 'Profile'})">
+            Perfil
           </li>
           <li
             class="font-bold text-white rounded-full cursor-pointer focus:outline-none"
