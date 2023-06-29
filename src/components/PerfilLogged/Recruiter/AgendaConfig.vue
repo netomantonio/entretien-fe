@@ -5,10 +5,10 @@
         <h2 class="text-lg font-medium mb-4">Configurações da Agenda</h2>
         <button
           class="text-gray-500 hover:text-gray-700 focus:outline-none focus:text-gray-700"
-          @click="state.isCollapsed.agendaConfig = !state.isCollapsed.agendaConfig"
+          @click="props.state.isCollapsed.agendaConfig = !props.state.isCollapsed.agendaConfig"
         >
           <svg
-            :class="{'rotate-90': state.isCollapsed.agendaConfig}"
+            :class="{'rotate-90': props.state.isCollapsed.agendaConfig}"
             class="h-6 w-6 transition-transform duration-150 transform"
             fill="none"
             stroke="currentColor"
@@ -21,7 +21,7 @@
           </svg>
         </button>
       </div>
-      <div v-if="!state.isCollapsed.agendaConfig">
+      <div v-if="!props.state.isCollapsed.agendaConfig">
         <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
           <div>
             <label class="block text-sm font-medium text-gray-700" for="dia">Dia da semana</label>
@@ -92,17 +92,15 @@
 </template>
 
 <script>
-import Icon from "@/components/Icon/index.vue";
-import {Schedule} from "@/models/agenda";
-import {setGlobalLoading} from "@/store/global";
+import {Schedule} from "@/models/agenda"
+import {setGlobalLoading} from "@/store/global"
 import services from '@/services'
-import toast from "bootstrap/js/src/toast";
-import {reactive} from "vue";
-import {useField} from "vee-validate";
+import toast from "bootstrap/js/src/toast"
+import {reactive} from "vue"
+import {useField} from "vee-validate"
 
 export default {
   name: 'AgendaConfig',
-  components: {Icon},
   props: {
     handleAgendaSubmit: {},
     agenda: {
@@ -196,7 +194,8 @@ export default {
     return {
       handleAddSchedule,
       excluir,
-      internalState
+      internalState,
+      props
     }
   }
 }

@@ -48,10 +48,10 @@ export default {
     const menuOpen = ref(false)
 
     const menuItems = [
+      { name: 'Dashboard', route: 'Dashboard', label: 'Dashboard' },
       { name: 'Curriculum', route: 'Curriculum', label: 'Currículo' },
       { name: 'Interviews', route: 'Interviews', label: 'Entrevistas' },
       { name: 'Schedules', route: 'Schedules', label: 'Agendamentos' },
-      { name: 'Calendar', route: 'Calendar', label: 'Calendário' },
       { name: 'Profile', route: 'Profile', label: 'Perfil' }
     ]
 
