@@ -54,10 +54,10 @@ import {defineComponent} from "vue"
 import InterviewStatus from "@/components/commons/InterviewStatus"
 import {useRouter} from 'vue-router'
 
-const APPLICATION_VIDEO_CALL_URL = process.env.APPLICATION_VIDEO_CALL_URL
-const APPLICATION_SERVER_OPENVIDU_URL = process.env.APPLICATION_SERVER_OPENVIDU_URL
-const APPLICATION_FRONTEND_URL = process.env.APPLICATION_FRONTEND_URL
-const RANGE_TIME_SHOW_CONNECTION_INTERVIEW = process.env.RANGE_TIME_SHOW_CONNECTION_INTERVIEW
+const APPLICATION_VIDEO_CALL_URL = process.env.VITE_APP_APPLICATION_VIDEO_CALL_URL
+const APPLICATION_ENTRETIEN_SERVER_URL = process.env.VITE_APP_APPLICATION_SERVER_OPENVIDU_URL
+const APPLICATION_FRONTEND_URL = process.env.VITE_APP_APPLICATION_FRONTEND_URL
+const RANGE_TIME_SHOW_CONNECTION_INTERVIEW = process.env.VITE_APP_RANGE_TIME_SHOW_CONNECTION_INTERVIEW
 
 export default defineComponent({
   setup(props) {
@@ -113,7 +113,7 @@ export default defineComponent({
         'token=' + token +
         '&sessionId=' + sessionID +
         '&interviewId=' + interviewId +
-        '&appServerUrl=' + APPLICATION_SERVER_OPENVIDU_URL +
+        '&appServerUrl=' + APPLICATION_ENTRETIEN_SERVER_URL +
         '&appFrontendUrl=' + APPLICATION_FRONTEND_URL +
         '&userRole=' + 'ROLE_CANDIDATE'
     },

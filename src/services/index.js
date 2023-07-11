@@ -12,7 +12,7 @@ const toast = useToast()
 const API_ENVS = {
   production: '',
   development: '',
-  local: process.env.APPLICATION_ENTRETIEN_SERVER_URL
+  local: process.env.VITE_APP_APPLICATION_ENTRETIEN_SERVER_URL
 }
 
 const httpClient = axios.create({
