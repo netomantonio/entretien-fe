@@ -4,7 +4,7 @@ import vuetify, {transformAssetUrls} from 'vite-plugin-vuetify'
 import {VitePWA} from 'vite-plugin-pwa'
 
 // Utilities
-import {defineConfig, loadEnv} from 'vite'
+import {build, defineConfig, loadEnv} from 'vite'
 import {fileURLToPath, URL} from 'node:url'
 import legacy from '@vitejs/plugin-legacy'
 
@@ -18,7 +18,7 @@ function getHash(file) {
 }
 
 export default defineConfig(({ command, mode }) => {
-  const env = loadEnv(mode, process.cwd(), '');
+  const env = loadEnv(mode, process.cwd());
 
   // Plugins
   const plugins = [
