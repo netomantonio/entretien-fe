@@ -11,12 +11,10 @@
 
 > Projeto frontend para plataforma de gerenciamento de entrevistas por competências no processo de Recrutamento e Seleção de novos talentos, cujo publico alvo é ofertar a oportunidade de melhorar pontualmente, numa das etapas mais importantes e crítica do processo de R&S que é a entrevista por competência com recrutadores profissionais.
 
-### 🏠 [Homepage](www.entretien.com.br)
-
-### ✨ [Demo](www.entretien.com.br)
-
 ### Pré-Requisitos
 > NVM - Node Version Manager (Version): **0.39.0**
+> BACKEND - [Entretien-BE](https://github.com/netomantonio/entretien-rh-be)
+> VIDEO CALL APP - [Entretien-VC](https://github.com/netomantonio/entretien-video-call-fe)
 
 > Nodejs (Version): **18.16.0**
 
