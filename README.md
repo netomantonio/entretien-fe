@@ -13,7 +13,9 @@
 
 ### Pré-Requisitos
 > NVM - Node Version Manager (Version): **0.39.0**
+
 > BACKEND - [Entretien-BE](https://github.com/netomantonio/entretien-rh-be)
+
 > VIDEO CALL APP - [Entretien-VC](https://github.com/netomantonio/entretien-video-call-fe)
 
 > Nodejs (Version): **18.16.0**
